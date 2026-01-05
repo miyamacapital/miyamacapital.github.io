@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Miyama Capital | Global Macro. Quantified.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Miyama Capital 全球宏觀與量化策略自營投資平台。透過地緣政治洞察與紀律化風控，駕馭市場不確定性。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "miyama-navy": "#0A2342", "miyama-cream": "#F9F7F2", "miyama-slate": "#4A5568", "miyama-gold": "#C5A065",
+          },
+          boxShadow: { subtle: "0 18px 45px rgba(10, 35, 66, 0.12)", },
+        },
+      },
+    };
+    localStorage.setItem("miyama-lang", "zh");
+  </script>
+
+  <style>
+    body { font-family: "Inter", system-ui, sans-serif; }
+    h1, h2, h3, h4 { font-family: "Playfair Display", serif; }
+  </style>
+</head>
+
+<body class="bg-miyama-cream text-miyama-slate antialiased">
+  <header class="relative bg-miyama-navy text-white">
+    <div class="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen" aria-hidden="true">
+      <svg class="h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="miyamaGrid" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12" />
+            <stop offset="100%" stop-color="#C5A065" stop-opacity="0.15" />
+          </linearGradient>
+        </defs>
+        <path d="M0,720 C240,600 360,520 480,520 C640,520 720,640 880,640 C1040,640 1200,540 1440,420 L1440,900 L0,900 Z" fill="url(#miyamaGrid)" />
+      </svg>
+    </div>
+
+    <nav class="relative z-20 border-b border-white/10">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
+        <div class="flex items-center gap-3">
+          <img src="../web_images/Logo2.png" alt="Miyama Capital" class="h-9 w-auto" />
+          <div class="hidden text-xs uppercase tracking-[0.2em] md:block">Miyama Capital</div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="hidden items-center gap-8 text-sm md:flex">
+            <a href="#philosophy" class="text-gray-300 hover:text-white">投資哲學</a>
+            <a href="#founder" class="text-gray-300 hover:text-white">創辦人觀點</a>
+
+            <a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-300 hover:text-white group">
+              研究觀點
+              <svg class="w-3 h-3 opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+
+            <a href="#contact" class="rounded-full border border-white/30 px-4 py-1.5 text-xs font-medium tracking-wide hover:bg-white hover:text-miyama-navy">聯絡我們</a>
+          </div>
+
+          <div class="flex items-center gap-1 rounded-full border border-white/30 bg-white/5 px-1 py-0.5 text-[11px]">
+            <a href="../en/index.html" class="rounded-full px-2 py-1 font-medium tracking-wide text-gray-300 hover:text-white">EN</a>
+            <button type="button" class="rounded-full px-2 py-1 font-medium tracking-wide bg-white text-miyama-navy cursor-default">中</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="relative z-10 mx-auto flex min-h-[80vh] max-w-6xl flex-col items-center px-4 py-16 text-center md:px-6 md:py-24">
+      <div class="mx-auto max-w-3xl">
+        <p class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-gray-300">全球宏觀與量化策略自營投資平台</p>
+        <h1 class="mb-6 text-4xl font-semibold leading-tight md:text-5xl">
+          Global Macro. <span class="text-miyama-gold">Quantified.</span>
+        </h1>
+        <p class="mx-auto mb-8 max-w-2xl text-base text-gray-200 md:text-lg">
+          透過地緣政治洞察與紀律化風控，駕馭市場不確定性。
+        </p>
+        <div class="mx-auto mb-10 h-0.5 w-20 bg-miyama-gold/80 md:mb-12"></div>
+        <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
+          <a href="#philosophy" class="rounded-full bg-white px-8 py-2.5 text-sm font-medium text-miyama-navy shadow-subtle transition hover:-translate-y-0.5 hover:bg-miyama-cream">了解 Miyama 投資哲學</a>
+          <a href="#contact" class="text-sm text-gray-200 underline-offset-4 hover:text-white hover:underline">聯絡我們</a>
+        </div>
+      </div>
+      <div class="mt-12 flex items-center gap-2 text-xs text-gray-300">
+        <span>向下捲動</span>
+        <span class="h-7 w-[1px] bg-gray-500"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="philosophy" class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <div class="mb-14 text-center">
+        <h2 class="mb-3 text-3xl font-semibold text-miyama-navy md:text-4xl">Miyama 投資哲學</h2>
+        <p class="text-sm font-medium tracking-[0.25em] text-miyama-slate/70">投資哲學</p>
+        <p class="mx-auto mt-4 max-w-2xl text-sm text-miyama-slate md:text-base">
+          結合主觀宏觀框架與量化紀律，追求長期複利，而非短期英雄式表現。
+        </p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        <article class="flex h-full flex-col rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-miyama-navy/5 text-miyama-navy">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S12 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S12 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-miyama-navy">宏觀動態適應</h3>
+          </div>
+          <p class="text-sm leading-relaxed text-miyama-slate">
+            我們不預測，而是適應。無論是通膨衝擊還是通縮收縮，透過多資產全球宏觀框架，從股票、利率到外匯與套利，在不同景氣循環中捕捉機會。
+          </p>
+          <p class="mt-4 text-xs text-miyama-slate/70">
+            由實戰經驗出發，在不同宏觀周期中動態調整部位，而非執著於單一敘事。
+          </p>
+        </article>
+
+        <article class="flex h-full flex-col rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-gold/20">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-miyama-gold/10 text-miyama-gold">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.243-8.25-3.285z" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-miyama-navy">非對稱風險控管</h3>
+          </div>
+          <p class="text-sm leading-relaxed text-miyama-slate">
+            先確保能活下來，才能談報酬。我們嚴格設定回撤與部位上限，重視市場流動性，將停損視為長期複利必須支付的保費，而不是操作失敗。
+          </p>
+          <p class="mt-4 text-xs text-miyama-slate/70">
+            硬性停損與資金控管，是在極端情境下保護資本、延續複利曲線的關鍵。
+          </p>
+        </article>
+
+        <article class="flex h-full flex-col rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-miyama-navy/5 text-miyama-navy">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-miyama-navy">Quantamental 優勢</h3>
+          </div>
+          <p class="text-sm leading-relaxed text-miyama-slate">
+            結合人類直覺與機器精準。利用 AI 驅動的情緒與部位分析，橫跨亞洲與美股市場，在擁擠交易與情緒極端形成全面反轉之前，先一步調整風險。
+          </p>
+          <p class="mt-4 text-xs text-miyama-slate/70">
+            把宏觀主觀判斷與量化工具接軌，在風險尚可控時主動去擠掉擁擠度。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="founder" class="border-y border-miyama-navy/5 bg-white/70 py-16 md:py-24">
+      <div class="mx-auto max-w-4xl px-4 text-center md:px-6">
+        <p class="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-miyama-slate/80">創辦人觀點</p>
+        <h2 class="mb-8 text-3xl font-semibold text-miyama-navy md:text-4xl">在充滿雜訊的世界裡，清晰來自紀律。</h2>
+
+        <div class="mx-auto max-w-2xl text-left">
+          <blockquote class="mb-8 rounded-lg border-l-4 border-miyama-gold/70 bg-miyama-navy/5 p-6 text-lg italic leading-relaxed text-miyama-navy/90 md:text-xl">
+            「在充滿雜訊的世界裡，清晰來自紀律。我們不求每次都看對，但求在任何情境下生存，並在關鍵趨勢中獲利。」
+          </blockquote>
+          <p class="mb-10 text-base leading-relaxed text-miyama-slate">
+            在高度噪音的市場環境中，唯一可控的優勢就是<strong>紀律</strong>。我們不追求每一筆交易都正確，而是透過嚴謹的風控與宏觀體制識別，在系統性風險來臨時保護資本，並在關鍵趨勢展開時，有足夠的承擔能力去參與與放大報酬。
+          </p>
+
+          <div class="flex items-center gap-3 border-t border-miyama-navy/10 pt-6">
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="font-semibold text-miyama-navy">Kuan Hsun Wang</div>
+                <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-[#0077b5]">
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                </a>
+              </div>
+              <div class="text-xs text-miyama-slate/70">Miyama Capital 創辦人暨首席投資長</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="bg-miyama-cream/80 py-12">
+      <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center md:flex-row md:items-center md:justify-between md:px-6">
+        <div class="max-w-xl text-left">
+          <h3 class="mb-2 text-xl font-semibold text-miyama-navy">與機構對話，著眼長期。</h3>
+          <p class="text-sm text-miyama-slate">Miyama Capital 目前以自營資金形式運作，專注於打造橫跨亞洲與美國市場、以研究驅動的全球宏觀與量化投資平台。</p>
+        </div>
+        <div class="flex flex-col items-center gap-3 md:items-end">
+          <a href="mailto:info@miyamacap.com" class="inline-flex items-center justify-center rounded-full bg-miyama-navy px-7 py-2.5 text-sm font-medium text-white shadow-subtle transition hover:-translate-y-0.5 hover:bg-miyama-navy/90">電子郵件：info@miyamacap.com</a>
+          <p class="text-xs text-miyama-slate/70">台北 • 舊金山</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-miyama-navy py-10 text-center text-sm text-gray-300">
+    <div class="mb-3 text-xs font-medium tracking-[0.25em] text-gray-400">MIYAMA CAPITAL</div>
+    <p class="text-xs text-gray-400">台北 | 舊金山</p>
+    
+    <p class="mt-1 text-xs text-gray-400">
+      <span class="opacity-60">聯絡方式：</span>
+      <a href="mailto:info@miyamacap.com" class="underline underline-offset-2 hover:text-white">info@miyamacap.com</a>
+    </p>
+
+    <div class="mt-5 flex flex-col items-center gap-4">
+      <div class="flex gap-6">
+        <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+        </a>
+        <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" /></svg>
+        </a>
+      </div>
+
+      <a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-[10px] text-gray-400 transition hover:bg-white/10 hover:text-white">
+        <span>閱讀我們的方格子專欄</span>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+      </a>
+    </div>
+
+    <p class="mt-8 text-[11px] text-gray-500">© 2025 Miyama Capital. 版權所有。</p>
+  </footer>
+</body>
+</html>
