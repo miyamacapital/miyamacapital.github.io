@@ -5,7 +5,6 @@ It is a static website designed for a boutique global macro and quantitative inv
 
 ## 🔗 Live Site
 [https://www.miyamacap.com](https://www.miyamacap.com)
-*(If using GitHub Pages default URL, replace this with: https://yourusername.github.io/repo-name)*
 
 ## 📂 Project Structure
 The project uses a **folder-based structure** for SEO-friendly multi-language support:
