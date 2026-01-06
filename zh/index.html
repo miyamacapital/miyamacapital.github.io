@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>Miyama Capital</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Miyama Capital 全球宏觀與量化策略自營投資平台。透過地緣政治洞察與紀律化風控，駕馭市場不確定性。"
+      content="Miyama Capital 地緣宏觀．跨資產配置．非對稱回報。以地緣經濟洞察與制度化風險管理，穿越市場不確定性。"
     />
     <link rel="icon" type="image/png" href="../web_images/Logo2.png" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap"
       rel="stylesheet"
     />
 
@@ -26,23 +29,36 @@
               "miyama-gold": "#C5A065",
             },
             boxShadow: { subtle: "0 18px 45px rgba(10, 35, 66, 0.12)" },
+            // 2. 設定 Tailwind 字體家族
+            fontFamily: {
+              sans: ['"Noto Sans TC"', "system-ui", "sans-serif"],
+              serif: ['"Noto Serif TC"', "serif"],
+            },
           },
         },
       };
       localStorage.setItem("miyama-lang", "zh");
     </script>
 
-
     <style>
+      /* 3. 全域樣式微調 */
       body {
-        font-family: "Inter", system-ui, sans-serif;
+        font-family: "Noto Sans TC", system-ui, sans-serif;
+        /* 讓字體渲染更清晰 */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
+      
+      /* 標題使用宋體，並增加字距以提升高級感 */
       h1,
       h2,
       h3,
       h4 {
-        font-family: "Playfair Display", serif;
+        font-family: "Noto Serif TC", serif;
+        letter-spacing: 0.05em; /* 關鍵：增加空氣感 */
       }
+      
+      /* 如果想要英文標題保留襯線感，可以單獨設定英文 class，但目前全站統一用宋體會更和諧 */
     </style>
   </head>
 
