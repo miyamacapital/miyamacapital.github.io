@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miyama Capital - Organization Chart v2</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function MiyamaOrgChart() {
+      return (
+        <div style={{
+          width: '100vw',
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%)',
+          padding: '40px 20px',
+          fontFamily: '"JetBrains Mono", "SF Mono", Menlo, monospace',
+          color: '#e8e6e3',
+          overflow: 'auto'
+        }}>
+          
+          {/* Header */}
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '60px',
+            animation: 'fadeIn 0.8s ease-out'
+          }}>
+            <div style={{
+              fontSize: '14px',
+              letterSpacing: '4px',
+              color: '#d4af37',
+              marginBottom: '12px',
+              textTransform: 'uppercase',
+              fontWeight: '300'
+            }}>
+              Strategic Architecture
+            </div>
+            <h1 style={{
+              fontSize: '48px',
+              fontWeight: '700',
+              margin: '0 0 16px 0',
+              background: 'linear-gradient(135deg, #d4af37 0%, #f4e5b8 50%, #d4af37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '-1px'
+            }}>
+              MIYAMA CAPITAL
+            </h1>
+            <div style={{
+              fontSize: '13px',
+              color: '#8892b0',
+              letterSpacing: '1px'
+            }}>
+              AI-Augmented Investment Command Structure
+            </div>
+          </div>
+
+          {/* Command Center */}
+          <div style={{ maxWidth: '1600px', margin: '0 auto', position: 'relative' }}>
+            
+            {/* CIO Node - Apex */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '50px',
+              animation: 'fadeIn 0.6s ease-out 0.2s backwards'
+            }}>
+              <div style={{
+                position: 'relative',
+                padding: '24px 40px',
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+                border: '4px solid #d4af37',
+                borderRadius: '8px',
+                boxShadow: '0 0 40px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                textAlign: 'center',
+                minWidth: '280px'
+              }}>
+                <div style={{
+                  fontSize: '11px',
+                  color: '#d4af37',
+                  letterSpacing: '2px',
+                  marginBottom: '8px',
+                  fontWeight: '600'
+                }}>
+                  ▸ DECISION MAKER
+                </div>
+                <div style={{
+                  fontSize: '22px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  marginBottom: '4px',
+                  letterSpacing: '-0.5px'
+                }}>
+                  CIO: Kuan H. Wang
+                </div>
+                <div style={{
+                  fontSize: '10px',
+                  color: '#8892b0',
+                  letterSpacing: '1px'
+                }}>
+                  HUMAN COMMANDER
+                </div>
+              </div>
+            </div>
+
+            {/* Main Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '40px',
+              marginBottom: '40px'
+            }}>
+
+              {/* Office of the CIO */}
+              <div style={{ animation: 'slideUp 0.8s ease-out 0.4s backwards' }}>
+                <DivisionHeader title="Office of the CIO" icon="◆" color="#d4af37" />
+                <AgentCard
+                  title="Chief of Staff / Architect"
+                  model="Claude 3.5"
+                  color="#c9a961"
+                  role="Strategy & Systems Design"
+                  description="Second brain. Designs systems, not tasks."
+                />
+                <div style={{ height: '12px' }}></div>
+                <AgentCard
+                  title="Chief Narrative Officer / CMO"
+                  model="Claude 3.5 Opus"
+                  color="#d4af37"
+                  role="Brand Strategy & Voice"
+                  description="Compiles founder's thoughts into high-value narrative. Defines quarterly themes & reviews all content."
+                  highlight={true}
+                />
+              </div>
+
+              {/* Macro Intelligence Unit */}
+              <div style={{ animation: 'slideUp 0.8s ease-out 0.5s backwards' }}>
+                <DivisionHeader title="Macro Intelligence Unit" icon="◈" color="#2980b9" />
+                <AgentCard
+                  title="Chief Macro Strategist"
+                  model="Claude 3.5"
+                  color="#2980b9"
+                  role="Top-down Framework"
+                  description="Synthesizes council inputs into strategic reports."
+                />
+                <div style={{
+                  marginTop: '16px',
+                  padding: '16px',
+                  background: 'rgba(41, 128, 185, 0.08)',
+                  border: '1px solid rgba(41, 128, 185, 0.3)',
+                  borderRadius: '6px'
+                }}>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#5dade2',
+                    letterSpacing: '1.5px',
+                    marginBottom: '12px',
+                    fontWeight: '600'
+                  }}>
+                    ▸ THE MACRO COUNCIL
+                  </div>
+                  <CouncilMember name="The Realist" focus="Data" model="Gemini" />
+                  <CouncilMember name="The Structuralist" focus="Cycle" model="Claude" />
+                  <CouncilMember name="The Contrarian" focus="Game Theory" model="ChatGPT" />
+                </div>
+              </div>
+
+              {/* Operations & Risk */}
+              <div style={{ animation: 'slideUp 0.8s ease-out 0.6s backwards' }}>
+                <DivisionHeader title="Operations & Risk" icon="◇" color="#27ae60" />
+                <AgentCard
+                  title="Chief Risk Officer"
+                  model="Claude / Gemini"
+                  color="#27ae60"
+                  role="Kill Switch Authority"
+                  description="Verdict: Kill/Pass on investment ideas. Reviews high-risk content when needed."
+                />
+                <div style={{ height: '12px' }}></div>
+                <AgentCard
+                  title="CFO / Controller"
+                  model="Claude + Sheets"
+                  color="#27ae60"
+                  role="Financial Plumbing"
+                  description="Tracks capital flows, invoices, compliance."
+                />
+              </div>
+
+              {/* Brand & Distribution */}
+              <div style={{ animation: 'slideUp 0.8s ease-out 0.7s backwards' }}>
+                <DivisionHeader title="Brand & Distribution" icon="◐" color="#8e44ad" />
+                <AgentCard
+                  title="Taiwan Desk (方格子主筆)"
+                  model="Claude 3.5"
+                  color="#8e44ad"
+                  role="繁體中文內容"
+                  description="台灣市場專門編輯。撰寫繁中投資筆記、市場分析。"
+                  highlight={true}
+                />
+                <div style={{ height: '12px' }}></div>
+                <AgentCard
+                  title="Japan Desk"
+                  model="Claude 3.5"
+                  color="#8e44ad"
+                  role="Japanese Content"
+                  description="日本市場専門編集者。精緻な言語運用。"
+                />
+                <div style={{ height: '12px' }}></div>
+                <AgentCard
+                  title="Global Desk"
+                  model="ChatGPT"
+                  color="#8e44ad"
+                  role="English Content"
+                  description="English-language editorial voice for international audiences."
+                />
+                <div style={{ height: '12px' }}></div>
+                <AgentCard
+                  title="Creative Director"
+                  model="ChatGPT DALL-E"
+                  color="#8e44ad"
+                  role="Visual Assets"
+                  description="Generates charts, infographics, brand visuals."
+                />
+              </div>
+
+            </div>
+
+            {/* Support Unit */}
+            <div style={{
+              marginTop: '40px',
+              padding: '20px',
+              background: 'rgba(127, 140, 141, 0.1)',
+              border: '1px dashed rgba(127, 140, 141, 0.4)',
+              borderRadius: '6px',
+              animation: 'fadeIn 1s ease-out 0.8s backwards'
+            }}>
+              <div style={{
+                fontSize: '10px',
+                color: '#95a5a6',
+                letterSpacing: '2px',
+                marginBottom: '12px',
+                fontWeight: '600'
+              }}>
+                ▸ SUPPORT UNIT
+              </div>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
+              }}>
+                <div style={{
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#bdc3c7'
+                }}>
+                  Intel & Admin
+                </div>
+                <div style={{
+                  fontSize: '10px',
+                  color: '#7f8c8d',
+                  padding: '4px 8px',
+                  background: 'rgba(127, 140, 141, 0.2)',
+                  borderRadius: '3px'
+                }}>
+                  Model: Gemini
+                </div>
+                <div style={{
+                  fontSize: '11px',
+                  color: '#95a5a6',
+                  marginLeft: 'auto'
+                }}>
+                  → Data/Search/Invoices support
+                </div>
+              </div>
+            </div>
+
+            {/* Content Review Workflow */}
+            <div style={{
+              marginTop: '50px',
+              padding: '28px',
+              background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%)',
+              border: '2px solid rgba(212, 175, 55, 0.3)',
+              borderRadius: '8px',
+              animation: 'fadeIn 1s ease-out 0.9s backwards'
+            }}>
+              <div style={{
+                fontSize: '11px',
+                color: '#d4af37',
+                letterSpacing: '2px',
+                marginBottom: '20px',
+                fontWeight: '700',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <span style={{ fontSize: '14px' }}>✦</span>
+                CONTENT REVIEW WORKFLOW
+              </div>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '16px',
+                fontSize: '12px',
+                flexWrap: 'wrap'
+              }}>
+                <WorkflowStep 
+                  number="1" 
+                  title="Quarterly Theme" 
+                  actor="CIO" 
+                  color="#d4af37"
+                  desc="Sets strategic direction"
+                />
+                <WorkflowArrow />
+                <WorkflowStep 
+                  number="2" 
+                  title="Content Creation" 
+                  actor="Desks" 
+                  color="#8e44ad"
+                  desc="TW/JP/Global execute"
+                />
+                <WorkflowArrow />
+                <WorkflowStep 
+                  number="3" 
+                  title="Narrative Review" 
+                  actor="CNO" 
+                  color="#d4af37"
+                  desc="Voice & positioning check"
+                  required={true}
+                />
+                <WorkflowArrow conditional={true} />
+                <WorkflowStep 
+                  number="4" 
+                  title="Risk Review" 
+                  actor="CRO" 
+                  color="#27ae60"
+                  desc="High-risk content only"
+                  optional={true}
+                />
+                <WorkflowArrow />
+                <WorkflowStep 
+                  number="5" 
+                  title="Publish" 
+                  actor="Desks" 
+                  color="#8e44ad"
+                  desc="Distribution"
+                />
+              </div>
+            </div>
+
+            {/* Information Flows Legend */}
+            <div style={{
+              marginTop: '40px',
+              padding: '24px',
+              background: 'rgba(10, 14, 39, 0.6)',
+              border: '1px solid rgba(136, 146, 176, 0.2)',
+              borderRadius: '8px',
+              animation: 'fadeIn 1s ease-out 1s backwards'
+            }}>
+              <div style={{
+                fontSize: '11px',
+                color: '#d4af37',
+                letterSpacing: '2px',
+                marginBottom: '16px',
+                fontWeight: '600'
+              }}>
+                ▸ KEY INFORMATION FLOWS
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '16px',
+                fontSize: '11px',
+                lineHeight: '1.6'
+              }}>
+                <FlowItem
+                  from="Council"
+                  to="CMS"
+                  desc="Raw perspectives"
+                  color="#2980b9"
+                />
+                <FlowItem
+                  from="CMS"
+                  to="CIO"
+                  desc="Strategic reports"
+                  color="#d4af37"
+                />
+                <FlowItem
+                  from="CIO"
+                  to="CNO"
+                  desc="Quarterly narrative themes"
+                  color="#d4af37"
+                />
+                <FlowItem
+                  from="CNO"
+                  to="Desks"
+                  desc="Voice & tone guidelines"
+                  color="#8e44ad"
+                />
+                <FlowItem
+                  from="Desks"
+                  to="CNO"
+                  desc="Draft articles for review"
+                  color="#8e44ad"
+                />
+                <FlowItem
+                  from="CNO"
+                  to="CRO"
+                  desc="High-risk content escalation"
+                  color="#e74c3c"
+                />
+                <FlowItem
+                  from="CIO"
+                  to="CRO"
+                  desc="Investment ideas"
+                  color="#27ae60"
+                />
+                <FlowItem
+                  from="CRO"
+                  to="CIO"
+                  desc="Kill/Pass verdicts"
+                  color="#e74c3c"
+                />
+                <FlowItem
+                  from="Gemini"
+                  to="All"
+                  desc="Support services"
+                  color="#7f8c8d"
+                />
+              </div>
+            </div>
+
+          </div>
+
+          {/* CSS Animations */}
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+            @keyframes slideUp {
+              from { 
+                opacity: 0; 
+                transform: translateY(30px);
+              }
+              to { 
+                opacity: 1; 
+                transform: translateY(0);
+              }
+            }
+            @keyframes pulse {
+              0%, 100% { opacity: 0.4; }
+              50% { opacity: 1; }
+            }
+            @keyframes glow {
+              0%, 100% { 
+                box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+              }
+              50% { 
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+              }
+            }
+          `}</style>
+        </div>
+      );
+    }
+
+    function DivisionHeader({ title, icon, color }) {
+      return (
+        <div style={{
+          marginBottom: '16px',
+          paddingBottom: '8px',
+          borderBottom: `2px solid ${color}`,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <span style={{
+            fontSize: '14px',
+            color: color,
+            animation: 'pulse 2s ease-in-out infinite'
+          }}>
+            {icon}
+          </span>
+          <span style={{
+            fontSize: '12px',
+            fontWeight: '700',
+            color: color,
+            letterSpacing: '1px',
+            textTransform: 'uppercase'
+          }}>
+            {title}
+          </span>
+        </div>
+      );
+    }
+
+    function AgentCard({ title, model, color, role, description, highlight }) {
+      const [isHovered, setIsHovered] = useState(false);
+      
+      return (
+        <div 
+          style={{
+            padding: '16px',
+            background: highlight 
+              ? `linear-gradient(135deg, ${color}25 0%, ${color}15 100%)`
+              : `linear-gradient(135deg, ${color}15 0%, ${color}08 100%)`,
+            border: highlight
+              ? `2px solid ${color}60`
+              : `1px solid ${isHovered ? `${color}80` : `${color}40`}`,
+            borderRadius: '6px',
+            transition: 'all 0.3s ease',
+            cursor: 'default',
+            transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+            boxShadow: highlight 
+              ? `0 0 15px ${color}40`
+              : (isHovered ? `0 4px 12px ${color}30` : 'none'),
+            animation: highlight ? 'glow 3s ease-in-out infinite' : 'none'
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {highlight && (
+            <div style={{
+              fontSize: '9px',
+              color: color,
+              letterSpacing: '1px',
+              marginBottom: '6px',
+              fontWeight: '700',
+              textTransform: 'uppercase'
+            }}>
+              ★ NEW ADDITION
+            </div>
+          )}
+          <div style={{
+            fontSize: '14px',
+            fontWeight: '700',
+            color: '#fff',
+            marginBottom: '6px',
+            letterSpacing: '-0.3px'
+          }}>
+            {title}
+          </div>
+          <div style={{
+            fontSize: '9px',
+            color: color,
+            padding: '3px 6px',
+            background: `${color}20`,
+            borderRadius: '3px',
+            display: 'inline-block',
+            marginBottom: '8px',
+            letterSpacing: '0.5px'
+          }}>
+            {model}
+          </div>
+          <div style={{
+            fontSize: '10px',
+            color: '#8892b0',
+            marginBottom: '4px',
+            fontWeight: '600',
+            letterSpacing: '0.5px'
+          }}>
+            {role}
+          </div>
+          <div style={{
+            fontSize: '10px',
+            color: '#64748b',
+            lineHeight: '1.5'
+          }}>
+            {description}
+          </div>
+        </div>
+      );
+    }
+
+    function CouncilMember({ name, focus, model }) {
+      return (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '8px 0',
+          borderBottom: '1px solid rgba(93, 173, 226, 0.2)',
+          fontSize: '10px'
+        }}>
+          <div>
+            <span style={{ color: '#5dade2', fontWeight: '600' }}>{name}</span>
+            <span style={{ color: '#7f8c8d', marginLeft: '8px' }}>/ {focus}</span>
+          </div>
+          <div style={{
+            color: '#546e7a',
+            fontSize: '9px',
+            padding: '2px 6px',
+            background: 'rgba(93, 173, 226, 0.15)',
+            borderRadius: '3px'
+          }}>
+            {model}
+          </div>
+        </div>
+      );
+    }
+
+    function WorkflowStep({ number, title, actor, color, desc, required, optional }) {
+      return (
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          minWidth: '120px'
+        }}>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            background: `linear-gradient(135deg, ${color} 0%, ${color}cc 100%)`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '13px',
+            fontWeight: '700',
+            color: '#fff',
+            boxShadow: `0 2px 8px ${color}40`
+          }}>
+            {number}
+          </div>
+          <div style={{
+            textAlign: 'center'
+          }}>
+            <div style={{
+              fontSize: '11px',
+              fontWeight: '700',
+              color: '#fff',
+              marginBottom: '4px'
+            }}>
+              {title}
+            </div>
+            <div style={{
+              fontSize: '9px',
+              color: color,
+              marginBottom: '4px'
+            }}>
+              {actor}
+            </div>
+            <div style={{
+              fontSize: '9px',
+              color: '#64748b'
+            }}>
+              {desc}
+            </div>
+            {required && (
+              <div style={{
+                fontSize: '8px',
+                color: '#e74c3c',
+                marginTop: '4px',
+                fontWeight: '600'
+              }}>
+                REQUIRED
+              </div>
+            )}
+            {optional && (
+              <div style={{
+                fontSize: '8px',
+                color: '#95a5a6',
+                marginTop: '4px',
+                fontStyle: 'italic'
+              }}>
+                if needed
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function WorkflowArrow({ conditional }) {
+      return (
+        <div style={{
+          fontSize: '20px',
+          color: conditional ? '#95a5a6' : '#8892b0',
+          fontWeight: '300'
+        }}>
+          →
+        </div>
+      );
+    }
+
+    function FlowItem({ from, to, desc, color }) {
+      return (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          color: '#8892b0'
+        }}>
+          <span style={{ color: color, fontWeight: '600' }}>{from}</span>
+          <span style={{ color: color }}>→</span>
+          <span style={{ color: '#fff', fontWeight: '600' }}>{to}</span>
+          <span style={{ color: '#64748b', fontSize: '10px' }}>/ {desc}</span>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<MiyamaOrgChart />, document.getElementById('root'));
+  </script>
+</body>
+</html>
