@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- English Homepage -->
+  <url>
+    <loc>https://www.miyamacap.com/en/</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
+  </url>
+  
+  <!-- English Disclosures Page -->
+  <url>
+    <loc>https://www.miyamacap.com/en/disclosures.html</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
+  </url>
+
+  <!-- Chinese Homepage -->
+  <url>
+    <loc>https://www.miyamacap.com/zh/</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
+  </url>
+  
+  <!-- Chinese Disclosures Page -->
+  <url>
+    <loc>https://www.miyamacap.com/zh/disclosures.html</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
+  </url>
+
+  <!-- Root redirect page (lower priority since it's just a redirect) -->
+  <url>
+    <loc>https://www.miyamacap.com/</loc>
+    <lastmod>2025-01-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
