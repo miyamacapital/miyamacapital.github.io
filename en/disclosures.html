@@ -5,9 +5,13 @@
   <title>Disclosures &amp; Risk | Miyama Capital</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Disclosures and risk warning for Miyama Capital LLC." />
-  <link rel="icon" type="image/png" href="../web_images/favlogo.png">
+  <link rel="icon" type="image/png" href="../web_images/Logo2.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -22,6 +26,10 @@
           boxShadow: {
             subtle: "0 18px 45px rgba(10, 35, 66, 0.12)",
           },
+          fontFamily: {
+            sans: ['"Inter"', "system-ui", "sans-serif"],
+            serif: ['"Playfair Display"', "serif"],
+          },
         },
       },
     };
@@ -29,13 +37,26 @@
   </script>
 
   <style>
-    body { font-family: "Inter", sans-serif; }
-    h1, h2, h3, h4 { font-family: "Playfair Display", serif; }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Playfair Display", serif !important;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-weight: 700 !important;
+    }
   </style>
 </head>
 
 <body class="bg-miyama-cream text-miyama-slate antialiased">
-  <!-- Header / Nav (keep consistent with home) -->
+  <!-- Header matching index.html style -->
   <header class="relative bg-miyama-navy text-white">
     <div class="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen" aria-hidden="true">
       <svg class="h-full w-full" viewBox="0 0 1440 220" preserveAspectRatio="none">
@@ -51,7 +72,7 @@
 
     <nav class="relative z-20 border-b border-white/10">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
-        <a href="/en/" class="flex items-center gap-3">
+        <a href="/en/" class="flex items-center gap-3 transition-opacity hover:opacity-90">
           <img src="../web_images/Logo2.png" alt="Miyama Capital" class="h-9 w-auto" />
           <div class="hidden text-xs uppercase tracking-[0.2em] md:block">Miyama Capital</div>
         </a>
@@ -61,8 +82,8 @@
             <a href="/en/#philosophy" class="text-gray-300 hover:text-white">Philosophy</a>
             <a href="/en/#founder" class="text-gray-300 hover:text-white">Founder</a>
 
-            <a href="https://miyamacap.substack.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-300 hover:text-white group">
-              Insights
+            <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-300 hover:text-white group">
+              Memos
               <svg class="w-3 h-3 opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
@@ -90,7 +111,7 @@
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href="/en/" class="text-sm text-gray-200 underline-offset-4 hover:text-white hover:underline">← Back to Home</a>
         <span class="text-gray-500">•</span>
-        <span class="text-xs text-gray-300">Last updated: <span id="last-updated"></span></span>
+        <span class="text-xs text-gray-300">Last updated: <span id="last-updated">January 22, 2025</span></span>
       </div>
     </div>
   </header>
@@ -112,7 +133,7 @@
             <div class="mt-6 h-px bg-miyama-navy/10"></div>
             <p class="mt-6 text-xs text-miyama-slate/70">
               If you have questions, contact us at
-              <a href="mailto:info@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">info@miyamacap.com</a>.
+              <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">connect@miyamacap.com</a>.
             </p>
           </div>
         </aside>
@@ -182,7 +203,7 @@
               <h2 class="text-2xl font-semibold text-miyama-navy">8) Contact</h2>
               <p class="mt-3 text-sm leading-relaxed">
                 For general inquiries, please email
-                <a href="mailto:info@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">info@miyamacap.com</a>.
+                <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">connect@miyamacap.com</a>.
               </p>
             </article>
           </div>
@@ -191,23 +212,32 @@
     </section>
   </main>
 
-  <!-- Footer (same style as home, with disclosures block) -->
+  <!-- Footer matching index.html -->
   <footer class="bg-miyama-navy py-10 text-center text-sm text-gray-300">
     <div class="mb-3 text-xs font-medium tracking-[0.25em] text-gray-400">MIYAMA CAPITAL</div>
-    <p class="text-xs text-gray-400">Taipei | San Francisco</p>
+    <p class="text-xs text-gray-400">San Francisco | Taipei</p>
 
     <p class="mt-1 text-xs text-gray-400">
       <span class="opacity-60">Contact:</span>
-      <a href="mailto:info@miyamacap.com" class="underline underline-offset-2 hover:text-white">info@miyamacap.com</a>
+      <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-white">connect@miyamacap.com</a>
     </p>
 
     <div class="mt-5 flex flex-col items-center gap-4">
       <div class="flex gap-6">
-        <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110">
+        <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="LinkedIn">
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
         </a>
-        <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110">
+
+        <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="X">
           <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" /></svg>
+        </a>
+
+        <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-[#FF6719] hover:scale-110" aria-label="Substack" title="Read our Investment Memos">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" /></svg>
+        </a>
+
+        <a href="https://github.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="GitHub">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
         </a>
       </div>
 
@@ -220,4 +250,26 @@
     </div>
 
     <div class="footer-legal" style="max-width: 980px; margin: 16px auto 0; font-size: 12px; line-height: 1.5; opacity: 0.85;">
-      <p style="margin: 0
+      <p style="margin: 0 0 8px">
+        <strong>Disclosures &amp; Risk:</strong> Miyama Capital LLC is a California limited liability company.
+        We manage proprietary capital only and do not accept outside client funds. The information on this website
+        is provided for informational purposes only and does not constitute investment advice, an offer to sell, or
+        a solicitation of an offer to buy any securities or investment products. Past performance is not indicative
+        of future results. Investing involves risk, including the possible loss of principal.
+        <a href="/en/disclosures.html" style="text-decoration: underline">Full disclosures</a>.
+      </p>
+
+      <p style="margin: 0">
+        &copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.
+      </p>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>
