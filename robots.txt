@@ -27,5 +27,5 @@ Disallow: /internal/
 User-agent: Claude-Web
 Disallow: /internal/
 
-# 網站地圖（如果你有的話）
-# Sitemap: https://www.miyamacap.com/sitemap.xml
+# 網站地圖
+Sitemap: https://www.miyamacap.com/sitemap.xml
