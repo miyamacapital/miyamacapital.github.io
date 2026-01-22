@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Miyama Capital - Organization Chart v2</title>
+  <title>Miyama Capital - Organization Chart v3</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -47,7 +47,7 @@
               textTransform: 'uppercase',
               fontWeight: '300'
             }}>
-              Strategic Architecture
+              Strategic Architecture v3.0
             </div>
             <h1 style={{
               fontSize: '48px',
@@ -66,6 +66,14 @@
               letterSpacing: '1px'
             }}>
               AI-Augmented Investment Command Structure
+            </div>
+            <div style={{
+              fontSize: '11px',
+              color: '#64748b',
+              marginTop: '8px',
+              letterSpacing: '0.5px'
+            }}>
+              Updated: January 2026 | Creative Team Expansion
             </div>
           </div>
 
@@ -130,18 +138,18 @@
                 <DivisionHeader title="Office of the CIO" icon="◆" color="#d4af37" />
                 <AgentCard
                   title="Chief of Staff / Architect"
-                  model="Claude 3.5"
+                  model="Claude 3.5 Sonnet"
                   color="#c9a961"
                   role="Strategy & Systems Design"
-                  description="Second brain. Designs systems, not tasks."
+                  description="Second brain. Designs systems, not tasks. MECE thinking & leverage optimization."
                 />
                 <div style={{ height: '12px' }}></div>
                 <AgentCard
                   title="Chief Narrative Officer / CMO"
-                  model="Claude 3.5 Opus"
+                  model="Claude 3.5 Sonnet"
                   color="#d4af37"
                   role="Brand Strategy & Voice"
-                  description="Compiles founder's thoughts into high-value narrative. Defines quarterly themes & reviews all content."
+                  description="Defines quarterly narrative themes & reviews all content. Sonnet's writing quality matches Opus at lower cost."
                   highlight={true}
                 />
               </div>
@@ -149,15 +157,89 @@
               {/* Macro Intelligence Unit */}
               <div style={{ animation: 'slideUp 0.8s ease-out 0.5s backwards' }}>
                 <DivisionHeader title="Macro Intelligence Unit" icon="◈" color="#2980b9" />
-                <AgentCard
-                  title="Chief Macro Strategist"
-                  model="Claude 3.5"
-                  color="#2980b9"
-                  role="Top-down Framework"
-                  description="Synthesizes council inputs into strategic reports."
-                />
+                
+                {/* Two-Layer Architecture */}
                 <div style={{
-                  marginTop: '16px',
+                  padding: '16px',
+                  background: 'linear-gradient(135deg, rgba(41, 128, 185, 0.12) 0%, rgba(41, 128, 185, 0.05) 100%)',
+                  border: '2px solid rgba(41, 128, 185, 0.4)',
+                  borderRadius: '8px',
+                  marginBottom: '12px'
+                }}>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#5dade2',
+                    letterSpacing: '1.5px',
+                    marginBottom: '12px',
+                    fontWeight: '700',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    <span style={{ fontSize: '12px' }}>⚡</span>
+                    TWO-LAYER INTELLIGENCE ARCHITECTURE
+                    <span style={{
+                      fontSize: '9px',
+                      color: '#d4af37',
+                      padding: '2px 8px',
+                      background: 'rgba(212, 175, 55, 0.2)',
+                      borderRadius: '3px',
+                      marginLeft: '8px',
+                      fontWeight: '700'
+                    }}>
+                      CORE MOAT
+                    </span>
+                  </div>
+                  
+                  {/* Layer 1 */}
+                  <AgentCard
+                    title="Layer 1: Chief Macro Strategist"
+                    model="Gemini 1.5 Pro (Live)"
+                    color="#2980b9"
+                    role="Breadth - Data Collection & Synthesis"
+                    description="Real-time search, 2M token context. Reads 50+ research reports, synthesizes patterns. Daily market scanning."
+                    highlight={true}
+                  />
+                  
+                  <div style={{
+                    margin: '12px 0',
+                    textAlign: 'center',
+                    fontSize: '18px',
+                    color: '#5dade2'
+                  }}>
+                    ↓ Complex reasoning needed
+                  </div>
+                  
+                  {/* Layer 2 */}
+                  <AgentCard
+                    title="Layer 2: Deep Analysis Consultant"
+                    model="OpenAI o1-Preview"
+                    color="#3498db"
+                    role="Depth - Logical Reasoning & Blind Spot Detection"
+                    description="Advanced chain-of-thought reasoning. Finds non-intuitive causality. Used 2-4x/month for major investment decisions."
+                    highlight={true}
+                  />
+                  
+                  {/* Usage Note */}
+                  <div style={{
+                    marginTop: '12px',
+                    padding: '10px',
+                    background: 'rgba(52, 152, 219, 0.08)',
+                    border: '1px solid rgba(52, 152, 219, 0.3)',
+                    borderRadius: '6px',
+                    fontSize: '10px',
+                    color: '#5dade2',
+                    lineHeight: '1.6'
+                  }}>
+                    <strong>💰 Investment Rationale:</strong> Macro analysis is Miyama's core competitive advantage. 
+                    This two-layer system ensures both speed (Gemini) and depth (o1) when needed. Cost: ~$200/month, 
+                    but prevents one bad macro call that could cost $100K+.
+                  </div>
+                </div>
+                
+                {/* The Macro Council */}
+                <div style={{
+                  marginTop: '12px',
                   padding: '16px',
                   background: 'rgba(41, 128, 185, 0.08)',
                   border: '1px solid rgba(41, 128, 185, 0.3)',
@@ -170,7 +252,7 @@
                     marginBottom: '12px',
                     fontWeight: '600'
                   }}>
-                    ▸ THE MACRO COUNCIL
+                    ▸ THE MACRO COUNCIL (Support Layer)
                   </div>
                   <CouncilMember name="The Realist" focus="Data" model="Gemini" />
                   <CouncilMember name="The Structuralist" focus="Cycle" model="Claude" />
@@ -183,56 +265,138 @@
                 <DivisionHeader title="Operations & Risk" icon="◇" color="#27ae60" />
                 <AgentCard
                   title="Chief Risk Officer"
-                  model="Claude / Gemini"
+                  model="OpenAI o1-Preview"
                   color="#27ae60"
                   role="Kill Switch Authority"
-                  description="Verdict: Kill/Pass on investment ideas. Reviews high-risk content when needed."
+                  description="Rigorous logical reasoning to find blind spots. Verdict: Kill/Pass on investment ideas & high-risk content."
                 />
                 <div style={{ height: '12px' }}></div>
                 <AgentCard
                   title="CFO / Controller"
-                  model="Claude + Sheets"
+                  model="Gemini 1.5 Flash"
                   color="#27ae60"
                   role="Financial Plumbing"
-                  description="Tracks capital flows, invoices, compliance."
+                  description="Lightning-fast Excel/CSV processing. Tracks capital flows, invoices, compliance at lowest cost."
                 />
               </div>
 
-              {/* Brand & Distribution */}
-              <div style={{ animation: 'slideUp 0.8s ease-out 0.7s backwards' }}>
+              {/* Brand & Distribution (Expanded) */}
+              <div style={{ 
+                animation: 'slideUp 0.8s ease-out 0.7s backwards',
+                gridColumn: 'span 2'
+              }}>
                 <DivisionHeader title="Brand & Distribution" icon="◐" color="#8e44ad" />
-                <AgentCard
-                  title="Taiwan Desk (方格子主筆)"
-                  model="Claude 3.5"
-                  color="#8e44ad"
-                  role="繁體中文內容"
-                  description="台灣市場專門編輯。撰寫繁中投資筆記、市場分析。"
-                  highlight={true}
-                />
-                <div style={{ height: '12px' }}></div>
-                <AgentCard
-                  title="Japan Desk"
-                  model="Claude 3.5"
-                  color="#8e44ad"
-                  role="Japanese Content"
-                  description="日本市場専門編集者。精緻な言語運用。"
-                />
-                <div style={{ height: '12px' }}></div>
-                <AgentCard
-                  title="Global Desk"
-                  model="ChatGPT"
-                  color="#8e44ad"
-                  role="English Content"
-                  description="English-language editorial voice for international audiences."
-                />
-                <div style={{ height: '12px' }}></div>
-                <AgentCard
-                  title="Creative Director"
-                  model="ChatGPT DALL-E"
-                  color="#8e44ad"
-                  role="Visual Assets"
-                  description="Generates charts, infographics, brand visuals."
-                />
+                
+                {/* Editorial Desks */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '12px',
+                  marginBottom: '20px'
+                }}>
+                  <AgentCard
+                    title="Taiwan Desk (方格子主筆)"
+                    model="Claude 3.5 Sonnet"
+                    color="#8e44ad"
+                    role="繁體中文內容"
+                    description="台灣市場專門編輯。最佳多語言文筆。撰寫繁中投資筆記、市場分析。"
+                    highlight={true}
+                  />
+                  <AgentCard
+                    title="Japan Desk"
+                    model="Claude 3.5 Sonnet"
+                    color="#8e44ad"
+                    role="Japanese Content"
+                    description="日本市場専門編集者。最高レベルの日本語表現力。"
+                  />
+                  <AgentCard
+                    title="Global Desk"
+                    model="ChatGPT-4"
+                    color="#8e44ad"
+                    role="English Content"
+                    description="English-language editorial voice for international audiences."
+                  />
+                </div>
+
+                {/* Creative Team (New Section) */}
+                <div style={{
+                  marginTop: '20px',
+                  padding: '20px',
+                  background: 'linear-gradient(135deg, rgba(142, 68, 173, 0.15) 0%, rgba(142, 68, 173, 0.05) 100%)',
+                  border: '2px solid rgba(142, 68, 173, 0.4)',
+                  borderRadius: '8px'
+                }}>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#ab7ac9',
+                    letterSpacing: '2px',
+                    marginBottom: '16px',
+                    fontWeight: '700',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    <span style={{ fontSize: '14px' }}>✦</span>
+                    CREATIVE PRODUCTION UNIT
+                    <span style={{
+                      fontSize: '9px',
+                      color: '#d4af37',
+                      padding: '2px 8px',
+                      background: 'rgba(212, 175, 55, 0.2)',
+                      borderRadius: '3px',
+                      marginLeft: '8px',
+                      fontWeight: '700'
+                    }}>
+                      NEW
+                    </span>
+                  </div>
+                  
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '12px'
+                  }}>
+                    <AgentCard
+                      title="Visual Content Director"
+                      model="GPT-4 + Midjourney v6"
+                      color="#e91e63"
+                      role="Kawaii Illustration & Brand Assets"
+                      description="GPT-4 handles concept design, prompt engineering, iteration. Midjourney executes image generation. 文章配圖、社群素材、品牌視覺。"
+                      highlight={true}
+                    />
+                    <AgentCard
+                      title="Data Visualization Engineer"
+                      model="Claude 3.5 Sonnet"
+                      color="#00bcd4"
+                      role="Charts & Interactive Dashboards"
+                      description="Superior aesthetic judgment + clean code architecture. Investment reports, portfolio analytics, backtest visualization. Most beautiful charts."
+                      highlight={true}
+                    />
+                    <AgentCard
+                      title="Creative Operations Manager"
+                      model="Claude 3.5 Sonnet"
+                      color="#9c27b0"
+                      role="Quality Control & Coordination"
+                      description="Routes requests to correct creative agent (Data Viz vs Visual). Ensures brand consistency across all outputs."
+                    />
+                  </div>
+
+                  {/* Visual Style Guide Note */}
+                  <div style={{
+                    marginTop: '16px',
+                    padding: '12px',
+                    background: 'rgba(233, 30, 99, 0.08)',
+                    border: '1px solid rgba(233, 30, 99, 0.3)',
+                    borderRadius: '6px',
+                    fontSize: '10px',
+                    color: '#ec4899',
+                    lineHeight: '1.6'
+                  }}>
+                    <strong>Brand Visual DNA:</strong> Japanese kawaii instructional style · 
+                    Flat design · Soft pastel palette (cream, gentle blue, warm brown) · 
+                    Chibi characters · Dark brown outlines · Minimalist & approachable
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -274,7 +438,17 @@
                   background: 'rgba(127, 140, 141, 0.2)',
                   borderRadius: '3px'
                 }}>
-                  Model: Gemini
+                  Model: Gemini 1.5 Pro
+                </div>
+                <div style={{
+                  fontSize: '10px',
+                  color: '#95a5a6',
+                  padding: '3px 8px',
+                  background: 'rgba(212, 175, 55, 0.15)',
+                  borderRadius: '3px',
+                  border: '1px solid rgba(212, 175, 55, 0.3)'
+                }}>
+                  全能情報官
                 </div>
                 <div style={{
                   fontSize: '11px',
@@ -306,7 +480,7 @@
                 gap: '8px'
               }}>
                 <span style={{ fontSize: '14px' }}>✦</span>
-                CONTENT REVIEW WORKFLOW
+                CONTENT PRODUCTION WORKFLOW
               </div>
               <div style={{
                 display: 'flex',
@@ -334,24 +508,33 @@
                 <WorkflowArrow />
                 <WorkflowStep 
                   number="3" 
+                  title="Visual Production" 
+                  actor="Creative Unit" 
+                  color="#e91e63"
+                  desc="Images & charts"
+                  newBadge={true}
+                />
+                <WorkflowArrow />
+                <WorkflowStep 
+                  number="4" 
                   title="Narrative Review" 
                   actor="CNO" 
                   color="#d4af37"
-                  desc="Voice & positioning check"
+                  desc="Voice & positioning"
                   required={true}
                 />
                 <WorkflowArrow conditional={true} />
                 <WorkflowStep 
-                  number="4" 
+                  number="5" 
                   title="Risk Review" 
                   actor="CRO" 
                   color="#27ae60"
-                  desc="High-risk content only"
+                  desc="High-risk only"
                   optional={true}
                 />
                 <WorkflowArrow />
                 <WorkflowStep 
-                  number="5" 
+                  number="6" 
                   title="Publish" 
                   actor="Desks" 
                   color="#8e44ad"
@@ -393,6 +576,20 @@
                 />
                 <FlowItem
                   from="CMS"
+                  to="o1 Consultant"
+                  desc="Complex reasoning requests"
+                  color="#3498db"
+                  newBadge={true}
+                />
+                <FlowItem
+                  from="o1 Consultant"
+                  to="CMS"
+                  desc="Deep analysis reports"
+                  color="#3498db"
+                  newBadge={true}
+                />
+                <FlowItem
+                  from="CMS"
                   to="CIO"
                   desc="Strategic reports"
                   color="#d4af37"
@@ -408,6 +605,20 @@
                   to="Desks"
                   desc="Voice & tone guidelines"
                   color="#8e44ad"
+                />
+                <FlowItem
+                  from="Desks"
+                  to="Creative Unit"
+                  desc="Visual content requests"
+                  color="#e91e63"
+                  newBadge={true}
+                />
+                <FlowItem
+                  from="Creative Unit"
+                  to="Desks"
+                  desc="Images & charts"
+                  color="#e91e63"
+                  newBadge={true}
                 />
                 <FlowItem
                   from="Desks"
@@ -434,11 +645,103 @@
                   color="#e74c3c"
                 />
                 <FlowItem
-                  from="Gemini"
+                  from="Gemini 1.5 Pro"
                   to="All"
                   desc="Support services"
                   color="#7f8c8d"
                 />
+              </div>
+            </div>
+
+            {/* Strategic Investment Analysis */}
+            <div style={{
+              marginTop: '40px',
+              padding: '24px',
+              background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.08) 0%, rgba(156, 39, 176, 0.08) 100%)',
+              border: '2px solid rgba(233, 30, 99, 0.3)',
+              borderRadius: '8px',
+              animation: 'fadeIn 1s ease-out 1.1s backwards'
+            }}>
+              <div style={{
+                fontSize: '11px',
+                color: '#ec4899',
+                letterSpacing: '2px',
+                marginBottom: '16px',
+                fontWeight: '700',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <span style={{ fontSize: '14px' }}>💰</span>
+                STRATEGIC INVESTMENT ALLOCATION
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '16px',
+                fontSize: '11px'
+              }}>
+                <div style={{
+                  padding: '12px',
+                  background: 'rgba(41, 128, 185, 0.15)',
+                  border: '2px solid rgba(41, 128, 185, 0.5)',
+                  borderRadius: '6px'
+                }}>
+                  <div style={{ color: '#2980b9', fontWeight: '700', marginBottom: '8px', fontSize: '12px' }}>
+                    🎯 Macro Intelligence
+                  </div>
+                  <div style={{ color: '#95a5a6', lineHeight: '1.6' }}>
+                    Gemini + o1 Two-Layer<br />
+                    <strong style={{ color: '#2980b9' }}>$200/month</strong><br />
+                    <span style={{ color: '#2ecc71', fontSize: '10px' }}>✓ Core competitive advantage</span>
+                  </div>
+                </div>
+                <div style={{
+                  padding: '12px',
+                  background: 'rgba(46, 204, 113, 0.1)',
+                  border: '1px solid rgba(46, 204, 113, 0.3)',
+                  borderRadius: '6px'
+                }}>
+                  <div style={{ color: '#2ecc71', fontWeight: '700', marginBottom: '8px' }}>
+                    Creative Production
+                  </div>
+                  <div style={{ color: '#95a5a6', lineHeight: '1.6' }}>
+                    GPT-4 + Claude + MJ<br />
+                    <strong style={{ color: '#2ecc71' }}>$100/month</strong><br />
+                    <span style={{ color: '#3498db', fontSize: '10px' }}>✓ 99% cost reduction vs hiring</span>
+                  </div>
+                </div>
+                <div style={{
+                  padding: '12px',
+                  background: 'rgba(231, 76, 60, 0.1)',
+                  border: '1px solid rgba(231, 76, 60, 0.3)',
+                  borderRadius: '6px'
+                }}>
+                  <div style={{ color: '#e74c3c', fontWeight: '700', marginBottom: '8px' }}>
+                    Traditional Approach
+                  </div>
+                  <div style={{ color: '#95a5a6', lineHeight: '1.6' }}>
+                    Analyst + Designer<br />
+                    <strong style={{ color: '#e74c3c' }}>$15K/month</strong><br />
+                    <span style={{ color: '#7f8c8d', fontSize: '10px' }}>✗ 50x higher cost</span>
+                  </div>
+                </div>
+                <div style={{
+                  padding: '12px',
+                  background: 'rgba(212, 175, 55, 0.15)',
+                  border: '2px solid rgba(212, 175, 55, 0.5)',
+                  borderRadius: '6px'
+                }}>
+                  <div style={{ color: '#d4af37', fontWeight: '700', marginBottom: '8px', fontSize: '12px' }}>
+                    💡 Strategic Principle
+                  </div>
+                  <div style={{ color: '#95a5a6', lineHeight: '1.6', fontSize: '10px' }}>
+                    <strong style={{ color: '#d4af37' }}>Invest at the Moat</strong><br />
+                    Save on execution.<br />
+                    Spend on competitive edge.<br />
+                    One bad macro call costs more than 10 years of o1 fees.
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -541,7 +844,7 @@
               fontWeight: '700',
               textTransform: 'uppercase'
             }}>
-              ★ NEW ADDITION
+              ★ KEY ROLE
             </div>
           )}
           <div style={{
@@ -612,15 +915,32 @@
       );
     }
 
-    function WorkflowStep({ number, title, actor, color, desc, required, optional }) {
+    function WorkflowStep({ number, title, actor, color, desc, required, optional, newBadge }) {
       return (
         <div style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '8px',
-          minWidth: '120px'
+          minWidth: '120px',
+          position: 'relative'
         }}>
+          {newBadge && (
+            <div style={{
+              position: 'absolute',
+              top: '-8px',
+              right: '-8px',
+              fontSize: '8px',
+              color: '#d4af37',
+              padding: '2px 6px',
+              background: 'rgba(212, 175, 55, 0.3)',
+              borderRadius: '3px',
+              fontWeight: '700',
+              border: '1px solid rgba(212, 175, 55, 0.5)'
+            }}>
+              NEW
+            </div>
+          )}
           <div style={{
             width: '32px',
             height: '32px',
@@ -697,14 +1017,29 @@
       );
     }
 
-    function FlowItem({ from, to, desc, color }) {
+    function FlowItem({ from, to, desc, color, newBadge }) {
       return (
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          color: '#8892b0'
+          color: '#8892b0',
+          position: 'relative'
         }}>
+          {newBadge && (
+            <span style={{
+              fontSize: '8px',
+              color: '#d4af37',
+              padding: '2px 4px',
+              background: 'rgba(212, 175, 55, 0.2)',
+              borderRadius: '2px',
+              marginRight: '4px',
+              fontWeight: '700',
+              border: '1px solid rgba(212, 175, 55, 0.4)'
+            }}>
+              NEW
+            </span>
+          )}
           <span style={{ color: color, fontWeight: '600' }}>{from}</span>
           <span style={{ color: color }}>→</span>
           <span style={{ color: '#fff', fontWeight: '600' }}>{to}</span>
