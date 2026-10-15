@@ -126,17 +126,17 @@
         min-height: 44px;
         max-width: 100%;
       }
+      /* Links inside sentences stay inline; WCAG target size exempts them. */
+      p a { display: inline; min-width: 0; min-height: 0; text-decoration: underline; text-underline-offset: 0.2em; }
       a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-      a:focus-visible, button:focus-visible, input:focus-visible {
+      a:focus-visible, button:focus-visible {
         outline: 3px solid #4F46E5;
         outline-offset: 4px;
       }
-      footer a:focus-visible, #subscribe button:focus-visible, #subscribe input:focus-visible {
+      footer a:focus-visible, #subscribe a:focus-visible {
         outline-color: #CBD5E1;
       }
       h1 span, h2 span, h3 span { display: inline-block; }
-      input { min-width: 0; }
-      input::placeholder { color: #94A3B8; opacity: 1; }
       .lab-languages a { justify-content: center; }
       .lab-footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
       .lab-header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
@@ -145,8 +145,7 @@
       .lab-navigation a { color: #475569; text-decoration: none; font-size: 15px; font-weight: 500; }
       .lab-navigation a:hover { color: #4F46E5; text-decoration: underline; }
       .lab-action { justify-content: center; padding: 0 20px; font-size: 15px; font-weight: 600; text-decoration: none; }
-      .lab-platform-links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-      button:disabled, input:disabled { cursor: not-allowed; opacity: 0.65; }
+      .lab-platform-links { display: flex; flex-wrap: wrap; gap: 12px; }
       @media (max-width: 600px) {
         .lab-navigation { column-gap: 16px !important; }
       }
@@ -188,15 +187,15 @@
 </div>
 </div>
 <nav aria-label="主選單" class="lab-navigation">
-<a href="#research">研究</a>
-<a href="#scorecard">預測紀錄</a>
 <a href="#method">方法</a>
 <a href="#philosophy">投資哲學</a>
-<a href="#founder">創辦人觀點</a>
+<a href="#research">研究</a>
+<a href="#scorecard">預測紀錄</a>
 <a href="/zh/insights.html">深度觀點</a>
 <a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer">投資備忘錄</a>
-<a href="#subscribe">訂閱研究</a>
+<a href="#founder">創辦人觀點</a>
 <a href="#contact">聯絡</a>
+<a href="#subscribe">訂閱研究</a>
 </nav>
 </div>
 </header>
@@ -206,7 +205,6 @@
 <section class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 96px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
 <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;">QUANTMENTAL GLOBAL MACRO</p>
 <h1 class="text-lab-h1" style="margin: 0; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em;"><span>地緣經濟宏觀，</span><br><span>量化紀律。</span></h1>
-<!-- DRAFT: pending CNO -->
 <p class="text-lab-body" style="margin: 0; max-width: 34em; font-size: clamp(18px, 1.6vw, 21px);">我們以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究。</p>
 <p class="text-lab-muted" style="margin: 0; font-size: 15px;">量化紀律，宏觀信念。<br>全球佈局｜核心：美／台／日</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
@@ -252,7 +250,7 @@
   <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 32px;">
     <div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
       <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">Philosophy</p>
-      <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>Miyama </span><span>投資哲學</span></h2>
+      <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>Miyama</span> <span>投資哲學</span></h2>
       <p style="margin: 6px 0 0; font-size: 22px; font-weight: 600;"><span style="display: inline-block;">複利，</span><span style="display: inline-block;">以紀律為本。</span></p>
       <p class="text-lab-body" style="margin: 0; font-size: 15px;">市場狀態導向研究・紀律配置・制度化風險控制</p>
     </div>
@@ -284,22 +282,11 @@
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>最新研究</span></h2>
 <a href="/zh/insights.html" class="text-lab-accent underline" style="font-size: 15px; font-weight: 600;">所有研究 →</a>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 16px;">
-<article class="bg-lab-dark text-lab-card rounded-lab-feature" style="flex: 1.6 1 480px; min-width: 0; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 16px;">
-<p class="font-lab-mono text-lab-feature-label" style="margin: 0; font-size: 12px; letter-spacing: 0.06em;">月報 #01・2026.10</p>
-<h3 style="margin: 0; font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>2026 年第四季</span><span>宏觀展望：</span><span style="display: inline-block;">三個情境，</span><span style="display: inline-block;">與各自的失效條件</span></h3>
-<p class="text-lab-on-dark" style="margin: 0; font-size: 16px;">這一季我們追蹤三個情境：各自的觸發條件、跨資產的傳導路徑，以及在什麼情況下我們會承認看錯。</p>
-<div class="border-t border-t-lab-dark-line" style="margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
-<span class="text-lab-on-dark-muted" style="font-size: 14px;">王冠勛</span>
-<!-- PLACEHOLDER -->
-<a href="#" class="rounded-lab-button bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">閱讀全文</a>
-</div>
-</article>
-<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
 <article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
 <p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">地緣宏觀 #13.5</p>
 <h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="text-lab-text" style="text-decoration: none;"><span>我說對了什麼，我說錯了什麼</span></a></h3>
-<p class="text-lab-body" style="margin: 0; font-size: 14px;">四週、十二個判斷，回頭替自己打分。</p>
+<p class="text-lab-body" style="margin: 0; font-size: 14px;">四週、十一個判斷，回頭替自己打分。</p>
 </article>
 <article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
 <p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">地緣宏觀 #13</p>
@@ -311,7 +298,6 @@
 <h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://vocus.cc/article/69b7c431fd897800012e0973" class="text-lab-text" style="text-decoration: none;"><span>保險才是 Kill Switch</span></a></h3>
 <p class="text-lab-body" style="margin: 0; font-size: 14px;">讓航運停下來的不是飛彈，是保險退場。</p>
 </article>
-</div>
 </div>
 </section>
 
@@ -344,6 +330,8 @@
 <p class="text-lab-muted" style="margin: 0; font-size: 13px;">2026 年 3 月自評</p>
 </div>
 
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">以下精選 11 項可驗證判斷中的 4 項。其餘 7 項，包括另外兩個未中（未預見以色列攻擊 South Pars、低估伊朗攻擊海灣國家的強度），請見完整紀錄。</p>
 <ol class="border border-lab-line rounded-lab-card" style="list-style: none; margin: 0; padding: 0; overflow: hidden;">
 <li class="border-b border-b-lab-line" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 18px 22px;">
 <span class="font-lab-mono text-lab-muted" style="flex: 0 0 150px; font-size: 13px;">2026-03-09 · #5</span>
@@ -370,7 +358,11 @@
 <span class="text-lab-body" style="flex: 1 1 260px; font-size: 14px;">人選錯了、機制對了：保留的對口是 Araghchi 與 Ghalibaf。</span>
 </li>
 </ol>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
 <a href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="text-lab-accent underline" style="align-self: flex-start; font-size: 15px; font-weight: 600;">完整紀錄 →</a>
+<p class="text-lab-muted" style="margin: 0; font-size: 13px;">預測紀錄為研究判斷的自我評分，並非投資績效或報酬紀錄，不構成任何投資建議。</p>
+</div>
 </div>
 </section>
 
@@ -422,23 +414,13 @@
 <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: center;">
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>訂閱 Miyama 研究</span></h2>
-<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">每月一份總經報告，重大事件另發快報。免費。</p>
+<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">免費。依閱讀語言選擇平台，追蹤最新研究。</p>
 </div>
-<!-- TODO: Substack -->
-<form id="research-subscription" onsubmit="event.preventDefault()" style="display: flex; flex-direction: column; gap: 8px;">
-<label for="email-c" class="text-lab-on-dark" style="font-size: 14px;">電子郵件</label>
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-<input id="email-c" name="email" type="email" autocomplete="email" disabled aria-describedby="subscription-status" placeholder="name@example.com" class="rounded-lab-button border border-lab-partial-text bg-lab-dark-line text-lab-card font-lab-sans" style="flex: 1 1 240px; min-height: 48px; box-sizing: border-box; padding: 0 14px; font-size: 16px;">
-<button type="button" disabled class="rounded-lab-button bg-lab-accent text-lab-card font-lab-sans" style="min-height: 48px; padding: 0 22px; border: 0; font-size: 16px; font-weight: 600;">尚未開放</button>
-</div>
-<p id="subscription-status" class="text-lab-on-dark-muted" style="margin: 0; font-size: 13px;">電子郵件訂閱尚未開放。可先透過以下平台閱讀或訂閱研究。</p>
-<nav aria-label="研究平台" class="lab-platform-links text-lab-on-dark" style="margin-top: 8px; font-size: 14px;">
-<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="underline">繁中研究・方格子</a>
-<a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer" class="underline">閱讀英文備忘錄</a>
-<a href="https://miyamacap.substack.com/" target="_blank" rel="noopener noreferrer" class="underline">訂閱英文備忘錄・Substack</a>
-<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="underline">日文研究・note</a>
+<nav aria-label="依語言訂閱研究" class="lab-platform-links">
+<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="rounded-lab-button bg-lab-accent text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">繁體中文・方格子</a>
+<a href="https://memos.miyamacap.com/subscribe" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">English・Substack</a>
+<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">日本語・note</a>
 </nav>
-</form>
 </div>
 </section>
 
