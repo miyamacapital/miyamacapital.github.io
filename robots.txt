@@ -5,27 +5,5 @@
 User-agent: *
 Allow: /
 
-# 阻擋搜索引擎索引內部文件
-Disallow: /internal/
-
-# 阻擋常見的爬蟲和 AI 訓練工具
-User-agent: GPTBot
-Disallow: /internal/
-
-User-agent: ChatGPT-User
-Disallow: /internal/
-
-User-agent: Google-Extended
-Disallow: /internal/
-
-User-agent: CCBot
-Disallow: /internal/
-
-User-agent: anthropic-ai
-Disallow: /internal/
-
-User-agent: Claude-Web
-Disallow: /internal/
-
 # 網站地圖
 Sitemap: https://www.miyamacap.com/sitemap.xml
