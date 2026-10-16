@@ -210,13 +210,35 @@
       var langLabels = { "zh-TW": "🇹🇼 繁中", en: "🇺🇸 EN", ja: "🇯🇵 JP" };
       var ctaText = { "zh-TW": "閱讀全文 →", en: "Read more →", ja: "続きを読む →" };
 
+      function isArticle(article) {
+        if (!article || typeof article !== "object") return false;
+        var fields = ["id", "title", "summary", "date", "lang", "category", "platform", "url"];
+        if (!fields.every(function (key) { return typeof article[key] === "string" && article[key].trim().length > 0; })) return false;
+        if (!Object.prototype.hasOwnProperty.call(langLabels, article.lang) ||
+            !Object.prototype.hasOwnProperty.call(categoryNames, article.category) ||
+            !Object.prototype.hasOwnProperty.call(platformNames, article.platform)) return false;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(article.date)) return false;
+        var date = new Date(article.date + "T00:00:00.000Z");
+        if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== article.date) return false;
+        try { return new URL(article.url).protocol === "https:"; } catch (error) { return false; }
+      }
+
+      function escapeHTML(value) {
+        return value.replace(/[&<>"']/g, function (character) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character];
+        });
+      }
+
       fetch("/data/articles.json", { cache: "no-cache" })
         .then(function (r) {
           if (!r.ok) throw new Error("Failed to load articles (HTTP " + r.status + ")");
           return r.json();
         })
         .then(function (data) {
-          articles = data.sort(function (a, b) {
+          if (!Array.isArray(data)) throw new Error("Article catalog must be an array");
+          var validArticles = data.filter(isArticle);
+          if (data.length && !validArticles.length) throw new Error("Article catalog contains no valid articles");
+          articles = validArticles.sort(function (a, b) {
             if (a.featured && !b.featured) return -1;
             if (!a.featured && b.featured) return 1;
             return new Date(b.date) - new Date(a.date);
@@ -285,7 +307,11 @@
           emptyEl.classList.remove("hidden");
         } else {
           emptyEl.classList.add("hidden");
-          listEl.innerHTML = pageItems.map(function (a) {
+          listEl.innerHTML = pageItems.map(function (article) {
+            var a = {};
+            ["url", "date", "lang", "category", "platform", "title", "summary"].forEach(function (key) {
+              a[key] = escapeHTML(article[key]);
+            });
             return '<a href="' + a.url + '" target="_blank" rel="noopener noreferrer" class="article-card bg-lab-card border border-lab-line rounded-lab-card" style="display: flex; flex-direction: column; gap: 8px; padding: 22px; text-decoration: none;">' +
               '<p class="font-lab-mono text-lab-muted" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 12px;">' +
                 '<span>' + a.date + '</span><span aria-hidden="true" class="text-lab-outline">·</span>' +

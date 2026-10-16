@@ -24,7 +24,12 @@
   </style>
 
   <script>
-    const savedLang = localStorage.getItem("miyama-lang");
+    let savedLang = null;
+    try {
+      savedLang = localStorage.getItem("miyama-lang");
+    } catch (error) {
+      // Fall back to browser language when storage is unavailable.
+    }
     const browserLang = (navigator.language || navigator.userLanguage).toLowerCase();
     const isChinese = browserLang.includes("zh");
     const isJapanese = browserLang.startsWith("ja");
