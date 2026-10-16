@@ -210,8 +210,11 @@
       var langLabels = { "zh-TW": "🇹🇼 繁中", en: "🇺🇸 EN", ja: "🇯🇵 JP" };
       var ctaText = { "zh-TW": "閱讀全文 →", en: "Read more →", ja: "続きを読む →" };
 
-      fetch("/data/articles.json")
-        .then(function (r) { return r.json(); })
+      fetch("/data/articles.json", { cache: "no-cache" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("Failed to load articles (HTTP " + r.status + ")");
+          return r.json();
+        })
         .then(function (data) {
           articles = data.sort(function (a, b) {
             if (a.featured && !b.featured) return -1;
@@ -223,14 +226,22 @@
         })
         .catch(function (err) {
           console.error("Failed to load articles:", err);
-          document.getElementById("empty-state").classList.remove("hidden");
+          var emptyState = document.getElementById("empty-state");
+          emptyState.querySelector("p").textContent = "研究列表載入失敗，請重新整理頁面後再試。";
+          emptyState.classList.remove("hidden");
         });
 
       function readURLParams() {
+        currentLang = "all";
+        currentCat = "all";
+        currentPage = 1;
         var params = new URLSearchParams(window.location.search);
-        if (params.get("lang")) currentLang = params.get("lang");
-        if (params.get("cat")) currentCat = params.get("cat");
-        if (params.get("page")) currentPage = parseInt(params.get("page"), 10) || 1;
+        var lang = params.get("lang");
+        var cat = params.get("cat");
+        var page = Number(params.get("page"));
+        if (Object.prototype.hasOwnProperty.call(langLabels, lang)) currentLang = lang;
+        if (Object.prototype.hasOwnProperty.call(categoryNames, cat)) currentCat = cat;
+        if (Number.isFinite(page) && page >= 1) currentPage = Math.floor(page);
       }
 
       function updateURL() {
@@ -252,7 +263,8 @@
       function render() {
         var filtered = getFiltered();
         var totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
-        if (currentPage > totalPages) currentPage = totalPages;
+        currentPage = Number.isFinite(currentPage) ? Math.floor(currentPage) : 1;
+        currentPage = Math.min(totalPages, Math.max(1, currentPage));
         var start = (currentPage - 1) * ITEMS_PER_PAGE;
         var pageItems = filtered.slice(start, start + ITEMS_PER_PAGE);
 

@@ -1138,5 +1138,77 @@
     "platform": "vocus",
     "tags": ["Fed", "前瞻指引", "Jackson Hole", "長端利率", "央行溝通"],
     "featured": false
+  },
+  {
+    "id": "art-en-001",
+    "title": "No Guidance Is Still Guidance",
+    "date": "2026-09-12",
+    "lang": "en",
+    "category": "macro",
+    "summary": "The form changed, the function didn't: after Jackson Hole, the next question in long-end pricing",
+    "url": "https://memos.miyamacap.com/p/no-guidance-is-still-guidance",
+    "platform": "substack",
+    "tags": [],
+    "featured": false
+  },
+  {
+    "id": "art-en-002",
+    "title": "One Jobs Report, Two Rate Stories",
+    "date": "2026-07-04",
+    "lang": "en",
+    "category": "macro",
+    "summary": "June payrolls missed at +57K, but the real signal sits at both ends of the curve: why soft labor moves the front end, not the long end.",
+    "url": "https://memos.miyamacap.com/p/one-jobs-report-two-rate-stories",
+    "platform": "substack",
+    "tags": [],
+    "featured": false
+  },
+  {
+    "id": "art-en-003",
+    "title": "MOU Holds, Attacks Don’t: Hormuz Enters Command Ambiguity",
+    "date": "2026-06-30",
+    "lang": "en",
+    "category": "macro",
+    "summary": "Hormuz scenario memo: the risk is moving from bargaining to command ambiguity as the MOU holds but the strait dispute stays open.",
+    "url": "https://memos.miyamacap.com/p/mou-holds-attacks-dont-hormuz-enters",
+    "platform": "substack",
+    "tags": [],
+    "featured": false
+  },
+  {
+    "id": "art-ja-001",
+    "title": "ガイダンスをやめても、ガイダンス効果は消えない――Jackson Hole後、長期ゾーンの価格は次に何を織り込むか",
+    "date": "2026-09-12",
+    "lang": "ja",
+    "category": "macro",
+    "summary": "本分析の作成に着手したのは2026年8月28日、Jackson Hole演説の当日である。",
+    "url": "https://note.com/miyamacapitaljp/n/neb64d21769ae",
+    "platform": "note",
+    "tags": [],
+    "featured": false
+  },
+  {
+    "id": "art-ja-002",
+    "title": "雇用統計の冷え込み後、シグナルは利回りカーブの両端にある",
+    "date": "2026-07-06",
+    "lang": "ja",
+    "category": "macro",
+    "summary": "2026年6月の雇用統計は市場コンセンサスを大きく下回った。しかし本当に注視すべきシグナルは、雇用の数字そのものではなく、利回りカーブの両端にある。",
+    "url": "https://note.com/miyamacapitaljp/n/n08be940d35f4",
+    "platform": "note",
+    "tags": [],
+    "featured": false
+  },
+  {
+    "id": "art-ja-003",
+    "title": "「未実現利益への課税」という恐怖の正体——加速する日本の課税強化でさえ、まだ越えていない一線",
+    "date": "2026-06-29",
+    "lang": "ja",
+    "category": "macro",
+    "summary": "近年、金融所得課税の強化が際立つ日本でさえ、課税対象はあくまで「実現済み」の所得であり、「未実現の時価評価課税」という一線には、いまだ踏み込んでいない。",
+    "url": "https://note.com/miyamacapitaljp/n/n5103987cdc09",
+    "platform": "note",
+    "tags": [],
+    "featured": false
   }
 ]

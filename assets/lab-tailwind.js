@@ -4,6 +4,11 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
+        // Retain the original tokens for existing Miyama assets and references.
+        "miyama-navy": "#0A2342",
+        "miyama-cream": "#F9F7F2",
+        "miyama-slate": "#4A5568",
+        "miyama-gold": "#C5A065",
         "lab-background": "#FCFCFD",
         "lab-section": "#F8FAFC",
         "lab-card": "#FFFFFF",
