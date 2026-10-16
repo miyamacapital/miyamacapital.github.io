@@ -2,11 +2,11 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <title>Miyama Capital｜Quantmental Global Macro · 量化紀律，宏觀信念</title>
+    <title>Miyama Capital｜Quantmental Global Macro · 地緣經濟宏觀，量化紀律</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Quantmental Global Macro。跨資產宏觀框架：從事件到執行的傳導分析。自營資金，舊金山・台北。"
+      content="地緣經濟宏觀，量化紀律。Miyama Capital 以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究。舊金山・台北。"
     />
     
     <!-- Canonical URL -->
@@ -21,8 +21,8 @@
     <!-- Open Graph (Facebook/LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.miyamacap.com/zh/" />
-    <meta property="og:title" content="Miyama Capital｜Quantmental Global Macro · 量化紀律，宏觀信念" />
-    <meta property="og:description" content="跨資產宏觀框架：從事件到執行的傳導分析。量化紀律，宏觀信念。舊金山 • 台北" />
+    <meta property="og:title" content="Miyama Capital｜Quantmental Global Macro · 地緣經濟宏觀，量化紀律" />
+    <meta property="og:description" content="地緣經濟宏觀，量化紀律。Miyama Capital 以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究。舊金山・台北。" />
     <meta property="og:image" content="https://www.miyamacap.com/web_images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -32,8 +32,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@miyamacapital" />
-    <meta name="twitter:title" content="Miyama Capital｜Quantmental Global Macro" />
-    <meta name="twitter:description" content="跨資產宏觀框架：從事件到執行的傳導分析。量化紀律，宏觀信念。舊金山 • 台北" />
+    <meta name="twitter:title" content="Miyama Capital｜Quantmental Global Macro · 地緣經濟宏觀，量化紀律" />
+    <meta name="twitter:description" content="地緣經濟宏觀，量化紀律。Miyama Capital 以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究。舊金山・台北。" />
     <meta name="twitter:image" content="https://www.miyamacap.com/web_images/og-image.png" />
     
     <link rel="icon" type="image/png" href="../web_images/Logo2.png" />
@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Noto+Sans+TC:wght@400;500;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
     <!-- Google tag (gtag.js) -->
@@ -55,101 +55,17 @@
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/lab-tailwind.js"></script>
+    <link rel="stylesheet" href="/assets/lab.css" />
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "miyama-navy": "#0A2342",
-              "miyama-cream": "#F9F7F2",
-              "miyama-slate": "#4A5568",
-              "miyama-gold": "#C5A065",
-              "lab-background": "#FCFCFD",
-              "lab-section": "#F8FAFC",
-              "lab-card": "#FFFFFF",
-              "lab-text": "#0F172A",
-              "lab-body": "#475569",
-              "lab-muted": "#64748B",
-              "lab-line": "#E2E8F0",
-              "lab-outline": "#CBD5E1",
-              "lab-accent": "#4F46E5",
-              "lab-dark": "#0F172A",
-              "lab-footer": "#0B1220",
-              "lab-on-dark": "#CBD5E1",
-              "lab-on-dark-muted": "#94A3B8",
-              "lab-partial": "#F1F5F9",
-              "lab-partial-text": "#334155",
-              "lab-miss": "#FFF7ED",
-              "lab-miss-text": "#9A3412",
-              // Supporting colors already present in the direction C reference.
-              "lab-feature-label": "#A5B4FC",
-              "lab-dark-line": "#1E293B",
-              "lab-miss-outline": "#FED7AA",
-            },
-            boxShadow: { subtle: "0 18px 45px rgba(10, 35, 66, 0.12)" },
-            fontFamily: {
-              sans: ['"Inter"', '"Noto Sans TC"', "system-ui", "sans-serif"],
-              serif: ['"Playfair Display"', '"Noto Serif TC"', "serif"],
-              "lab-sans": ['"Inter"', '"Noto Sans TC"', '"Noto Sans CJK TC"', '"PingFang TC"', '"Microsoft JhengHei"', "sans-serif"],
-              "lab-mono": ['"JetBrains Mono"', '"Noto Sans TC"', '"Noto Sans CJK TC"', "monospace"],
-            },
-            fontSize: {
-              "lab-h1": "clamp(44px, 6.6vw, 88px)",
-              "lab-h2": "clamp(26px, 2.8vw, 34px)",
-            },
-            lineHeight: { "lab-body": "1.65" },
-            borderRadius: {
-              "lab-button": "8px",
-              "lab-card": "12px",
-              "lab-feature": "16px",
-              "lab-label": "999px",
-            },
-            maxWidth: { "lab-content": "1200px" },
-            spacing: { "lab-gutter": "clamp(16px, 4vw, 48px)" },
-          },
-        },
-      };
-    </script>
-    <script>
+      // Collapse the phone menu before first paint; lab.js wires up the toggle.
+      document.documentElement.classList.add("js");
       // Keep language memory independent of the stylesheet CDN.
       try { localStorage.setItem("miyama-lang", "zh"); } catch (error) {
         // The page remains usable when storage is unavailable.
       }
     </script>
-    <style>
-      html { text-wrap: pretty; }
-      body { margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-      a, button {
-        display: inline-flex;
-        align-items: center;
-        min-width: 44px;
-        min-height: 44px;
-        max-width: 100%;
-      }
-      /* Links inside sentences stay inline; WCAG target size exempts them. */
-      p a { display: inline; min-width: 0; min-height: 0; text-decoration: underline; text-underline-offset: 0.2em; }
-      a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-      a:focus-visible, button:focus-visible {
-        outline: 3px solid #4F46E5;
-        outline-offset: 4px;
-      }
-      footer a:focus-visible, #subscribe a:focus-visible {
-        outline-color: #CBD5E1;
-      }
-      h1 span, h2 span, h3 span { display: inline-block; }
-      .lab-languages a { justify-content: center; }
-      .lab-footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
-      .lab-header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
-      .lab-header-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
-      .lab-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; padding-top: 12px; margin-top: 12px; border-top: 1px solid #E2E8F0; }
-      .lab-navigation a { color: #475569; text-decoration: none; font-size: 15px; font-weight: 500; }
-      .lab-navigation a:hover { color: #4F46E5; text-decoration: underline; }
-      .lab-action { justify-content: center; padding: 0 20px; font-size: 15px; font-weight: 600; text-decoration: none; }
-      .lab-platform-links { display: flex; flex-wrap: wrap; gap: 12px; }
-      @media (max-width: 600px) {
-        .lab-navigation { column-gap: 16px !important; }
-      }
-    </style>
+    <script src="/assets/lab.js" defer></script>
     <!-- Schema.org Structured Data (繁中版) -->
     <script type="application/ld+json">
     {
@@ -157,7 +73,7 @@
       "@type": "FinancialService",
       "name": "Miyama Capital LLC",
       "alternateName": "Miyama Capital",
-      "description": "Quantmental Global Macro——跨資產宏觀框架，從事件到執行的傳導分析。量化紀律，宏觀信念。自營資金運作。",
+      "description": "Quantmental Global Macro——地緣經濟宏觀，量化紀律。以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究；不接受外部資金。",
       "url": "https://www.miyamacap.com/zh/",
       "inLanguage": "zh-Hant",
       "logo": "https://www.miyamacap.com/web_images/Logo2.png",
@@ -176,7 +92,10 @@
 <header class="bg-lab-card border-b border-b-lab-line">
 <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 18px; padding-bottom: 18px;">
 <div class="lab-header-row">
-<a href="/zh/index.html" aria-label="Miyama Capital 首頁" class="text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="../web_images/Logo2.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
+<div class="lab-brand">
+<a href="/zh/index.html" aria-label="Miyama Capital 首頁" class="lab-tap text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="../web_images/Logo2.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
+<button type="button" class="lab-menu-toggle" aria-expanded="false" aria-controls="lab-nav"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lab-menu-label">選單</span></button>
+</div>
 <div class="lab-header-actions">
 <nav aria-label="語言選擇" class="lab-languages font-lab-mono" style="display: flex; gap: 10px; font-size: 12px;">
 <a href="/zh/index.html" lang="zh-Hant" aria-label="繁體中文" aria-current="page" class="text-lab-text" style="text-decoration: none;">中</a>
@@ -186,7 +105,7 @@
 <a id="header-contact" href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E4%B8%80%E8%B5%B7%E8%81%8A%E8%81%8A&amp;body=%E6%82%A8%E5%A5%BD%EF%BC%8CMiyama%20%E5%9C%98%E9%9A%8A%EF%BC%9A%0A%0A%E6%88%91%E5%B8%8C%E6%9C%9B%E5%B0%B1%EF%BC%9A%5B%E7%A0%94%E7%A9%B6%E5%90%88%E4%BD%9C%20%2F%20%E7%AD%96%E7%95%A5%E4%BA%A4%E6%B5%81%20%2F%20%E5%90%88%E4%BD%9C%E5%A4%A5%E4%BC%B4%20%2F%20%E4%BA%BA%E6%89%8D%20%2F%20%E5%85%B6%E4%BB%96%5D%0A%0A%E5%A7%93%E5%90%8D%EF%BC%9A%0A%E5%96%AE%E4%BD%8D%EF%BC%9A%0A%0A%E8%AC%9D%E8%AC%9D%EF%BC%8C" class="lab-action rounded-lab-button bg-lab-accent text-lab-card">聯絡我們</a>
 </div>
 </div>
-<nav aria-label="主選單" class="lab-navigation">
+<nav id="lab-nav" aria-label="主選單" class="lab-navigation">
 <a href="#method">方法</a>
 <a href="#philosophy">投資哲學</a>
 <a href="#research">研究</a>
@@ -206,11 +125,11 @@
 <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;">QUANTMENTAL GLOBAL MACRO</p>
 <h1 class="text-lab-h1" style="margin: 0; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em;"><span>地緣經濟宏觀，</span><br><span>量化紀律。</span></h1>
 <p class="text-lab-body" style="margin: 0; max-width: 34em; font-size: clamp(18px, 1.6vw, 21px);">我們以自有資本投資全球宏觀市場，並公開發表同一套流程產出的研究。</p>
-<p class="text-lab-muted" style="margin: 0; font-size: 15px;">量化紀律，宏觀信念。<br>全球佈局｜核心：美／台／日</p>
+<p class="text-lab-muted" style="margin: 0; font-size: 15px;">全球佈局｜核心：美／台／日</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
 <a href="#subscribe" class="rounded-lab-button bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">免費訂閱研究</a>
 <a href="#research" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">閱讀最新報告</a>
-<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-lab-accent underline" style="padding: 0 8px; font-size: 15px; font-weight: 600;">閱讀備忘錄</a>
+<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="lab-tap text-lab-accent underline" style="padding: 0 8px; font-size: 15px; font-weight: 600;">閱讀備忘錄</a>
 </div>
 </section>
 
@@ -280,22 +199,22 @@
 <section id="research" class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 88px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>最新研究</span></h2>
-<a href="/zh/insights.html" class="text-lab-accent underline" style="font-size: 15px; font-weight: 600;">所有研究 →</a>
+<a href="/zh/insights.html" class="lab-tap text-lab-accent underline" style="font-size: 15px; font-weight: 600;">所有研究 →</a>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
 <article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
 <p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">地緣宏觀 #13.5</p>
-<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="text-lab-text" style="text-decoration: none;"><span>我說對了什麼，我說錯了什麼</span></a></h3>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a target="_blank" rel="noopener noreferrer" href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="text-lab-text" style="text-decoration: none;"><span>我說對了什麼，我說錯了什麼</span></a></h3>
 <p class="text-lab-body" style="margin: 0; font-size: 14px;">四週、十一個判斷，回頭替自己打分。</p>
 </article>
 <article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
 <p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">地緣宏觀 #13</p>
-<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://vocus.cc/article/69c6d187fd897800011236c0" class="text-lab-text" style="text-decoration: none;"><span>市場在等一個不會來的投降儀式</span></a></h3>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a target="_blank" rel="noopener noreferrer" href="https://vocus.cc/article/69c6d187fd897800011236c0" class="text-lab-text" style="text-decoration: none;"><span>市場在等一個不會來的投降儀式</span></a></h3>
 <p class="text-lab-body" style="margin: 0; font-size: 14px;">IRGC 的三層瓦解，以及市場為什麼等不到一個明確的終點。</p>
 </article>
 <article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
 <p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">地緣宏觀 #8</p>
-<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://vocus.cc/article/69b7c431fd897800012e0973" class="text-lab-text" style="text-decoration: none;"><span>保險才是 Kill Switch</span></a></h3>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a target="_blank" rel="noopener noreferrer" href="https://vocus.cc/article/69b7c431fd897800012e0973" class="text-lab-text" style="text-decoration: none;"><span>保險才是 Kill Switch</span></a></h3>
 <p class="text-lab-body" style="margin: 0; font-size: 14px;">讓航運停下來的不是飛彈，是保險退場。</p>
 </article>
 </div>
@@ -360,7 +279,7 @@
 </ol>
 </div>
 <div style="display: flex; flex-direction: column; gap: 4px;">
-<a href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="text-lab-accent underline" style="align-self: flex-start; font-size: 15px; font-weight: 600;">完整紀錄 →</a>
+<a target="_blank" rel="noopener noreferrer" href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="lab-tap text-lab-accent underline" style="align-self: flex-start; font-size: 15px; font-weight: 600;">完整紀錄 →</a>
 <p class="text-lab-muted" style="margin: 0; font-size: 13px;">預測紀錄為研究判斷的自我評分，並非投資績效或報酬紀錄，不構成任何投資建議。</p>
 </div>
 </div>
@@ -388,7 +307,7 @@
         <p class="text-lab-body" style="margin: 6px 0 0; font-size: 15px;">工程師出身，2010 年起投資。把投資當成一個工程問題。</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-        <a href="https://khwang.net" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">認識創辦人</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://khwang.net" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">認識創辦人</a>
         <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer" aria-label="創辦人 LinkedIn" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">LinkedIn</a>
       </div>
     </div>
@@ -405,12 +324,12 @@
     </div>
     <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
       <a href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E8%81%AF%E7%B9%AB&amp;body=%E6%82%A8%E5%A5%BD%EF%BC%8CMiyama%20%E5%9C%98%E9%9A%8A%EF%BC%9A%0A%0A%E6%88%91%E5%B8%8C%E6%9C%9B%E5%B0%B1%EF%BC%9A%5B%E7%A0%94%E7%A9%B6%E5%90%88%E4%BD%9C%20%2F%20%E7%AD%96%E7%95%A5%E4%BA%A4%E6%B5%81%20%2F%20%E5%90%88%E4%BD%9C%E5%A4%A5%E4%BC%B4%20%2F%20%E4%BA%BA%E6%89%8D%20%2F%20%E5%85%B6%E4%BB%96%5D%20%E8%88%87%E6%82%A8%E8%81%AF%E7%B9%AB%E3%80%82%0A%0A%E5%A7%93%E5%90%8D%EF%BC%9A%0A%E5%96%AE%E4%BD%8D%EF%BC%9A%0A%0A%E8%AC%9D%E8%AC%9D%EF%BC%8C" class="rounded-lab-button bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">聯絡我們</a>
-      <p class="text-lab-muted" style="margin: 0; font-size: 14px;">舊金山 • 台北</p>
+      <p class="text-lab-muted" style="margin: 0; font-size: 14px;">舊金山・台北</p>
     </div>
   </div>
 </section>
 
-<section id="subscribe" class="bg-lab-dark text-lab-card">
+<section id="subscribe" class="lab-surface-dark bg-lab-dark text-lab-card">
 <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: center;">
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>訂閱 Miyama 研究</span></h2>
@@ -449,6 +368,5 @@
 </footer>
 
 </div>
-    <script>(function(){var el=document.getElementById("footer-year");if(el)el.textContent=new Date().getFullYear();})();</script>
   </body>
 </html>

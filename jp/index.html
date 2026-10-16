@@ -2,11 +2,11 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>Miyama Capital｜地政学マクロ · マルチアセット · 非対称リターン</title>
+    <title>Miyama Capital｜Quantmental Global Macro · 地経学マクロ、定量の規律</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Miyama Capital。地政学マクロ、マルチアセット配分、非対称リスク・リターン戦略に特化した自己資本運用会社。"
+      content="地経学マクロ、定量の規律。Miyama Capital は自己資本でグローバルマクロ市場に投資し、同じプロセスから生まれたリサーチを公開しています。サンフランシスコ・台北。"
     />
 
     <!-- Canonical URL -->
@@ -21,8 +21,8 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.miyamacap.com/jp/" />
-    <meta property="og:title" content="Miyama Capital｜地政学マクロ · マルチアセット" />
-    <meta property="og:description" content="自己資本運用会社。マクロ情勢分析、AI分析、非対称リスク管理。サンフランシスコ・台北" />
+    <meta property="og:title" content="Miyama Capital｜Quantmental Global Macro · 地経学マクロ、定量の規律" />
+    <meta property="og:description" content="地経学マクロ、定量の規律。Miyama Capital は自己資本でグローバルマクロ市場に投資し、同じプロセスから生まれたリサーチを公開しています。サンフランシスコ・台北。" />
     <meta property="og:image" content="https://www.miyamacap.com/web_images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -32,8 +32,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@miyamacapital" />
-    <meta name="twitter:title" content="Miyama Capital｜地政学マクロ投資" />
-    <meta name="twitter:description" content="自己資本運用会社。マクロ情勢分析、AI分析、非対称リスク管理。サンフランシスコ・台北" />
+    <meta name="twitter:title" content="Miyama Capital｜Quantmental Global Macro · 地経学マクロ、定量の規律" />
+    <meta name="twitter:description" content="地経学マクロ、定量の規律。Miyama Capital は自己資本でグローバルマクロ市場に投資し、同じプロセスから生まれたリサーチを公開しています。サンフランシスコ・台北。" />
     <meta name="twitter:image" content="https://www.miyamacap.com/web_images/og-image.png" />
 
     <link rel="icon" type="image/png" href="../web_images/Logo2.png" />
@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@600;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;family=Noto+Sans+JP:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
 
@@ -55,308 +55,17 @@
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/lab-tailwind.js"></script>
+    <link rel="stylesheet" href="/assets/lab.css" />
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "miyama-navy": "#0A2342",
-              "miyama-cream": "#F9F7F2",
-              "miyama-slate": "#4A5568",
-              "miyama-gold": "#C5A065",
-            },
-            boxShadow: { subtle: "0 18px 45px rgba(10, 35, 66, 0.12)" },
-            fontFamily: {
-              sans: ['"Inter"', '"Noto Sans JP"', "system-ui", "sans-serif"],
-              serif: ['"Playfair Display"', '"Noto Serif JP"', "serif"],
-            },
-          },
-        },
-      };
-      localStorage.setItem("miyama-lang", "ja");
+      // Collapse the phone menu before first paint; lab.js wires up the toggle.
+      document.documentElement.classList.add("js");
+      // Keep language memory independent of the stylesheet CDN.
+      try { localStorage.setItem("miyama-lang", "ja"); } catch (error) {
+        // The page remains usable when storage is unavailable.
+      }
     </script>
-
-    <style>
-      body {
-        font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      h1, h2, h3, h4 {
-        font-family: "Playfair Display", "Noto Serif JP", serif !important;
-        letter-spacing: 0.02em;
-      }
-      h1 { font-weight: 700 !important; }
-    </style>
-  </head>
-
-  <body class="bg-miyama-cream text-miyama-slate antialiased">
-    <!-- Hero header — full viewport -->
-    <header class="relative bg-miyama-navy text-white min-h-screen flex flex-col">
-      <div class="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen" aria-hidden="true">
-        <svg class="h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="miyamaGrid" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12" />
-              <stop offset="100%" stop-color="#C5A065" stop-opacity="0.15" />
-            </linearGradient>
-          </defs>
-          <path d="M0,720 C240,600 360,520 480,520 C640,520 720,640 880,640 C1040,640 1200,540 1440,420 L1440,900 L0,900 Z" fill="url(#miyamaGrid)" />
-        </svg>
-      </div>
-
-      <nav class="relative z-20 border-b border-white/10">
-        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
-          <div class="flex items-center gap-3">
-            <a href="index.html" aria-label="ホームに戻る" class="flex items-center gap-3 transition-opacity hover:opacity-90">
-              <img src="../web_images/Logo2.png" alt="Miyama Capital" class="h-9 w-auto" />
-              <div class="hidden text-xs uppercase tracking-[0.2em] md:block">Miyama Capital</div>
-            </a>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <div class="hidden items-center gap-8 text-sm md:flex">
-              <a href="#philosophy" class="text-gray-300 hover:text-white">投資哲学</a>
-              <a href="#founder" class="text-gray-300 hover:text-white">創業者</a>
-              <a href="/jp/insights.html" class="text-gray-300 hover:text-white">インサイト</a>
-
-              <a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-300 hover:text-white group">
-                投資メモ
-                <svg class="h-3 w-3 opacity-50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                </svg>
-              </a>
-
-              <a href="#contact" class="rounded-full border border-white/30 px-4 py-1.5 text-xs font-medium tracking-wide hover:bg-white hover:text-miyama-navy">お問い合わせ</a>
-            </div>
-
-            <a href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" class="md:hidden rounded-full border border-white/30 px-3 py-1.5 text-xs font-medium tracking-wide text-gray-200 hover:bg-white hover:text-miyama-navy">
-              連絡
-            </a>
-
-            <div class="flex items-center gap-1 rounded-full border border-white/30 bg-white/5 px-1 py-0.5 text-[11px]">
-              <a href="../en/index.html" class="rounded-full px-2 py-1 font-medium tracking-wide text-gray-300 hover:text-white">EN</a>
-              <a href="../zh/index.html" class="rounded-full px-2 py-1 font-medium tracking-wide text-gray-300 hover:text-white">中</a>
-              <button type="button" class="rounded-full px-2 py-1 font-medium tracking-wide bg-white text-miyama-navy cursor-default">JP</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Hero Content -->
-      <div class="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center">
-        <div class="max-w-3xl">
-          <p class="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-gray-300">
-            Miyama Capital LLC
-          </p>
-
-          <h1 class="mb-6 text-4xl font-bold leading-[1.15] md:text-6xl">
-            <span class="text-miyama-gold">地政学マクロ</span><br />
-            マルチアセット配分<br />
-            非対称リターン
-          </h1>
-
-          <p class="mx-auto mb-4 max-w-2xl text-base text-gray-200 md:text-lg">
-            クオンタメンタル・グローバルマクロ——定量の規律、マクロの信念。
-          </p>
-
-          <p class="mx-auto mb-6 max-w-2xl text-xs text-gray-300 md:text-sm text-center">
-            グローバルカバレッジ｜コア：米国 / 台湾 / 日本
-          </p>
-
-          <div class="mx-auto mb-8 h-0.5 w-20 bg-miyama-gold/60 md:mb-10"></div>
-
-          <!-- CTA -->
-          <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
-            <a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="rounded-full bg-white px-8 py-2.5 text-sm font-medium text-miyama-navy shadow-subtle transition hover:-translate-y-0.5 hover:bg-miyama-cream flex items-center gap-2">
-              投資メモを読む
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Scroll hint -->
-        <div class="mt-12 flex items-center gap-2 text-xs text-gray-300">
-          <span>スクロール</span>
-          <span class="h-7 w-[1px] bg-gray-500"></span>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <!-- Philosophy Section -->
-      <section id="philosophy" class="py-24 bg-[#F9F9F7] text-[#0B1C38]">
-        <div class="max-w-6xl mx-auto px-6">
-          <div class="text-center mb-20">
-            <h2 class="font-serif text-4xl md:text-5xl mb-5 tracking-tight text-miyama-navy">
-              Miyama の投資哲学
-            </h2>
-            <p class="text-miyama-gold text-xs font-bold tracking-[0.25em] uppercase mb-8">
-              Philosophy
-            </p>
-            <p class="text-xl md:text-2xl font-serif font-medium text-miyama-navy tracking-wide">
-              複利は、規律に根ざす。
-            </p>
-            <p class="mt-4 text-sm text-gray-500 font-light tracking-wide">
-              レジーム認識型リサーチ・規律ある配分・制度的リスク管理
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 relative">
-            <!-- Pillar 01 -->
-            <div class="relative px-4 md:px-8 flex flex-col items-center text-center group">
-              <span class="font-serif text-6xl text-miyama-gold/30 group-hover:text-miyama-gold transition-colors duration-500 mb-6 cursor-default">01</span>
-              <h3 class="font-serif text-2xl text-miyama-navy mb-4 leading-tight">
-                マクロ・レジーム<br>適応
-              </h3>
-              <p class="text-sm font-bold text-miyama-navy mb-6 tracking-wide">
-                「市場は変わる。ポートフォリオは適応する。」
-              </p>
-              <p class="text-gray-600 text-sm leading-loose font-light max-w-xs mx-auto mb-16 text-justify">
-                株式、金利、為替、ボラティリティにわたる柔軟なマルチアセット・フレームワーク。単一シナリオに固執せず、変動するマクロ・レジームに対応する設計。
-              </p>
-              <div class="hidden md:block absolute right-0 top-0 bottom-0 w-px bg-miyama-navy/10"></div>
-            </div>
-
-            <!-- Pillar 02 -->
-            <div class="relative px-4 md:px-8 flex flex-col items-center text-center group mt-16 md:mt-0">
-              <span class="font-serif text-6xl text-miyama-gold/30 group-hover:text-miyama-gold transition-colors duration-500 mb-6 cursor-default">02</span>
-              <h3 class="font-serif text-2xl text-miyama-navy mb-4 leading-tight">
-                非対称リスク<br>管理
-              </h3>
-              <p class="text-sm font-bold text-miyama-navy mb-6 tracking-wide">
-                「生存が先、リターンは後。」
-              </p>
-              <p class="text-gray-600 text-sm leading-loose font-light max-w-xs mx-auto mb-16 text-justify">
-                厳格なドローダウン上限、流動性への意識、事前に定義された撤退ルール。ストップロスは長期複利を守るために支払う「保険料」として位置づける。
-              </p>
-              <div class="hidden md:block absolute right-0 top-0 bottom-0 w-px bg-miyama-navy/10"></div>
-            </div>
-
-            <!-- Pillar 03 -->
-            <div class="relative px-4 md:px-8 flex flex-col items-center text-center group mt-16 md:mt-0">
-              <span class="font-serif text-6xl text-miyama-gold/30 group-hover:text-miyama-gold transition-colors duration-500 mb-6 cursor-default">03</span>
-              <h3 class="font-serif text-2xl text-miyama-navy mb-4 leading-tight">
-                AI強化<br>マクロ・インテリジェンス
-              </h3>
-              <p class="text-sm font-bold text-miyama-navy mb-6 tracking-wide">
-                「AIは判断を補強する。代替はしない。」
-              </p>
-              <p class="text-gray-600 text-sm leading-loose font-light max-w-xs mx-auto mb-16 text-justify">
-                AIを用いてマクロ・レジームを分類し、確率変化を推定——成長、スタグフレーション、デレバレッジ。人間の判断がこれらの評価をマルチアセット配分に変換し、機械分析と戦略的推論を融合する。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Founder Section -->
-      <section id="founder" class="border-y border-miyama-navy/5 bg-white/70 py-16 md:py-24">
-        <div class="mx-auto max-w-4xl px-4 text-center md:px-6">
-          <p class="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-miyama-slate/80">
-            創業者のビジョン
-          </p>
-          <h2 class="mb-8 text-3xl font-semibold text-miyama-navy md:text-4xl">
-            ノイズの中で、明晰さは規律から生まれる。
-          </h2>
-
-          <div class="mx-auto max-w-2xl text-left">
-            <blockquote class="mb-8 rounded-lg border-l-4 border-miyama-gold/70 bg-miyama-navy/5 p-6 text-lg leading-relaxed text-miyama-navy/90 md:text-xl">
-              「ノイズに満ちた世界で、明晰さは規律から生まれる。毎回正しくあることを目指すのではなく、あらゆるシナリオで生き残り、重要なトレンドで勝つことを目指す。」
-            </blockquote>
-
-            <p class="mb-10 text-base leading-relaxed text-miyama-slate">
-              ノイズに溢れた市場環境において、唯一コントロールできるエッジは<strong>規律</strong>である。全てのポジションで正解を出すことは目指さない。厳格なリスク管理と動的なレジーム認識を通じて、システミック・ストレス時に資本を守り、確率が有利に傾いた時に高確信度のマクロトレンドへリスクを投入する。
-            </p>
-
-            <div class="flex items-center gap-3 border-t border-miyama-navy/10 pt-6">
-              <div>
-                <div class="flex items-center gap-2">
-                  <div class="font-semibold text-miyama-navy">Kuan Hsun Wang</div>
-                  <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-[#0077b5]" aria-label="LinkedIn">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-                <div class="text-xs text-miyama-slate/70">Miyama Capital 創業者兼最高投資責任者（CIO）</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="bg-miyama-cream/80 py-12">
-        <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center md:flex-row md:items-center md:justify-between md:px-6">
-          <div class="max-w-xl text-left">
-            <h3 class="mb-2 text-xl font-semibold text-miyama-navy">リサーチ交流・パートナーシップ・人材についてお気軽にご連絡ください。</h3>
-            <p class="text-sm text-miyama-slate">
-              Miyama Capital は現在、自己資本を運用し、アジアと米国市場にわたるリサーチ主導のグローバルマクロ・クオンツ投資プラットフォームを構築しています。
-              <span class="font-medium text-miyama-navy">自己資本のみの運用であり、外部資金は受け付けておりません。</span>
-            </p>
-            <p class="mt-2 text-xs text-miyama-slate/70">
-              リサーチ協力、戦略交流、パートナーシップ、人材に関するお問い合わせを歓迎いたします。
-            </p>
-          </div>
-
-          <div class="flex flex-col items-center gap-2">
-            <a
-              href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B&body=%E3%81%8A%E4%B8%96%E8%A9%B1%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%81Miyama%20%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E7%9A%86%E6%A7%98%EF%BC%9A%0A%0A%E4%BB%A5%E4%B8%8B%E3%81%AE%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%94%E9%80%A3%E7%B5%A1%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%EF%BC%9A%5B%E3%83%AA%E3%82%B5%E3%83%BC%E3%83%81%E5%8D%94%E5%8A%9B%20%2F%20%E6%88%A6%E7%95%A5%E4%BA%A4%E6%B5%81%20%2F%20%E3%83%91%E3%83%BC%E3%83%88%E3%83%8A%E3%83%BC%E3%82%B7%E3%83%83%E3%83%97%20%2F%20%E4%BA%BA%E6%9D%90%20%2F%20%E3%81%9D%E3%81%AE%E4%BB%96%5D%0A%0A%E6%B0%8F%E5%90%8D%EF%BC%9A%0A%E6%89%80%E5%B1%9E%EF%BC%9A%0A%0A%E3%82%88%E3%82%8D%E3%81%97%E3%81%8F%E3%81%8A%E9%A1%98%E3%81%84%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%E3%80%82"
-              class="inline-flex items-center justify-center rounded-full bg-miyama-navy px-7 py-2.5 text-sm font-medium text-white shadow-subtle transition hover:-translate-y-0.5 hover:bg-miyama-navy/90"
-            >
-              お問い合わせ
-            </a>
-            <p class="text-xs text-miyama-slate/70">サンフランシスコ • 台北</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-miyama-navy py-10 text-center text-sm text-gray-300">
-      <div class="mb-3 text-xs font-medium tracking-[0.25em] text-gray-400">MIYAMA CAPITAL</div>
-      <p class="text-xs text-gray-400">サンフランシスコ | 台北</p>
-
-      <p class="mt-1 text-xs text-gray-400">
-        <span class="opacity-60">お問い合わせ：</span>
-        <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-white">connect@miyamacap.com</a>
-      </p>
-
-      <div class="mt-5 flex flex-col items-center gap-4">
-        <div class="flex gap-6">
-          <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="LinkedIn">
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
-          </a>
-          <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="X (Twitter)">
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-          </a>
-          <a href="https://github.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="GitHub">
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-          </a>
-        </div>
-
-        <p class="text-[10px] text-gray-500 max-w-md leading-relaxed">
-          当社は自己資本のみを運用しており、外部からの資金は受け付けておりません。本ウェブサイトの情報は情報提供のみを目的としており、投資助言、有価証券の売却の申し出、または購入の勧誘を構成するものではありません。過去の実績は将来の成果を保証するものではありません。投資にはリスクが伴い、元本を失う可能性があります。
-          <a href="/jp/disclosures.html" style="text-decoration: underline">免責事項の全文</a>。
-        </p>
-
-        <p style="margin: 0" class="text-[10px] text-gray-500">
-          &copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.
-        </p>
-      </div>
-
-      <script>
-        (function () {
-          var el = document.getElementById("footer-year");
-          if (el) el.textContent = new Date().getFullYear();
-        })();
-      </script>
-    </footer>
-
+    <script src="/assets/lab.js" defer></script>
     <!-- Schema.org -->
     <script type="application/ld+json">
     {
@@ -364,7 +73,7 @@
       "@type": "FinancialService",
       "name": "Miyama Capital LLC",
       "alternateName": "Miyama Capital",
-      "description": "地政学マクロ、マルチアセット配分、非対称リスク・リターン戦略に特化した自己資本運用会社。",
+      "description": "Quantmental Global Macro——地経学マクロ、定量の規律。自己資本でグローバルマクロ市場に投資し、同じプロセスから生まれたリサーチを公開しています。外部資金は受け付けておりません。",
       "url": "https://www.miyamacap.com",
       "logo": "https://www.miyamacap.com/web_images/Logo2.png",
       "image": "https://www.miyamacap.com/web_images/og-image.png",
@@ -393,5 +102,286 @@
       }
     }
     </script>
+  </head>
+
+  <body>
+<div class="bg-lab-background text-lab-text font-lab-sans leading-lab-body" style="text-wrap: pretty;">
+
+<header class="bg-lab-card border-b border-b-lab-line">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 18px; padding-bottom: 18px;">
+<div class="lab-header-row">
+<div class="lab-brand">
+<a href="/jp/index.html" aria-label="Miyama Capital ホーム" class="lab-tap text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="../web_images/Logo2.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
+<button type="button" class="lab-menu-toggle" aria-expanded="false" aria-controls="lab-nav"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lab-menu-label">メニュー</span></button>
+</div>
+<div class="lab-header-actions">
+<nav aria-label="言語選択" class="lab-languages font-lab-mono" style="display: flex; gap: 10px; font-size: 12px;">
+<a href="/zh/index.html" lang="zh-Hant" aria-label="繁體中文" class="text-lab-muted" style="text-decoration: none;">中</a>
+<a href="/en/index.html" lang="en" aria-label="English" class="text-lab-muted" style="text-decoration: none;">EN</a>
+<a href="/jp/index.html" lang="ja" aria-label="日本語" aria-current="page" class="text-lab-text" style="text-decoration: none;">JP</a>
+</nav>
+<a id="header-contact" href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" class="lab-action rounded-lab-button bg-lab-accent text-lab-card">お問い合わせ</a>
+</div>
+</div>
+<nav id="lab-nav" aria-label="メインメニュー" class="lab-navigation">
+<a href="#method">手法</a>
+<a href="#philosophy">投資哲学</a>
+<a href="#research">リサーチ</a>
+<a href="#scorecard">予測記録</a>
+<a href="/jp/insights.html">インサイト</a>
+<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer">投資メモ</a>
+<a href="#founder">創業者</a>
+<a href="#contact">お問い合わせ</a>
+<a href="#subscribe">購読</a>
+</nav>
+</div>
+</header>
+
+<main>
+
+<section class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 96px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
+<p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;">QUANTMENTAL GLOBAL MACRO</p>
+<h1 class="text-lab-h1" style="margin: 0; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em;"><span>地経学マクロ、</span><br><span>定量の規律。</span></h1>
+<p class="text-lab-body" style="margin: 0; max-width: 34em; font-size: clamp(18px, 1.6vw, 21px);">自己資本でグローバルマクロ市場に投資し、同じプロセスから生まれたリサーチを公開しています。</p>
+<p class="text-lab-muted" style="margin: 0; font-size: 15px;">グローバルカバレッジ｜コア：米国 / 台湾 / 日本</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px;">
+<a href="#subscribe" class="rounded-lab-button bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">無料でリサーチを購読</a>
+<a href="#research" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">最新レポートを読む</a>
+<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="lab-tap text-lab-accent underline" style="padding: 0 8px; font-size: 15px; font-weight: 600;">投資メモを読む</a>
+</div>
+</section>
+
+<section id="method" class="bg-lab-section border-t border-t-lab-line border-b border-b-lab-line">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 64px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 760px;">
+<p class="text-lab-accent" style="margin: 0; font-size: 14px; font-weight: 600;">手法</p>
+<h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span style="display: inline-block;">クロスアセットの</span><span style="display: inline-block;">マクロ・フレームワーク：</span><span style="display: inline-block;">イベントから執行までの</span><span style="display: inline-block;">波及分析。</span><span style="display: inline-block;">AIと定量分析は、</span><span style="display: inline-block;">規律の延長である。</span></h2>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 16px;">
+<li class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div class="font-lab-mono" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;"><span class="text-lab-accent" style="font-weight: 600;">01</span><span aria-hidden="true" class="text-lab-on-dark-muted">→</span></div>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700;"><span>イベント</span></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">政策転換、地政学的な衝突、構造変化。</p>
+</li>
+<li class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div class="font-lab-mono" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;"><span class="text-lab-accent" style="font-weight: 600;">02</span><span aria-hidden="true" class="text-lab-on-dark-muted">→</span></div>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700;"><span>波及分析</span></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">ショックが通貨・金利・株式・実物資産の間をどう伝わるかを推論する。</p>
+</li>
+<li class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div class="font-lab-mono" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;"><span class="text-lab-accent" style="font-weight: 600;">03</span><span aria-hidden="true" class="text-lab-on-dark-muted">→</span></div>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700;"><span>敵対的レビュー</span></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">先に無効化条件を書き出し、独立したAIレビュアーが一つずつ反論を試みる。</p>
+</li>
+<li class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div class="font-lab-mono" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;"><span class="text-lab-accent" style="font-weight: 600;">04</span></div>
+<h3 style="margin: 0; font-size: 19px; font-weight: 700;"><span>ポジションとリサーチ</span></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">自己資本で執行し、同じ分析を公開する。</p>
+</li>
+</ol>
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">AIは規律を担い、最終判断は人が下す。</p>
+</div>
+</section>
+
+<section id="philosophy" class="bg-lab-section border-y border-lab-line">
+  <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
+      <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">Philosophy</p>
+      <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>Miyama</span> <span>の投資哲学</span></h2>
+      <p style="margin: 6px 0 0; font-size: 22px; font-weight: 600;"><span style="display: inline-block;">複利は、</span><span style="display: inline-block;">規律に根ざす。</span></p>
+      <p class="text-lab-body" style="margin: 0; font-size: 15px;">レジーム認識型リサーチ・規律ある配分・制度的リスク管理</p>
+    </div>
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px;">
+      <li class="bg-lab-card border border-lab-line rounded-lab-card" style="min-width: 0; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600;">01</p>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4;"><span>マクロ・レジーム</span><span>適応</span></h3>
+        <p style="margin: 0; font-size: 16px; font-weight: 600;">「市場は変わる。ポートフォリオは適応する。」</p>
+        <p class="text-lab-body" style="margin: 0; font-size: 15px;">株式、金利、為替、ボラティリティにわたる柔軟なマルチアセット・フレームワーク。単一シナリオに固執せず、変動するマクロ・レジームに対応する設計。</p>
+      </li>
+      <li class="bg-lab-card border border-lab-line rounded-lab-card" style="min-width: 0; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600;">02</p>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4;"><span>非対称リスク</span><span>管理</span></h3>
+        <p style="margin: 0; font-size: 16px; font-weight: 600;">「生存が先、リターンは後。」</p>
+        <p class="text-lab-body" style="margin: 0; font-size: 15px;">厳格なドローダウン上限、流動性への意識、事前に定義された撤退ルール。ストップロスは長期複利を守るために支払う「保険料」として位置づける。</p>
+      </li>
+      <li class="bg-lab-card border border-lab-line rounded-lab-card" style="min-width: 0; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600;">03</p>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4;"><span>AI強化</span><span>マクロ・インテリジェンス</span></h3>
+        <p style="margin: 0; font-size: 16px; font-weight: 600;">「AIは判断を補強する。代替はしない。」</p>
+        <p class="text-lab-body" style="margin: 0; font-size: 15px;">AIを用いてマクロ・レジームを分類し、確率変化を推定——成長、スタグフレーション、デレバレッジ。人間の判断がこれらの評価をマルチアセット配分に変換し、機械分析と戦略的推論を融合する。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="research" class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 88px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
+<h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>最新リサーチ</span></h2>
+<a href="/jp/insights.html" class="lab-tap text-lab-accent underline" style="font-size: 15px; font-weight: 600;">すべてのリサーチ →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
+<article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+<p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">2026-09-12</p>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://note.com/miyamacapitaljp/n/neb64d21769ae" target="_blank" rel="noopener noreferrer" class="text-lab-text" style="text-decoration: none;"><span>ガイダンスをやめても、</span><span>ガイダンス効果は消えない――</span><span>Jackson Hole後、</span><span>長期ゾーンの価格は</span><span>次に何を織り込むか</span></a></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 14px;">本分析の作成に着手したのは2026年8月28日、Jackson Hole演説の当日である。</p>
+</article>
+<article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+<p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">2026-07-06</p>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://note.com/miyamacapitaljp/n/n08be940d35f4" target="_blank" rel="noopener noreferrer" class="text-lab-text" style="text-decoration: none;"><span>雇用統計の冷え込み後、</span><span>シグナルは</span><span>利回りカーブの両端にある</span></a></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 14px;">2026年6月の雇用統計は市場コンセンサスを大きく下回った。しかし本当に注視すべきシグナルは、雇用の数字そのものではなく、利回りカーブの両端にある。</p>
+</article>
+<article class="bg-lab-card border border-lab-line rounded-lab-card" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+<p class="font-lab-mono text-lab-muted" style="margin: 0; font-size: 12px;">2026-06-29</p>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;"><a href="https://note.com/miyamacapitaljp/n/n5103987cdc09" target="_blank" rel="noopener noreferrer" class="text-lab-text" style="text-decoration: none;"><span>「未実現利益への課税」という</span><span>恐怖の正体——</span><span>加速する日本の課税強化でさえ、</span><span>まだ越えていない一線</span></a></h3>
+<p class="text-lab-body" style="margin: 0; font-size: 14px;">近年、金融所得課税の強化が際立つ日本でさえ、課税対象はあくまで「実現済み」の所得であり、「未実現の時価評価課税」という一線には、いまだ踏み込んでいない。</p>
+</article>
+</div>
+</section>
+
+<section id="scorecard" class="bg-lab-card border-t border-t-lab-line">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
+<p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">SCORECARD</p>
+<h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span style="display: inline-block;">予測記録：</span><span style="display: inline-block;">すべての判断に日付を付け、</span><span style="display: inline-block;">当たりも外れも、</span><span style="display: inline-block;">ここに残す。</span></h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">地政学マクロ・シリーズの公開から4週間後、自らの判断を振り返って採点しました。</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px;">
+<div class="border border-lab-line rounded-lab-card bg-lab-background" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span class="text-lab-body" style="font-size: 14px;">方向</span><span class="font-lab-mono" style="font-size: 22px; font-weight: 600;">4/5</span></div>
+<div style="display: flex; gap: 4px;"><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-line" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span></div>
+</div>
+<div class="border border-lab-line rounded-lab-card bg-lab-background" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span class="text-lab-body" style="font-size: 14px;">経路</span><span class="font-lab-mono" style="font-size: 22px; font-weight: 600;">3/5</span></div>
+<div style="display: flex; gap: 4px;"><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-line" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-line" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span></div>
+</div>
+<div class="border border-lab-line rounded-lab-card bg-lab-background" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span class="text-lab-body" style="font-size: 14px;">タイミング</span><span class="font-lab-mono" style="font-size: 22px; font-weight: 600;">3/5</span></div>
+<div style="display: flex; gap: 4px;"><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-line" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-line" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span></div>
+</div>
+<div class="border border-lab-line rounded-lab-card bg-lab-background" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span class="text-lab-body" style="font-size: 14px;">修正速度</span><span class="font-lab-mono" style="font-size: 22px; font-weight: 600;">5/5</span></div>
+<div style="display: flex; gap: 4px;"><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span><span class="bg-lab-accent" style="flex: 1 1 0; height: 6px; border-radius: 2px;"></span></div>
+</div>
+</div>
+<p class="text-lab-muted" style="margin: 0; font-size: 13px;">2026年3月 自己評価</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<p class="text-lab-body" style="margin: 0; font-size: 15px;">以下は、検証可能な11件の判断から4件を抜粋したものです。残る7件については、ほかの2件の外れ（イスラエルによる South Pars 攻撃を予見できなかったこと、イランによる湾岸諸国への攻撃の強度を過小評価したこと）を含め、全記録をご覧ください。</p>
+<ol class="border border-lab-line rounded-lab-card" style="list-style: none; margin: 0; padding: 0; overflow: hidden;">
+<li class="border-b border-b-lab-line" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 18px 22px;">
+<span class="font-lab-mono text-lab-muted" style="flex: 0 0 150px; font-size: 13px;">2026-03-09 · #5</span>
+<span style="flex: 1 1 300px; font-size: 17px; font-weight: 600;">終わりは一つの出来事ではなく、徐々に訪れる沈黙である</span>
+<span style="flex: 0 0 96px;"><span class="rounded-lab-label bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; padding: 3px 10px; font-size: 12px; font-weight: 600; white-space: nowrap;">的中</span></span>
+<span class="text-lab-body" style="flex: 1 1 260px; font-size: 14px;">シリーズ全体で最も核心的な判断。4週間後の今、現実になりつつある。</span>
+</li>
+<li class="border-b border-b-lab-line" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 18px 22px;">
+<span class="font-lab-mono text-lab-muted" style="flex: 0 0 150px; font-size: 13px;">2026-03-16 · #8</span>
+<span style="flex: 1 1 300px; font-size: 17px; font-weight: 600;">海運を止める真のメカニズムは、保険の撤退である</span>
+<span style="flex: 0 0 96px;"><span class="rounded-lab-label bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; padding: 3px 10px; font-size: 12px; font-weight: 600; white-space: nowrap;">的中</span></span>
+<span class="text-lab-body" style="flex: 1 1 260px; font-size: 14px;">28日目の時点でも、保険がホルムズ再開の最大の障害であり続けている。</span>
+</li>
+<li class="border-b border-b-lab-line" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 18px 22px;">
+<span class="font-lab-mono text-lab-muted" style="flex: 0 0 150px; font-size: 13px;">2026-03-04 · #2</span>
+<span style="flex: 1 1 300px; font-size: 17px; font-weight: 600;">4週間以内に交渉の枠組みが現れる</span>
+<span style="flex: 0 0 96px;"><span class="rounded-lab-label border border-lab-outline bg-lab-partial text-lab-partial-text" style="display: inline-flex; align-items: center; padding: 2px 9px; font-size: 12px; font-weight: 600; white-space: nowrap;">一部的中</span></span>
+<span class="text-lab-body" style="flex: 1 1 260px; font-size: 14px;">方向は正しかったが、タイミングは楽観的すぎた。#3 で時間軸を5〜8週に修正済み。</span>
+</li>
+<li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 18px 22px;">
+<span class="font-lab-mono text-lab-muted" style="flex: 0 0 150px; font-size: 13px;">2026-03-02 · #1</span>
+<span style="flex: 1 1 300px; font-size: 17px; font-weight: 600;">Larijani は交渉窓口として意図的に温存される</span>
+<span style="flex: 0 0 96px;"><span class="rounded-lab-label border border-lab-miss-outline bg-lab-miss text-lab-miss-text" style="display: inline-flex; align-items: center; padding: 2px 9px; font-size: 12px; font-weight: 600; white-space: nowrap;">外れ</span></span>
+<span class="text-lab-body" style="flex: 1 1 260px; font-size: 14px;">人選は外れたが、メカニズムは正しかった。温存された窓口は Araghchi と Ghalibaf だった。</span>
+</li>
+</ol>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<a target="_blank" rel="noopener noreferrer" href="https://vocus.cc/article/69c8bd08fd897800018f8897" class="lab-tap text-lab-accent underline" style="align-self: flex-start; font-size: 15px; font-weight: 600;">全記録（中国語）→</a>
+<p class="text-lab-muted" style="margin: 0; font-size: 13px;">予測記録はリサーチ上の判断に対する自己採点であり、運用成績やリターンの記録ではなく、いかなる投資助言でもありません。</p>
+</div>
+</div>
+</section>
+
+<section id="founder" class="bg-lab-card border-b border-b-lab-line">
+  <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 28px;">
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
+      <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;">創業者のビジョン</p>
+      <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>ノイズの中で、</span><span>明晰さは規律から生まれる。</span></h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 24px 48px; align-items: start;">
+      <blockquote class="rounded-lab-feature border border-lab-line bg-lab-section" style="margin: 0; min-width: 0; border-left: 4px solid #4F46E5; padding: clamp(24px, 3vw, 36px); font-size: clamp(18px, 1.6vw, 21px); font-weight: 500; line-height: 1.65;">「ノイズに満ちた世界で、明晰さは規律から生まれる。毎回正しくあることを目指すのではなく、あらゆるシナリオで生き残り、重要なトレンドで勝つことを目指す。」</blockquote>
+      <div style="min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+        <p class="text-lab-body" style="margin: 0; font-size: 16px;">ノイズに溢れた市場環境において、唯一コントロールできるエッジは<strong class="text-lab-text">規律</strong>である。全てのポジションで正解を出すことは目指さない。厳格なリスク管理と動的なレジーム認識を通じて、システミック・ストレス時に資本を守り、確率が有利に傾いた時に高確信度のマクロトレンドへリスクを投入する。</p>
+      </div>
+    </div>
+    <div class="border border-lab-line rounded-lab-feature bg-lab-section" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; padding: clamp(24px, 3vw, 32px);">
+      <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+        <p class="font-lab-mono text-lab-body" style="margin: 0; font-size: 12px; letter-spacing: 0.08em;">FOUNDER</p>
+        <p style="margin: 0; font-size: 22px; font-weight: 700;">Kuan Hsun Wang</p>
+        <p class="text-lab-body" style="margin: 0; font-size: 15px;">Miyama Capital 創業者兼最高投資責任者（CIO）</p>
+        <p class="text-lab-body" style="margin: 6px 0 0; font-size: 15px;">エンジニア出身、2010年から投資。投資を一つのエンジニアリング課題として扱う。</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <a href="https://khwang.net" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">創業者を知る</a>
+        <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer" aria-label="創業者の LinkedIn" class="rounded-lab-button border border-lab-outline bg-lab-card text-lab-text" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 18px; font-weight: 600; text-decoration: none;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="bg-lab-section border-t border-t-lab-line">
+  <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 72px; padding-bottom: 72px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 48px;">
+    <div style="flex: 1 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+      <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;"><span>リサーチ交流・</span><span>パートナーシップ・</span><span>人材について</span><span>お気軽にご連絡ください。</span></h2>
+      <p class="text-lab-body" style="margin: 0; max-width: 48em; font-size: 16px;">Miyama Capital は現在、自己資本を運用し、アジアと米国市場にわたるリサーチ主導のグローバルマクロ・クオンツ投資プラットフォームを構築しています。<strong class="text-lab-text">自己資本のみの運用であり、外部資金は受け付けておりません。</strong></p>
+      <p class="text-lab-body" style="margin: 0; font-size: 15px;">リサーチ協力、戦略交流、パートナーシップ、人材に関するお問い合わせを歓迎いたします。</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+      <a href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B&amp;body=%E3%81%8A%E4%B8%96%E8%A9%B1%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%81Miyama%20%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E7%9A%86%E6%A7%98%EF%BC%9A%0A%0A%E4%BB%A5%E4%B8%8B%E3%81%AE%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%94%E9%80%A3%E7%B5%A1%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%EF%BC%9A%5B%E3%83%AA%E3%82%B5%E3%83%BC%E3%83%81%E5%8D%94%E5%8A%9B%20%2F%20%E6%88%A6%E7%95%A5%E4%BA%A4%E6%B5%81%20%2F%20%E3%83%91%E3%83%BC%E3%83%88%E3%83%8A%E3%83%BC%E3%82%B7%E3%83%83%E3%83%97%20%2F%20%E4%BA%BA%E6%9D%90%20%2F%20%E3%81%9D%E3%81%AE%E4%BB%96%5D%0A%0A%E6%B0%8F%E5%90%8D%EF%BC%9A%0A%E6%89%80%E5%B1%9E%EF%BC%9A%0A%0A%E3%82%88%E3%82%8D%E3%81%97%E3%81%8F%E3%81%8A%E9%A1%98%E3%81%84%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%E3%80%82" class="rounded-lab-button bg-lab-accent text-lab-card" style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">お問い合わせ</a>
+      <p class="text-lab-muted" style="margin: 0; font-size: 14px;">サンフランシスコ・台北</p>
+    </div>
+  </div>
+</section>
+
+<section id="subscribe" class="lab-surface-dark bg-lab-dark text-lab-card">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>Miyama のリサーチを購読</span></h2>
+<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">無料。読む言語に合わせてプラットフォームを選び、最新リサーチをフォローできます。</p>
+</div>
+<nav aria-label="言語別にリサーチを購読" class="lab-platform-links">
+<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="rounded-lab-button bg-lab-accent text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">日本語・note</a>
+<a href="https://memos.miyamacap.com/subscribe" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">English・Substack</a>
+<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">繁體中文・方格子</a>
+</nav>
+</div>
+</section>
+
+</main>
+
+<footer class="bg-lab-footer text-lab-on-dark-muted" style="font-size: 13px;">
+  <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px;">
+      <p style="margin: 0; max-width: 46em;">Miyama Capital は現在、自己資本のみを運用しており、外部資金は受け付けておりません。本サイトの内容は一般的なリサーチ分析であり、いかなる投資助言でもありません。<a href="/jp/disclosures.html" class="text-lab-on-dark">免責事項</a></p>
+      <p style="margin: 0;">サンフランシスコ・台北</p>
+    </div>
+    <nav class="lab-footer-links text-lab-on-dark" aria-label="連絡先とソーシャル">
+      <a href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B&amp;body=%E3%81%8A%E4%B8%96%E8%A9%B1%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%81Miyama%20%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E7%9A%86%E6%A7%98%EF%BC%9A%0A%0A%E4%BB%A5%E4%B8%8B%E3%81%AE%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%94%E9%80%A3%E7%B5%A1%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%EF%BC%9A%5B%E3%83%AA%E3%82%B5%E3%83%BC%E3%83%81%E5%8D%94%E5%8A%9B%20%2F%20%E6%88%A6%E7%95%A5%E4%BA%A4%E6%B5%81%20%2F%20%E3%83%91%E3%83%BC%E3%83%88%E3%83%8A%E3%83%BC%E3%82%B7%E3%83%83%E3%83%97%20%2F%20%E4%BA%BA%E6%9D%90%20%2F%20%E3%81%9D%E3%81%AE%E4%BB%96%5D%0A%0A%E6%B0%8F%E5%90%8D%EF%BC%9A%0A%E6%89%80%E5%B1%9E%EF%BC%9A%0A%0A%E3%82%88%E3%82%8D%E3%81%97%E3%81%8F%E3%81%8A%E9%A1%98%E3%81%84%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%E3%80%82">お問い合わせ</a>
+      <a href="mailto:connect@miyamacap.com">connect@miyamacap.com</a>
+      <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" aria-label="Miyama Capital の X">X</a>
+      <a href="https://github.com/miyamacapital" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer">note</a>
+      <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer">創業者の LinkedIn</a>
+    </nav>
+    <div class="footer-legal" style="font-size: 12px; line-height: 1.65;">
+      <p style="margin: 0 0 8px;">当社は自己資本のみを運用しており、外部からの資金は受け付けておりません。本ウェブサイトの情報は情報提供のみを目的としており、投資助言、有価証券の売却の申し出、または購入の勧誘を構成するものではありません。過去の実績は将来の成果を保証するものではありません。投資にはリスクが伴い、元本を失う可能性があります。<a href="/jp/disclosures.html" class="text-lab-on-dark" style="text-decoration: underline">免責事項の全文</a>。</p>
+      <p style="margin: 0;">&copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+</div>
   </body>
 </html>

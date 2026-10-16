@@ -1,0 +1,73 @@
+/* Shared base styles for the "lab" design. Page-specific layout stays inline. */
+html { text-wrap: pretty; }
+body { margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Japanese pages use Japanese glyph forms instead of the Traditional Chinese stack. */
+html[lang="ja"] .font-lab-sans { font-family: "Inter", "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; }
+html[lang="ja"] .font-lab-mono { font-family: "JetBrains Mono", "Noto Sans JP", monospace; }
+
+/* Standalone controls get a 44px target; links inside sentences stay inline (WCAG 2.5.8 exempts them). */
+button, nav a, .lab-tap, .lab-action {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  max-width: 100%;
+}
+p a { text-decoration: underline; text-underline-offset: 0.2em; }
+a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #4F46E5;
+  outline-offset: 4px;
+}
+footer a:focus-visible, .lab-surface-dark a:focus-visible {
+  outline-color: #CBD5E1;
+}
+h1 span, h2 span, h3 span { display: inline-block; }
+
+.lab-header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
+.lab-brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lab-header-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.lab-languages a { justify-content: center; }
+.lab-action { justify-content: center; padding: 0 20px; font-size: 15px; font-weight: 600; text-decoration: none; }
+/* button.* outranks Tailwind preflight's [type='button'] reset, which is injected after this file. */
+button.lab-menu-toggle {
+  display: none;
+  flex-shrink: 0;
+  white-space: nowrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lab-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; padding-top: 12px; margin-top: 12px; border-top: 1px solid #E2E8F0; }
+.lab-navigation a { color: #475569; text-decoration: none; font-size: 15px; font-weight: 500; }
+.lab-navigation a:hover { color: #4F46E5; text-decoration: underline; }
+.lab-navigation a[aria-current="page"] { color: #0F172A; font-weight: 600; }
+.lab-platform-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.lab-footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+
+/* Phones: collapse the main nav behind a menu button (only once lab.js can toggle it).
+   The header contact button is dropped there; Contact stays in the menu. */
+@media (max-width: 767px) {
+  .lab-brand { flex: 1 1 100%; }
+  .lab-header-actions .lab-action { display: none; }
+  .lab-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .js button.lab-menu-toggle { display: inline-flex; }
+  .js .lab-navigation:not(.is-open) { display: none; }
+}
+
+/* Narrow phones show the menu icon only; the label stays as the accessible name. */
+@media (max-width: 359px) {
+  .lab-menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media (max-width: 399px) {
+  html[lang="ja"] .lab-menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

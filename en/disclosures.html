@@ -12,268 +12,157 @@
   <link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html" />
   <link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html" />
   <link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/disclosures.html" />
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap"
+    rel="stylesheet"
+  />
 
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <script src="/assets/lab-tailwind.js"></script>
+  <link rel="stylesheet" href="/assets/lab.css" />
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            "miyama-navy": "#0A2342",
-            "miyama-cream": "#F9F7F2",
-            "miyama-slate": "#4A5568",
-            "miyama-gold": "#C5A065",
-          },
-          boxShadow: {
-            subtle: "0 18px 45px rgba(10, 35, 66, 0.12)",
-          },
-          fontFamily: {
-            sans: ['"Inter"', "system-ui", "sans-serif"],
-            serif: ['"Playfair Display"', "serif"],
-          },
-        },
-      },
-    };
-    localStorage.setItem("miyama-lang", "en");
+    // Collapse the phone menu before first paint; lab.js wires up the toggle.
+    document.documentElement.classList.add("js");
+    // Keep language memory independent of the stylesheet CDN.
+    try { localStorage.setItem("miyama-lang", "en"); } catch (error) {
+      // The page remains usable when storage is unavailable.
+    }
   </script>
-
-  <style>
-    body {
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, sans-serif !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: "Playfair Display", serif !important;
-      letter-spacing: 0.02em;
-    }
-
-    h1 {
-      font-weight: 700 !important;
-    }
-  </style>
+  <script src="/assets/lab.js" defer></script>
 </head>
 
-<body class="bg-miyama-cream text-miyama-slate antialiased">
-  <header class="relative bg-miyama-navy text-white">
-    <div class="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen" aria-hidden="true">
-      <svg class="h-full w-full" viewBox="0 0 1440 220" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="miyamaGrid" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12" />
-            <stop offset="100%" stop-color="#C5A065" stop-opacity="0.15" />
-          </linearGradient>
-        </defs>
-        <path d="M0,160 C240,120 360,90 480,90 C640,90 720,140 880,140 C1040,140 1200,110 1440,60 L1440,220 L0,220 Z" fill="url(#miyamaGrid)" />
-      </svg>
+<body>
+<div class="bg-lab-background text-lab-text font-lab-sans leading-lab-body" style="text-wrap: pretty;">
+
+<header class="bg-lab-card border-b border-b-lab-line">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 18px; padding-bottom: 18px;">
+<div class="lab-header-row">
+<div class="lab-brand">
+<a href="/en/index.html" aria-label="Miyama Capital home" class="lab-tap text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="../web_images/Logo2.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
+<button type="button" class="lab-menu-toggle" aria-expanded="false" aria-controls="lab-nav"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lab-menu-label">Menu</span></button>
+</div>
+<div class="lab-header-actions">
+<nav aria-label="Language" class="lab-languages font-lab-mono" style="display: flex; gap: 10px; font-size: 12px;">
+<a href="/zh/disclosures.html" lang="zh-Hant" aria-label="繁體中文" class="text-lab-muted" style="text-decoration: none;">中</a>
+<a href="/en/disclosures.html" lang="en" aria-label="English" aria-current="page" class="text-lab-text" style="text-decoration: none;">EN</a>
+<a href="/jp/disclosures.html" lang="ja" aria-label="日本語" class="text-lab-muted" style="text-decoration: none;">JP</a>
+</nav>
+<a id="header-contact" href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20Let%27s%20Connect&amp;body=Hi%20Miyama%20team%2C%0A%0AI%27d%20like%20to%20connect%20regarding%3A%20%5Bresearch%20collaboration%20%2F%20partnerships%20%2F%20talent%20%2F%20other%5D.%0A%0AName%3A%0AOrganization%3A%0A%0AThanks%2C" class="lab-action rounded-lab-button bg-lab-accent text-lab-card">Start a Conversation</a>
+</div>
+</div>
+<nav id="lab-nav" aria-label="Main menu" class="lab-navigation">
+<a href="/en/#method">Method</a>
+<a href="/en/#philosophy">Philosophy</a>
+<a href="/en/#research">Research</a>
+<a href="/en/#scorecard">Track Record</a>
+<a href="/en/insights.html">Insights</a>
+<a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer">Memos</a>
+<a href="/en/#founder">Founder</a>
+<a href="/en/#contact">Contact</a>
+<a href="/en/#subscribe">Subscribe</a>
+</nav>
+</div>
+</header>
+
+<main>
+
+<section class="border-b border-b-lab-line">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 20px;">
+<p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;">LEGAL</p>
+<h1 class="text-lab-h1-sub" style="margin: 0; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;"><span>Disclosures &amp;</span> <span>Risk Warning</span></h1>
+<p class="text-lab-body" style="margin: 0; max-width: 40em; font-size: clamp(17px, 1.4vw, 19px);">This page provides general disclosures and risk information regarding Miyama Capital LLC and the content on this website.</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px;">
+<a href="/en/" class="lab-tap text-lab-accent underline" style="font-size: 15px; font-weight: 600;">← Back to Home</a>
+<span class="font-lab-mono text-lab-muted" style="font-size: 13px;"><span aria-hidden="true" style="margin-right: 16px;">•</span>Last updated: <span id="last-updated">January 22, 2025</span></span>
+</div>
+</div>
+</section>
+
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 56px; padding-bottom: 96px;">
+<div style="max-width: 760px; display: flex; flex-direction: column; gap: 32px;">
+
+<aside aria-labelledby="quick-summary" class="bg-lab-section border border-lab-line rounded-lab-card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 16px;">
+<h2 id="quick-summary" style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">Quick Summary</h2>
+<ul class="text-lab-body space-y-2" style="margin: 0; padding-left: 1.25em; list-style: disc; font-size: 16px;">
+<li><span class="text-lab-text" style="font-weight: 600;">Entity:</span> Miyama Capital LLC (California LLC)</li>
+<li><span class="text-lab-text" style="font-weight: 600;">Capital:</span> Proprietary capital only; no outside client funds</li>
+<li><span class="text-lab-text" style="font-weight: 600;">No offer:</span> No offer or solicitation of securities</li>
+<li><span class="text-lab-text" style="font-weight: 600;">No advice:</span> Informational content only; not investment advice</li>
+<li><span class="text-lab-text" style="font-weight: 600;">Risk:</span> Loss of principal is possible</li>
+</ul>
+<p class="text-lab-body border-t border-t-lab-line" style="margin: 0; padding-top: 16px; font-size: 15px;">If you have questions, contact us at <a href="mailto:connect@miyamacap.com" class="text-lab-text">connect@miyamacap.com</a>.</p>
+</aside>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">1) General Information</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">The information on this website is provided for general informational purposes only and reflects the views of Miyama Capital LLC as of the date indicated. It may change without notice. This website does not constitute investment, legal, accounting, or tax advice, and should not be relied upon as such.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">2) No Offer or Solicitation</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Nothing on this website constitutes an offer to sell or a solicitation of an offer to buy any securities, investment products, or services in any jurisdiction. Any such offer or solicitation may be made only through formal documentation and in accordance with applicable laws.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">3) Proprietary Capital Only</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Miyama Capital LLC is a California limited liability company. We currently operate using proprietary capital only and do not accept outside client funds.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">4) No Client Relationship</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Viewing this website, communicating with us, or receiving information from us does not create an advisory, fiduciary, or client relationship with Miyama Capital LLC.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">5) Risk Warning</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Investing involves substantial risk, including the possible loss of principal. Past performance (actual or simulated) is not indicative of future results. No representation is made that any strategy will achieve its objectives or be profitable.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">6) Forward-Looking Statements</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Any forward-looking statements are subject to change and involve risks and uncertainties. Actual outcomes may differ materially due to market conditions and other factors.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">7) Third-Party Links</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">Links to third-party websites are provided for convenience only and do not constitute an endorsement. Miyama Capital LLC is not responsible for third-party content.</p>
+</section>
+
+<section class="border-t border-t-lab-line" style="padding-top: 28px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em;">8) Contact</h2>
+<p class="text-lab-body" style="margin: 0; font-size: 16px;">For general inquiries, please email <a href="mailto:connect@miyamacap.com" class="text-lab-text">connect@miyamacap.com</a>.</p>
+</section>
+
+</div>
+</div>
+
+</main>
+
+<footer class="bg-lab-footer text-lab-on-dark-muted" style="font-size: 13px;">
+  <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px;">
+      <p style="margin: 0; max-width: 46em;">Miyama Capital currently manages proprietary capital only and does not accept outside client funds. Content on this site is general research and analysis and does not constitute investment advice. <a href="/en/disclosures.html" aria-current="page" class="text-lab-on-dark">Disclosures</a></p>
+      <p style="margin: 0;">San Francisco · Taipei</p>
     </div>
-
-    <nav class="relative z-20 border-b border-white/10">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
-        <a href="/en/" class="flex items-center gap-3 transition-opacity hover:opacity-90">
-          <img src="../web_images/Logo2.png" alt="Miyama Capital" class="h-9 w-auto" />
-          <div class="hidden text-xs uppercase tracking-[0.2em] md:block">Miyama Capital</div>
-        </a>
-
-        <div class="flex items-center gap-4">
-          <div class="hidden items-center gap-8 text-sm md:flex">
-            <a href="/en/#philosophy" class="text-gray-300 hover:text-white">Philosophy</a>
-            <a href="/en/#founder" class="text-gray-300 hover:text-white">Founder</a>
-            <a href="/en/insights.html" class="text-gray-300 hover:text-white">Insights</a>
-
-            <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-300 hover:text-white group">
-              Memos
-              <svg class="w-3 h-3 opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-            </a>
-
-            <a href="/en/#contact" class="rounded-full border border-white/30 px-4 py-1.5 text-xs font-medium tracking-wide hover:bg-white hover:text-miyama-navy">Contact</a>
-          </div>
-
-          <div class="flex items-center gap-1 rounded-full border border-white/30 bg-white/5 px-1 py-0.5 text-[11px]">
-            <button type="button" class="rounded-full px-2 py-1 font-medium tracking-wide bg-white text-miyama-navy cursor-default">EN</button>
-            <a href="../zh/disclosures.html" class="rounded-full px-2 py-1 font-medium tracking-wide text-gray-300 hover:text-white">中</a>
-            <a href="../jp/disclosures.html" class="rounded-full px-2 py-1 font-medium tracking-wide text-gray-300 hover:text-white">JP</a>
-          </div>
-        </div>
-      </div>
+    <nav class="lab-footer-links text-lab-on-dark" aria-label="Contact and social">
+      <a href="mailto:connect@miyamacap.com?subject=Miyama%20Capital%20LLC%20%E2%80%93%20Let%27s%20Connect&amp;body=Hi%20Miyama%20team%2C%0A%0AI%27d%20like%20to%20connect%20regarding%3A%20%5Bresearch%20collaboration%20%2F%20partnerships%20%2F%20talent%20%2F%20other%5D.%0A%0AName%3A%0AOrganization%3A%0A%0AThanks%2C">Start a Conversation</a>
+      <a href="mailto:connect@miyamacap.com">connect@miyamacap.com</a>
+      <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" aria-label="Miyama Capital on X">X</a>
+      <a href="https://github.com/miyamacapital" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer">Substack</a>
+      <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer">Founder LinkedIn</a>
     </nav>
-
-    <div class="relative z-10 mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
-      <p class="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-gray-300">LEGAL</p>
-      <h1 class="text-3xl font-semibold leading-tight md:text-4xl">
-        Disclosures &amp; <span class="text-miyama-gold">Risk Warning</span>
-      </h1>
-      <p class="mt-3 max-w-3xl text-sm text-gray-200 md:text-base">
-        This page provides general disclosures and risk information regarding Miyama Capital LLC and the content on this website.
-      </p>
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a href="/en/" class="text-sm text-gray-200 underline-offset-4 hover:text-white hover:underline">← Back to Home</a>
-        <span class="text-gray-500">•</span>
-        <span class="text-xs text-gray-300">Last updated: <span id="last-updated">January 22, 2025</span></span>
-      </div>
+    <div class="footer-legal" style="font-size: 12px; line-height: 1.65;">
+      <p style="margin: 0 0 8px;"><strong>Disclosures &amp; Risk:</strong> Miyama Capital LLC is a California limited liability company. We manage proprietary capital only and do not accept outside client funds. The information on this website is provided for informational purposes only and does not constitute investment advice, an offer to sell, or a solicitation of an offer to buy any securities or investment products. Past performance is not indicative of future results. Investing involves risk, including the possible loss of principal. <a href="/en/disclosures.html" aria-current="page" class="text-lab-on-dark" style="text-decoration: underline">Full disclosures</a>.</p>
+      <p style="margin: 0;">&copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.</p>
     </div>
-  </header>
+  </div>
+</footer>
 
-  <main>
-    <section class="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-      <div class="grid gap-8 md:grid-cols-3">
-        <aside class="md:col-span-1">
-          <div class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-            <h2 class="text-xl font-semibold text-miyama-navy">Quick Summary</h2>
-            <ul class="mt-5 space-y-3 text-sm leading-relaxed">
-              <li><span class="font-semibold text-miyama-navy">Entity:</span> Miyama Capital LLC (California LLC)</li>
-              <li><span class="font-semibold text-miyama-navy">Capital:</span> Proprietary capital only; no outside client funds</li>
-              <li><span class="font-semibold text-miyama-navy">No offer:</span> No offer or solicitation of securities</li>
-              <li><span class="font-semibold text-miyama-navy">No advice:</span> Informational content only; not investment advice</li>
-              <li><span class="font-semibold text-miyama-navy">Risk:</span> Loss of principal is possible</li>
-            </ul>
-            <div class="mt-6 h-px bg-miyama-navy/10"></div>
-            <p class="mt-6 text-xs text-miyama-slate/70">
-              If you have questions, contact us at
-              <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">connect@miyamacap.com</a>.
-            </p>
-          </div>
-        </aside>
-
-        <div class="md:col-span-2">
-          <div class="space-y-6">
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">1) General Information</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                The information on this website is provided for general informational purposes only and reflects the views of
-                Miyama Capital LLC as of the date indicated. It may change without notice. This website does not constitute
-                investment, legal, accounting, or tax advice, and should not be relied upon as such.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">2) No Offer or Solicitation</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Nothing on this website constitutes an offer to sell or a solicitation of an offer to buy any securities,
-                investment products, or services in any jurisdiction. Any such offer or solicitation may be made only through
-                formal documentation and in accordance with applicable laws.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">3) Proprietary Capital Only</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Miyama Capital LLC is a California limited liability company. We currently operate using proprietary capital only
-                and do not accept outside client funds.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">4) No Client Relationship</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Viewing this website, communicating with us, or receiving information from us does not create an advisory,
-                fiduciary, or client relationship with Miyama Capital LLC.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">5) Risk Warning</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Investing involves substantial risk, including the possible loss of principal. Past performance (actual or simulated)
-                is not indicative of future results. No representation is made that any strategy will achieve its objectives or be profitable.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">6) Forward-Looking Statements</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Any forward-looking statements are subject to change and involve risks and uncertainties. Actual outcomes may differ
-                materially due to market conditions and other factors.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">7) Third-Party Links</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                Links to third-party websites are provided for convenience only and do not constitute an endorsement. Miyama Capital LLC
-                is not responsible for third-party content.
-              </p>
-            </article>
-
-            <article class="rounded-2xl bg-white/90 p-7 shadow-subtle ring-1 ring-miyama-navy/8">
-              <h2 class="text-2xl font-semibold text-miyama-navy">8) Contact</h2>
-              <p class="mt-3 text-sm leading-relaxed">
-                For general inquiries, please email
-                <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-miyama-navy">connect@miyamacap.com</a>.
-              </p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="bg-miyama-navy py-10 text-center text-sm text-gray-300">
-    <div class="mb-3 text-xs font-medium tracking-[0.25em] text-gray-400">MIYAMA CAPITAL</div>
-    <p class="text-xs text-gray-400">San Francisco | Taipei</p>
-
-    <p class="mt-1 text-xs text-gray-400">
-      <span class="opacity-60">Contact:</span>
-      <a href="mailto:connect@miyamacap.com" class="underline underline-offset-2 hover:text-white">connect@miyamacap.com</a>
-    </p>
-
-    <div class="mt-5 flex flex-col items-center gap-4">
-      <div class="flex gap-6">
-        <a href="https://www.linkedin.com/company/miyama-capital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="LinkedIn">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
-        </a>
-
-        <a href="https://x.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="X">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" /></svg>
-        </a>
-
-        <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-[#FF6719] hover:scale-110" aria-label="Substack" title="Read our Investment Memos">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" /></svg>
-        </a>
-
-        <a href="https://github.com/miyamacapital" target="_blank" rel="noopener noreferrer" class="text-gray-400 transition hover:text-white hover:scale-110" aria-label="GitHub">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-        </a>
-      </div>
-
-      <a href="https://miyamacap.substack.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-[10px] text-gray-400 transition hover:bg-white/10 hover:text-white">
-        <span>Read our latest research on Substack</span>
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-      </a>
-    </div>
-
-    <div class="footer-legal" style="max-width: 980px; margin: 16px auto 0; font-size: 12px; line-height: 1.5; opacity: 0.85;">
-      <p style="margin: 0 0 8px">
-        <strong>Disclosures &amp; Risk:</strong> Miyama Capital LLC is a California limited liability company.
-        We manage proprietary capital only and do not accept outside client funds. The information on this website
-        is provided for informational purposes only and does not constitute investment advice, an offer to sell, or
-        a solicitation of an offer to buy any securities or investment products. Past performance is not indicative
-        of future results. Investing involves risk, including the possible loss of principal.
-        <a href="/en/disclosures.html" style="text-decoration: underline">Full disclosures</a>.
-      </p>
-
-      <p style="margin: 0">
-        &copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.
-      </p>
-    </div>
-
-    <script>
-      (function () {
-        var el = document.getElementById("footer-year");
-        if (el) el.textContent = new Date().getFullYear();
-      })();
-    </script>
-  </footer>
+</div>
 </body>
 </html>
