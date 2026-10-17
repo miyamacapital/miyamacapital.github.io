@@ -38,11 +38,13 @@ function makeSheet(name) {
 function makeEnv() {
   const sheets = {};
   const mails = [];
-  const props = { POSTAL_ADDRESS: "1 Test St, San Francisco, CA 94105", REPORTS_FOLDER_ID: "folder123", WEB_APP_URL: "https://script.google.com/macros/s/TEST/exec" };
+  const props = { SPREADSHEET_ID: "test-spreadsheet", POSTAL_ADDRESS: "1 Test St, San Francisco, CA 94105", REPORTS_FOLDER_ID: "folder123", WEB_APP_URL: "https://script.google.com/macros/s/TEST/exec" };
   let quota = 1500;
   let activeSheet = null;
   let sendError = null;
+  let lockDepth = 0;
   const ss = {
+    getId: () => "test-spreadsheet",
     getSheetByName: (n) => sheets[n] || null,
     insertSheet: (n) => (sheets[n] = makeSheet(n)),
     getActiveSheet: () => activeSheet,
@@ -50,11 +52,12 @@ function makeEnv() {
   const env = {
     SpreadsheetApp: {
       getActiveSpreadsheet: () => ss,
+      openById: (id) => { assert.strictEqual(id, "test-spreadsheet"); return ss; },
       getUi: () => ({ alert: () => "OK", createMenu: () => ({ addItem() { return this; }, addSeparator() { return this; }, addToUi() {} }), ButtonSet: { OK_CANCEL: 1 }, Button: { OK: "OK" } }),
     },
     PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] ?? null, setProperty: (k, v) => { props[k] = v; } }) },
     ScriptApp: { getService: () => ({ getUrl: () => "https://script.google.com/macros/s/TEST/dev" }) },
-    LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
+    LockService: { getScriptLock: () => ({ waitLock() { lockDepth++; }, releaseLock() { lockDepth--; } }) },
     Utilities: { getUuid: () => { let s = ""; for (let i = 0; i < 32; i++) s += Math.floor(Math.random() * 16).toString(16); return s.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "$1-$2-$3-$4-$5"); } },
     GmailApp: { sendEmail: (to, subject, body, options) => { if (sendError) throw sendError; mails.push({ to, subject, body, options }); }, getAliases: () => ["connect@miyamacap.com"] },
     MailApp: { getRemainingDailyQuota: () => quota },
@@ -67,6 +70,7 @@ function makeEnv() {
     _sheets: sheets, _mails: mails, _props: props,
     _setQuota: (q) => { quota = q; },
     _setSendError: (e) => { sendError = e; },
+    _lockDepth: () => lockDepth,
     _select: (sheetName, row) => { activeSheet = Object.assign({}, sheets[sheetName], { getActiveRange: () => ({ getRow: () => row }) }); },
   };
   vm.createContext(env);
@@ -343,6 +347,143 @@ test("setup: reports missing settings and unknown SENDER alias; alias is used wh
   env.doPost(jsonPost(good()));
   assert.strictEqual(env._mails[0].options.from, "connect@miyamacap.com");
   assert.strictEqual(env._mails[0].options.replyTo, "connect@miyamacap.com");
+});
+
+test("web app: setup saves container ID; subscribe/confirm/unsubscribe work without active spreadsheet", (env) => {
+  delete env._props.SPREADSHEET_ID;
+  assert.deepStrictEqual(out(env.doPost(jsonPost(good()))), { ok: false, error: "unconfigured" });
+  assert.strictEqual(subs(env).length, 0);
+  assert.strictEqual(env._mails.length, 0);
+  env.setup();
+  assert.strictEqual(env._props.SPREADSHEET_ID, "test-spreadsheet");
+  env.SpreadsheetApp.getActiveSpreadsheet = () => null;
+  assert.deepStrictEqual(out(env.doPost(jsonPost(good()))), { ok: true, state: "check" });
+  confirmOf(env);
+  assert.strictEqual(subs(env)[0][col("status")], "confirmed");
+  const token = subs(env)[0][col("unsub_token")];
+  assert.ok(env.doGet({ parameter: { action: "unsubscribe", t: token } })._html.includes('name="action" value="unsubscribe"'));
+  env.doPost(formPost({ action: "unsubscribe", t: token }));
+  assert.strictEqual(subs(env)[0][col("status")], "unsubscribed");
+  delete env._props.SPREADSHEET_ID;
+  assert.ok(env.setup().includes("SPREADSHEET_ID"));
+});
+
+test("missing/invalid mail settings reject subscriptions before storage/send; unsubscribe remains available", (env) => {
+  for (const [key, value] of [["WEB_APP_URL", ""], ["WEB_APP_URL", "https://script.google.com/macros/s/TEST/dev"], ["POSTAL_ADDRESS", "   "]]) {
+    const isolated = makeEnv();
+    isolated._props[key] = value;
+    assert.deepStrictEqual(out(isolated.doPost(jsonPost(good()))), { ok: false, error: "unconfigured" });
+    assert.strictEqual(subs(isolated).length, 0);
+    assert.strictEqual(isolated._mails.length, 0);
+  }
+  env.doPost(jsonPost(good()));
+  confirmOf(env);
+  const token = subs(env)[0][col("unsub_token")];
+  delete env._props.POSTAL_ADDRESS;
+  delete env._props.WEB_APP_URL;
+  assert.ok(env.doPost(formPost({ action: "unsubscribe", t: token }))._html.includes("s=unsubscribed"));
+  assert.strictEqual(subs(env)[0][col("status")], "unsubscribed");
+});
+
+test("welcome respects global email ceiling/quota while confirmation stays successful", (env) => {
+  env.CONFIG.THROTTLE.per10min = 1;
+  env.CONFIG.THROTTLE.perDay = 1;
+  env.doPost(jsonPost(good()));
+  assert.ok(confirmOf(env)._html.includes("s=confirmed"));
+  assert.strictEqual(env._mails.length, 1);
+  assert.strictEqual(subs(env)[0][col("status")], "confirmed");
+  assert.ok(logs(env).some((l) => l[3] === "dropped" && l[4] === "welcome: throttle"));
+  const isolated = makeEnv();
+  isolated.doPost(jsonPost(good()));
+  isolated._setQuota(20);
+  assert.ok(confirmOf(isolated)._html.includes("s=confirmed"));
+  assert.strictEqual(isolated._mails.length, 1);
+  assert.ok(logs(isolated).some((l) => l[4] === "welcome: quota"));
+});
+
+test("removed mail settings block welcome and campaigns without undoing confirmation or disabling unsubscribe", (env) => {
+  env.doPost(jsonPost(good()));
+  delete env._props.POSTAL_ADDRESS;
+  delete env._props.WEB_APP_URL;
+  assert.ok(confirmOf(env)._html.includes("s=confirmed"));
+  assert.strictEqual(subs(env)[0][col("status")], "confirmed");
+  assert.strictEqual(env._mails.length, 1, "No welcome with broken mail settings");
+  env.setup();
+  env._sheets.Campaigns.appendRow(["not-configured", "Report", "Hi", "report.pdf", "all"]);
+  env._select("Campaigns", 2);
+  const summary = env.sendCampaign(env.selectedCampaign());
+  assert.ok(summary.includes("失敗 1 封"));
+  assert.strictEqual(env._sheets.Campaigns._rows[1][5], "sending");
+  assert.strictEqual(env._mails.length, 1, "No campaign with broken mail settings");
+  const token = subs(env)[0][col("unsub_token")];
+  assert.ok(env.doPost(formPost({ action: "unsubscribe", t: token }))._html.includes("s=unsubscribed"));
+  env._props.POSTAL_ADDRESS = "1 Test St";
+  env._props.WEB_APP_URL = "https://script.google.com/not-a-deployment/exec";
+  assert.ok(env.setup().includes("WEB_APP_URL"));
+  assert.throws(() => env.sendMail("test@example.com", { subject: "x", text: "x", html: "x" }), /settings are incomplete/);
+});
+
+test("campaign overlapping runs send once, without holding ScriptLock during email", (env) => {
+  env.doPost(jsonPost(good()));
+  confirmOf(env);
+  env.setup();
+  env._sheets.Campaigns.appendRow(["overlap", "Report", "Hi {{name}}", "report.pdf", "zh"]);
+  env._select("Campaigns", 2);
+  const campaign = env.selectedCampaign();
+  const original = env.GmailApp.sendEmail;
+  env._mails.length = 0;
+  let overlap = false;
+  env.GmailApp.sendEmail = (...args) => {
+    assert.strictEqual(env._lockDepth(), 0, "Mail must be sent outside ScriptLock");
+    if (!overlap) {
+      overlap = true;
+      assert.ok(env.sendCampaign(campaign).includes("正在寄送中"));
+    }
+    original(...args);
+  };
+  env.sendCampaign(campaign);
+  assert.strictEqual(env._mails.length, 1);
+  env.sendCampaign(campaign);
+  assert.strictEqual(env._mails.length, 1, "sequential rerun skips the sent recipient");
+  assert.deepStrictEqual(JSON.parse(env._props.CAMPAIGN_RUNS), {});
+});
+
+test("campaign mixed success/failure stays sending; retry sends only the failed recipient", (env) => {
+  for (const email of ["a@x.io", "b@x.io"]) {
+    env.doPost(jsonPost(Object.assign(good(), { email })));
+    confirmOf(env, subs(env).length - 1);
+  }
+  env.setup();
+  env._sheets.Campaigns.appendRow(["retry", "Report", "Hi {{name}}", "report.pdf", "zh"]);
+  env._select("Campaigns", 2);
+  const campaign = env.selectedCampaign();
+  const original = env.GmailApp.sendEmail;
+  env._mails.length = 0;
+  env.GmailApp.sendEmail = (...args) => {
+    if (args[0] === "b@x.io") throw new Error("simulated temporary error");
+    original(...args);
+  };
+  let summary = env.sendCampaign(campaign);
+  assert.ok(summary.includes("失敗 1 封") && summary.includes("還有 1 位未寄"));
+  assert.strictEqual(env._sheets.Campaigns._rows[1][5], "sending");
+  env.GmailApp.sendEmail = original;
+  summary = env.sendCampaign(campaign);
+  assert.deepStrictEqual(env._mails.map((m) => m.to), ["a@x.io", "b@x.io"]);
+  assert.strictEqual(env._sheets.Campaigns._rows[1][5], "sent");
+  assert.strictEqual(logs(env).filter((l) => l[1] === "retry" && l[3] === "sent").length, 2);
+});
+
+test("campaign lease releases on resource errors and expired execution leases can resume", (env) => {
+  env.setup();
+  env._sheets.Campaigns.appendRow(["lease", "Report", "Hi", "missing.pdf", "all"]);
+  env._select("Campaigns", 2);
+  const campaign = env.selectedCampaign();
+  assert.throws(() => env.sendCampaign(campaign), /找不到檔案/);
+  assert.deepStrictEqual(JSON.parse(env._props.CAMPAIGN_RUNS), {});
+  env._props.CAMPAIGN_RUNS = JSON.stringify({ "$lease": { token: "expired", expires: Date.now() - 1 } });
+  campaign.pdf_name = "report.pdf";
+  assert.ok(env.sendCampaign(campaign).includes("本次寄出 0 封"));
+  assert.deepStrictEqual(JSON.parse(env._props.CAMPAIGN_RUNS), {});
 });
 
 // ---- Runner ------------------------------------------------------------------

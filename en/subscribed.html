@@ -104,11 +104,15 @@
     name_required: ["Name required", "Please go back to the form and enter your name.", true],
     name_invalid: ["Name cannot contain a web address", "Please go back to the form and enter a name without a web address.", true],
     consent_required: ["Consent required", "Please tick the box to agree to the Privacy Policy before subscribing.", true],
+    unconfigured: ["Subscriptions are not enabled yet", "Please try again later.", true],
     server_error: ["Temporarily unavailable", "Something went wrong on our side. Please try again later, or email connect@miyamacap.com.", true]
   };
   var s = new URLSearchParams(location.search).get("s");
   var state = Object.prototype.hasOwnProperty.call(states, s) ? states[s] : null;
   if (!Array.isArray(state)) return;
+  document.querySelectorAll(".lab-languages a").forEach(function (link) {
+    link.setAttribute("href", link.getAttribute("href") + "?s=" + encodeURIComponent(s));
+  });
   document.getElementById("status-title").firstElementChild.textContent = state[0];
   document.getElementById("status-text").textContent = state[1];
   document.getElementById("status-retry").hidden = !state[2];
@@ -121,7 +125,7 @@
 <footer class="bg-lab-footer text-lab-on-dark-muted" style="font-size: 13px;">
   <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px;">
-      <p style="margin: 0; max-width: 46em;">Miyama Capital currently manages proprietary capital only and does not accept outside client funds. Content on this site is general research and analysis and does not constitute investment advice. <a href="/en/disclosures.html" aria-current="page" class="text-lab-on-dark">Disclosures</a> · <a href="/en/privacy.html">Privacy</a></p>
+      <p style="margin: 0; max-width: 46em;">Miyama Capital currently manages proprietary capital only and does not accept outside client funds. Content on this site is general research and analysis and does not constitute investment advice. <a href="/en/disclosures.html" class="text-lab-on-dark">Disclosures</a> · <a href="/en/privacy.html">Privacy</a></p>
       <p style="margin: 0;">San Francisco · Taipei</p>
     </div>
     <nav class="lab-footer-links text-lab-on-dark" aria-label="Contact and social">
@@ -134,7 +138,7 @@
       <a href="https://www.linkedin.com/in/swaywang/" target="_blank" rel="noopener noreferrer">Founder LinkedIn</a>
     </nav>
     <div class="footer-legal" style="font-size: 12px; line-height: 1.65;">
-      <p style="margin: 0 0 8px;"><strong>Disclosures &amp; Risk:</strong> Miyama Capital LLC is a California limited liability company. We manage proprietary capital only and do not accept outside client funds. The information on this website is provided for informational purposes only and does not constitute investment advice, an offer to sell, or a solicitation of an offer to buy any securities or investment products. Past performance is not indicative of future results. Investing involves risk, including the possible loss of principal. <a href="/en/disclosures.html" aria-current="page" class="text-lab-on-dark" style="text-decoration: underline">Full disclosures</a>.</p>
+      <p style="margin: 0 0 8px;"><strong>Disclosures &amp; Risk:</strong> Miyama Capital LLC is a California limited liability company. We manage proprietary capital only and do not accept outside client funds. The information on this website is provided for informational purposes only and does not constitute investment advice, an offer to sell, or a solicitation of an offer to buy any securities or investment products. Past performance is not indicative of future results. Investing involves risk, including the possible loss of principal. <a href="/en/disclosures.html" class="text-lab-on-dark" style="text-decoration: underline">Full disclosures</a>.</p>
       <p style="margin: 0;">&copy; <span id="footer-year"></span> Miyama Capital LLC. All Rights Reserved.</p>
     </div>
   </div>

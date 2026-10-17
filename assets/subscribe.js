@@ -64,7 +64,10 @@
     var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
     // text/plain keeps the request "simple", so no CORS preflight reaches Apps Script.
     fetch(endpoint, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "text/plain;charset=UTF-8" }, signal: controller ? controller.signal : undefined })
-      .then(function (res) { return res.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error("Subscription request failed (HTTP " + res.status + ")");
+        return res.json();
+      })
       .then(function (res) {
         if (res && res.ok) {
           form.reset();

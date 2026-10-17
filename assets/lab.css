@@ -100,6 +100,8 @@ button.lab-menu-toggle {
 .lab-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .lab-form-alt { font-size: 14px; color: #94A3B8; }
 .lab-form-alt a { color: #CBD5E1; }
+/* The status action has inline layout styles; hidden must still remove it. */
+#status-retry[hidden] { display: none !important; }
 .lab-footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
 
 /* Phones: collapse the main nav behind a menu button (only once lab.js can toggle it).

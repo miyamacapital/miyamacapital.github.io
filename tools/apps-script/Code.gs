@@ -8,6 +8,7 @@
  *
  * Sheets: Subscribers, Campaigns, Log (created by setup()).
  * Script properties (Project Settings → Script properties):
+ *   SPREADSHEET_ID    saved automatically by setup() from the bound Sheet.
  *   POSTAL_ADDRESS    required. Physical mailing address printed in every email.
  *   WEB_APP_URL       required. The deployed /exec URL (links in emails are built from it).
  *   REPORTS_FOLDER_ID required for sending. Drive folder that holds the PDFs.
@@ -63,6 +64,20 @@ function getSettings() {
     replyTo: props.getProperty("REPLY_TO") || "connect@miyamacap.com",
     siteOrigin: (props.getProperty("SITE_ORIGIN") || "https://www.miyamacap.com").replace(/\/+$/, ""),
   };
+}
+
+function isWebAppUrl(value) {
+  return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(String(value || ""));
+}
+
+function requireMailSettings() {
+  var settings = getSettings();
+  if (!String(settings.postalAddress).trim() || !isWebAppUrl(settings.webAppUrl)) {
+    var error = new Error("Subscription email settings are incomplete. Set POSTAL_ADDRESS and the deployed WEB_APP_URL.");
+    error.code = "not_configured";
+    throw error;
+  }
+  return settings;
 }
 
 // ScriptApp.getService().getUrl() returns the /dev URL outside a web request, so the /exec URL is configured.
@@ -199,7 +214,14 @@ function validateSubscription(data, isJson) {
 // ---------------------------------------------------------------------------
 
 function getSheet(name, columns) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // A Web App has no active container, even when the script is Sheet-bound.
+  var id = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  if (!id) {
+    var error = new Error("Subscription storage is not configured. Run setup() from the bound spreadsheet first.");
+    error.code = "not_configured";
+    throw error;
+  }
+  var ss = SpreadsheetApp.openById(id);
   var sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
@@ -282,7 +304,7 @@ function doPost(e) {
   try {
     result = handleSubscribe(req.data, req.json);
   } catch (err) {
-    result = { ok: false, error: "server_error" };
+    result = { ok: false, error: err && err.code === "not_configured" ? "unconfigured" : "server_error" };
     try { logEvent("", "", "error", String(err && err.stack || err)); } catch (ignore) {}
   }
   if (req.json) return jsonOutput(result);
@@ -344,6 +366,8 @@ function handleSubscribe(data, isJson) {
   var check = validateSubscription(data, isJson);
   if (!check.ok) return { ok: false, error: check.error };
   if (check.silent) { logEvent("", "", "dropped", check.reason); return { ok: true, state: "check" }; }
+  // Refuse before storing a pending subscriber or building any email links.
+  requireMailSettings();
   var rec = check.record;
   var nowIso = new Date(now).toISOString();
 
@@ -418,7 +442,17 @@ function handleConfirm(token) {
     return { lang: row.lang, state: "confirmed", record: row };
   });
   if (result.record && CONFIG.SEND_WELCOME) {
-    try { sendTemplate("welcome", result.record); } catch (err) { logEvent("", result.record.email, "error", "welcome: " + (err && err.message || err)); }
+    try {
+      var welcomeDrop = withLock(function () {
+        if (MailApp.getRemainingDailyQuota() <= CONFIG.QUOTA_RESERVE) return "quota";
+        return throttleAllows() ? "" : "throttle";
+      });
+      if (welcomeDrop) logEvent("", result.record.email, "dropped", "welcome: " + welcomeDrop);
+      else sendTemplate("welcome", result.record);
+    } catch (err) {
+      // Confirmation is already saved; mail/log failures must not undo success.
+      try { logEvent("", result.record.email, "error", "welcome: " + (err && err.message || err)); } catch (ignore) {}
+    }
   }
   return { lang: result.lang, state: result.state };
 }
@@ -620,7 +654,7 @@ function buildEmail(kind, record, options) {
 }
 
 function sendMail(to, mail, attachments) {
-  var settings = getSettings();
+  var settings = requireMailSettings();
   var options = { name: settings.fromName, replyTo: settings.replyTo, htmlBody: mail.html };
   if (settings.sender) options.from = settings.sender;
   if (attachments && attachments.length) options.attachments = attachments;
@@ -646,14 +680,21 @@ function onOpen() {
 }
 
 function setup() {
+  var active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) PropertiesService.getScriptProperties().setProperty("SPREADSHEET_ID", active.getId());
+  if (!PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID")) {
+    var missingSheet = "請先從綁定的 Google Sheet 開啟 Apps Script 並執行 setup，以儲存 SPREADSHEET_ID。";
+    try { SpreadsheetApp.getUi().alert(missingSheet); } catch (noUi) { Logger.log(missingSheet); }
+    return missingSheet;
+  }
   getSheet(CONFIG.SHEET_SUBSCRIBERS, SUBSCRIBER_COLUMNS);
   getSheet(CONFIG.SHEET_CAMPAIGNS, CAMPAIGN_COLUMNS);
   getSheet(CONFIG.SHEET_LOG, LOG_COLUMNS);
   var s = getSettings();
   var problems = [];
-  if (!s.postalAddress) problems.push("缺 POSTAL_ADDRESS");
+  if (!String(s.postalAddress).trim()) problems.push("缺 POSTAL_ADDRESS");
   if (!s.webAppUrl) problems.push("缺 WEB_APP_URL（部署後的 /exec 網址）");
-  else if (!/^https:\/\/script\.google\.com\/.*\/exec$/.test(s.webAppUrl)) problems.push("WEB_APP_URL 應以 /exec 結尾");
+  else if (!isWebAppUrl(s.webAppUrl)) problems.push("WEB_APP_URL 應是部署後的 https://script.google.com/macros/s/…/exec 網址");
   if (!s.reportsFolderId) problems.push("缺 REPORTS_FOLDER_ID（寄報告時需要）");
   if (s.sender) {
     var aliases = [];
@@ -705,8 +746,46 @@ function sendSelectedCampaign() {
   ui.alert(summary);
 }
 
-/** Sends one campaign; safe to re-run — already-sent recipients are skipped via the Log sheet. */
+// Keep only lease bookkeeping under ScriptLock. Holding it while mailing would
+// prevent subscription confirmations and unsubscribes during a campaign run.
+function claimCampaignRun(id) {
+  return withLock(function () {
+    var props = PropertiesService.getScriptProperties();
+    var leases;
+    try { leases = JSON.parse(props.getProperty("CAMPAIGN_RUNS") || "{}"); } catch (err) { leases = {}; }
+    var key = "$" + String(id);
+    if (leases[key] && leases[key].expires > Date.now()) return "";
+    var token = newToken();
+    // Longer than Apps Script's six-minute execution limit; a killed run can
+    // resume after this lease expires instead of leaving a permanent lock.
+    leases[key] = { token: token, expires: Date.now() + 10 * 60 * 1000 };
+    props.setProperty("CAMPAIGN_RUNS", JSON.stringify(leases));
+    return token;
+  });
+}
+
+function releaseCampaignRun(id, token) {
+  withLock(function () {
+    var props = PropertiesService.getScriptProperties();
+    var leases;
+    try { leases = JSON.parse(props.getProperty("CAMPAIGN_RUNS") || "{}"); } catch (err) { leases = {}; }
+    var key = "$" + String(id);
+    if (leases[key] && leases[key].token === token) {
+      delete leases[key];
+      props.setProperty("CAMPAIGN_RUNS", JSON.stringify(leases));
+    }
+  });
+}
+
+/** Sends one campaign; sequential retries skip sent recipients, overlapping runs wait. */
 function sendCampaign(campaign) {
+  var lease = claimCampaignRun(campaign.id);
+  if (!lease) return "這份報告正在寄送中，請等目前的執行完成後再試。";
+  try { return runCampaign(campaign); }
+  finally { releaseCampaignRun(campaign.id, lease); }
+}
+
+function runCampaign(campaign) {
   var started = Date.now();
   var blob = findReportBlob(campaign.pdf_name);
   var campaignLang = String(campaign.lang || "all").trim().toLowerCase();
@@ -738,7 +817,8 @@ function sendCampaign(campaign) {
       failed++;
     }
   }
-  var remaining = subscribers.length - skipped - sent - failed;
+  // Failed recipients are still outstanding and must remain retryable.
+  var remaining = subscribers.length - skipped - sent;
   var status = remaining > 0 ? "sending" : "sent";
   campaignSheet.getRange(campaign._row, CAMPAIGN_COLUMNS.indexOf("status") + 1, 1, 3)
     .setValues([[status, new Date().toISOString(), skipped + sent]]);
