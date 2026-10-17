@@ -104,6 +104,39 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
   </url>
 
+  <!-- English Privacy -->
+  <url>
+    <loc>https://www.miyamacap.com/en/privacy.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
+  </url>
+
+  <!-- Chinese Privacy -->
+  <url>
+    <loc>https://www.miyamacap.com/zh/privacy.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
+  </url>
+
+  <!-- Japanese Privacy -->
+  <url>
+    <loc>https://www.miyamacap.com/jp/privacy.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
+  </url>
+
   <!-- Root redirect page -->
   <url>
     <loc>https://www.miyamacap.com/</loc>

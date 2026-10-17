@@ -66,6 +66,7 @@
       }
     </script>
     <script src="/assets/lab.js" defer></script>
+    <script src="/assets/subscribe.js" defer></script>
     <script src="/assets/lab-research.js" defer></script>
     <!-- Schema.org Structured Data (繁中版) -->
     <script type="application/ld+json">
@@ -331,16 +332,35 @@
 </section>
 
 <section id="subscribe" class="lab-surface-dark bg-lab-dark text-lab-card">
-<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: center;">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: start;">
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>訂閱 Miyama 研究</span></h2>
-<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">免費。依閱讀語言選擇平台，追蹤最新研究。</p>
+<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">免費。我們會不定期把研究報告（PDF）寄到您的信箱。</p>
+<p class="text-lab-on-dark-muted" style="margin: 0; font-size: 14px;">送出後請到信箱點選確認連結。每封信都可一鍵取消訂閱。</p>
 </div>
-<nav aria-label="依語言訂閱研究" class="lab-platform-links">
-<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="rounded-lab-button bg-lab-accent text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">繁體中文・方格子</a>
-<a href="https://memos.miyamacap.com/subscribe" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">English・Substack</a>
-<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">日本語・note</a>
-</nav>
+<form id="research-subscription" class="lab-form" action="__SUBSCRIBE_ENDPOINT__" method="post" data-messages='{"sending": "送出中…", "check": "我們已寄一封信到您的信箱，請依信中說明完成訂閱。", "invalid_email": "請輸入有效的電子郵件。", "name_required": "請填寫姓名。", "consent_required": "請勾選同意隱私權政策。", "error": "送出失敗，請稍後再試，或來信 connect@miyamacap.com。", "unconfigured": "訂閱功能尚未啟用，請稍後再試。", "name_invalid": "姓名請勿包含網址。"}'>
+<div class="lab-field">
+<label for="sub-name">姓名</label>
+<input id="sub-name" name="name" type="text" autocomplete="name" required maxlength="80">
+</div>
+<div class="lab-field">
+<label for="sub-email">電子郵件</label>
+<input id="sub-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="name@example.com">
+</div>
+<div class="lab-field lab-field-wide">
+<label for="sub-org">機構／職稱（選填）</label>
+<input id="sub-org" name="org" type="text" autocomplete="organization" maxlength="120">
+</div>
+<div class="lab-honeypot" aria-hidden="true" inert><label for="sub-ref-code">請留空</label><input id="sub-ref-code" name="ref_code" type="text" tabindex="-1" autocomplete="off"></div>
+<input type="hidden" name="lang" value="zh">
+<input type="hidden" name="source" value="/zh/">
+<div class="lab-form-foot">
+<label class="lab-consent"><input type="checkbox" name="consent" value="on" required><span>我同意 Miyama Capital 依<a href="/zh/privacy.html" target="_blank" rel="noopener">隱私權政策<span class="lab-sr-only">（另開新視窗）</span></a>處理上述資料，用於寄送研究報告。可隨時取消訂閱。</span></label>
+<button type="submit">訂閱研究報告</button>
+<p id="subscription-status" class="lab-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<p class="lab-form-alt" style="margin: 0;">也可以在 <a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer">方格子</a>、<a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer">Substack</a>（英文）或 <a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer">note</a>（日文）閱讀。</p>
+</div>
+</form>
 </div>
 </section>
 
@@ -349,7 +369,7 @@
 <footer class="bg-lab-footer text-lab-on-dark-muted" style="font-size: 13px;">
   <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px;">
-      <p style="margin: 0; max-width: 46em;">Miyama Capital 目前僅管理自有資本，不接受外部資金。本站內容為一般性研究分析，不構成任何投資建議。<a href="/zh/disclosures.html" class="text-lab-on-dark">揭露事項</a></p>
+      <p style="margin: 0; max-width: 46em;">Miyama Capital 目前僅管理自有資本，不接受外部資金。本站內容為一般性研究分析，不構成任何投資建議。<a href="/zh/disclosures.html" class="text-lab-on-dark">揭露事項</a>・<a href="/zh/privacy.html">隱私權政策</a></p>
       <p style="margin: 0;">舊金山・台北</p>
     </div>
     <nav class="lab-footer-links text-lab-on-dark" aria-label="聯絡與社群">

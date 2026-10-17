@@ -65,6 +65,7 @@
       }
     </script>
     <script src="/assets/lab.js" defer></script>
+    <script src="/assets/subscribe.js" defer></script>
     <script src="/assets/lab-research.js" defer></script>
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -348,16 +349,35 @@
 </section>
 
 <section id="subscribe" class="lab-surface-dark bg-lab-dark text-lab-card">
-<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: center;">
+<div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 28px 64px; align-items: start;">
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <h2 class="text-lab-h2" style="margin: 0; font-weight: 700; letter-spacing: -0.01em;"><span>Subscribe to Miyama Research</span></h2>
-<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">Free. Pick the platform for the language you read and follow our latest research.</p>
+<p class="text-lab-on-dark" style="margin: 0; font-size: 17px;">Free. We send research reports (PDF) to your inbox from time to time.</p>
+<p class="text-lab-on-dark-muted" style="margin: 0; font-size: 14px;">After submitting, check your inbox and click the confirmation link. Every email includes a one-click unsubscribe link.</p>
 </div>
-<nav aria-label="Subscribe to research by language" class="lab-platform-links">
-<a href="https://memos.miyamacap.com/subscribe" target="_blank" rel="noopener noreferrer" class="rounded-lab-button bg-lab-accent text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">English · Substack</a>
-<a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">Traditional Chinese · Vocus</a>
-<a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer" class="rounded-lab-button border border-lab-on-dark-muted text-lab-card" style="justify-content: center; min-height: 48px; box-sizing: border-box; padding: 0 22px; font-weight: 600; text-decoration: none;">Japanese · note</a>
-</nav>
+<form id="research-subscription" class="lab-form" action="__SUBSCRIBE_ENDPOINT__" method="post" data-messages='{"sending": "Sending…", "check": "We have sent you an email. Follow the instructions in it to complete your subscription.", "invalid_email": "Please enter a valid email address.", "name_required": "Please enter your name.", "consent_required": "Please agree to the privacy policy.", "error": "Something went wrong. Please try again later or email connect@miyamacap.com.", "unconfigured": "Subscriptions are not enabled yet. Please try again later.", "name_invalid": "Please enter a name without a web address."}'>
+<div class="lab-field">
+<label for="sub-name">Name</label>
+<input id="sub-name" name="name" type="text" autocomplete="name" required maxlength="80">
+</div>
+<div class="lab-field">
+<label for="sub-email">Email</label>
+<input id="sub-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="name@example.com">
+</div>
+<div class="lab-field lab-field-wide">
+<label for="sub-org">Organization or role (optional)</label>
+<input id="sub-org" name="org" type="text" autocomplete="organization" maxlength="120">
+</div>
+<div class="lab-honeypot" aria-hidden="true" inert><label for="sub-ref-code">Leave this field empty</label><input id="sub-ref-code" name="ref_code" type="text" tabindex="-1" autocomplete="off"></div>
+<input type="hidden" name="lang" value="en">
+<input type="hidden" name="source" value="/en/">
+<div class="lab-form-foot">
+<label class="lab-consent"><input type="checkbox" name="consent" value="on" required><span>I agree that Miyama Capital may process the details above under its <a href="/en/privacy.html" target="_blank" rel="noopener">privacy policy<span class="lab-sr-only"> (opens in a new window)</span></a> to send research reports. You can unsubscribe at any time.</span></label>
+<button type="submit">Subscribe to research reports</button>
+<p id="subscription-status" class="lab-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<p class="lab-form-alt" style="margin: 0;">You can also read on <a href="https://memos.miyamacap.com/" target="_blank" rel="noopener noreferrer">Substack</a>, <a href="https://vocus.cc/salon/miyama-capital" target="_blank" rel="noopener noreferrer">Vocus</a> (Traditional Chinese) or <a href="https://note.com/miyamacapitaljp" target="_blank" rel="noopener noreferrer">note</a> (Japanese).</p>
+</div>
+</form>
 </div>
 </section>
 
@@ -366,7 +386,7 @@
 <footer class="bg-lab-footer text-lab-on-dark-muted" style="font-size: 13px;">
   <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px;">
-      <p style="margin: 0; max-width: 46em;">Miyama Capital currently manages proprietary capital only and does not accept outside client funds. Content on this site is general research and analysis and does not constitute investment advice. <a href="/en/disclosures.html" class="text-lab-on-dark">Disclosures</a></p>
+      <p style="margin: 0; max-width: 46em;">Miyama Capital currently manages proprietary capital only and does not accept outside client funds. Content on this site is general research and analysis and does not constitute investment advice. <a href="/en/disclosures.html" class="text-lab-on-dark">Disclosures</a> · <a href="/en/privacy.html">Privacy</a></p>
       <p style="margin: 0;">San Francisco · Taipei</p>
     </div>
     <nav class="lab-footer-links text-lab-on-dark" aria-label="Contact and social">

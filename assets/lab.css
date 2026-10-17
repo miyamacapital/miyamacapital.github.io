@@ -52,6 +52,54 @@ button.lab-menu-toggle {
 .lab-navigation a:hover { color: #4F46E5; text-decoration: underline; }
 .lab-navigation a[aria-current="page"] { color: #0F172A; font-weight: 600; }
 .lab-platform-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Subscription form (sits on the dark #subscribe section). */
+.lab-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 14px 16px; }
+.lab-form .lab-field-wide, .lab-form .lab-form-foot { grid-column: 1 / -1; }
+.lab-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.lab-field label { font-size: 14px; color: #CBD5E1; }
+.lab-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid #94A3B8;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font: inherit;
+  font-size: 16px;
+}
+.lab-field input::placeholder { color: #64748B; opacity: 1; }
+.lab-field input:focus-visible { outline: 3px solid #A5B4FC; outline-offset: 2px; }
+.lab-form-foot { display: flex; flex-direction: column; gap: 14px; }
+.lab-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #CBD5E1; line-height: 1.5; }
+.lab-consent input { flex: 0 0 auto; width: 22px; height: 22px; margin: 1px 0 0; accent-color: #4F46E5; }
+.lab-consent a { color: #FFFFFF; text-decoration: underline; text-underline-offset: 0.2em; }
+.lab-field input[aria-invalid="true"] { border-color: #FDBA74; box-shadow: 0 0 0 1px #FDBA74; }
+.lab-surface-dark button:focus-visible, .lab-consent input:focus-visible, .lab-form-status:focus-visible { outline: 3px solid #A5B4FC; outline-offset: 3px; }
+.lab-form input:disabled { opacity: 0.55; cursor: not-allowed; }
+.lab-form button[type="submit"] {
+  align-self: flex-start;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 8px;
+  background: #4F46E5;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lab-form button[type="submit"][aria-disabled="true"] { opacity: 0.65; cursor: progress; }
+/* Always rendered (never display:none) so live-region announcements are reliable. */
+.lab-form-status { margin: 0; min-height: 1.5em; font-size: 15px; line-height: 1.5; color: #CBD5E1; }
+.lab-form-status[data-state="error"] { color: #FDBA74; }
+.lab-form-status[data-state="ok"] { color: #A5B4FC; }
+.lab-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.lab-form-alt { font-size: 14px; color: #94A3B8; }
+.lab-form-alt a { color: #CBD5E1; }
 .lab-footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
 
 /* Phones: collapse the main nav behind a menu button (only once lab.js can toggle it).
@@ -71,3 +119,5 @@ button.lab-menu-toggle {
 @media (max-width: 399px) {
   html[lang="ja"] .lab-menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
+
+.lab-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
