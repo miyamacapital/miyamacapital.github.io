@@ -12,10 +12,10 @@
   var fieldFor = { invalid_email: "email", name_required: "name", name_invalid: "name", consent_required: "consent" };
   var keyFor = { email: "invalid_email", name: "name_required", consent: "consent_required" };
 
-  function show(key, isError) {
+  function show(key, state) {
     if (!status) return;
-    status.setAttribute("role", isError ? "alert" : "status");
-    status.setAttribute("data-state", isError ? "error" : "ok");
+    status.setAttribute("role", state === "error" ? "alert" : "status");
+    status.setAttribute("data-state", state);
     status.textContent = messages[key] || messages.error || "";
   }
 
@@ -35,10 +35,10 @@
     }
   });
 
+  // Until the backend is deployed, the section shows a calm notice and the platform links only.
   if (!/^https:\/\//.test(endpoint) || endpoint.indexOf("__") >= 0) {
-    show("unconfigured", true);
-    Array.prototype.forEach.call(form.querySelectorAll("input"), function (input) { input.disabled = true; });
-    button.setAttribute("aria-disabled", "true");
+    Array.prototype.forEach.call(form.querySelectorAll(".lab-field, .lab-consent, button"), function (el) { el.hidden = true; });
+    show("unconfigured", "muted");
     form.addEventListener("submit", function (event) { event.preventDefault(); });
     return;
   }
@@ -47,7 +47,7 @@
   form.addEventListener("invalid", function (event) {
     event.preventDefault();
     if (form.querySelector('[aria-invalid="true"]')) return;
-    show(keyFor[event.target.name] || "error", true);
+    show(keyFor[event.target.name] || "error", "error");
     markInvalid(event.target.name);
   }, true);
 
@@ -59,7 +59,7 @@
     var data = {};
     new FormData(form).forEach(function (value, key) { data[key] = value; });
     data.elapsed = String(Date.now() - loadedAt);
-    show("sending", false);
+    show("sending", "ok");
     var controller = typeof AbortController === "function" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
     // text/plain keeps the request "simple", so no CORS preflight reaches Apps Script.
@@ -72,16 +72,16 @@
         if (res && res.ok) {
           form.reset();
           loadedAt = Date.now();
-          show("check", false);
+          show("check", "ok");
           status.setAttribute("tabindex", "-1");
           status.focus();
         } else {
           var key = res && res.error ? res.error : "error";
-          show(key, true);
+          show(key, "error");
           if (fieldFor[key]) markInvalid(fieldFor[key]);
         }
       })
-      .catch(function () { show("error", true); })
+      .catch(function () { show("error", "error"); })
       .then(function () {
         if (timer) clearTimeout(timer);
         busy = false;

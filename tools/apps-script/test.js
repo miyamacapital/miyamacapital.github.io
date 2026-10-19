@@ -486,6 +486,31 @@ test("campaign lease releases on resource errors and expired execution leases ca
   assert.deepStrictEqual(JSON.parse(env._props.CAMPAIGN_RUNS), {});
 });
 
+test("launch fixes: URL forms, unsubscribe scrubs fields, campaign lang validation, text columns stay literal", (env) => {
+  assert.strictEqual(env.isWebAppUrl("https://script.google.com/macros/s/AKfycbX_1-2/exec"), true);
+  assert.strictEqual(env.isWebAppUrl("https://script.google.com/a/macros/miyamacap.com/s/AKfycbX/exec"), true);
+  assert.strictEqual(env.isWebAppUrl("https://script.google.com/macros/s/AKfycbX/dev"), false);
+  assert.strictEqual(env.columnLetter(15), "O");
+  env.doPost(jsonPost(Object.assign(good(), { name: "=SUM(1)", org: "+acme" })));
+  confirmOf(env);
+  assert.strictEqual(subs(env)[0][col("name")], "'=SUM(1)", "cellSafe survives the confirm rewrite");
+  const unsub = subs(env)[0][col("unsub_token")];
+  env.doPost(formPost({ action: "unsubscribe", t: unsub }));
+  const r = subs(env)[0];
+  assert.strictEqual(r[col("status")], "unsubscribed");
+  assert.strictEqual(r[col("name")], ""); assert.strictEqual(r[col("org")], ""); assert.strictEqual(r[col("source")], "");
+  assert.strictEqual(r[col("email")], "ann@example.com");
+  // an unsubscribed address gets a 24h cooldown instead of 1h
+  subs(env)[0][col("last_sent_at")] = new Date(Date.now() - 2 * 3600 * 1000).toISOString();
+  const before = env._mails.length;
+  env.doPost(jsonPost(good()));
+  assert.strictEqual(env._mails.length, before, "still inside the 24h unsubscribed cooldown");
+  env.setup();
+  env._sheets.Campaigns.appendRow(["typo", "s", "b", "report.pdf", "al", "", "", "", ""]);
+  env._select("Campaigns", 2);
+  assert.throws(() => env.selectedCampaign(), /lang/);
+});
+
 // ---- Runner ------------------------------------------------------------------
 let failed = 0;
 for (const t of tests) {

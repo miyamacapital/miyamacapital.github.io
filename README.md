@@ -1,28 +1,20 @@
 # Miyama Capital Official Website
 
-This repository contains the source code for the official landing page of **Miyama Capital**.
-It is a static website designed for a boutique global macro and quantitative investment practice.
+Source for [www.miyamacap.com](https://www.miyamacap.com), the static site of Miyama Capital LLC. Hosted on GitHub Pages from the `main` branch.
 
-## 🔗 Live Site
-[https://www.miyamacap.com](https://www.miyamacap.com)
+## Structure
 
-## 📂 Project Structure
-The project uses a **folder-based structure** for SEO-friendly multi-language support:
+- `index.html` — language redirect (remembers the visitor's choice).
+- `zh/`, `en/`, `jp/` — one folder per language, each with `index.html`, `insights.html` (research archive), `disclosures.html`, `privacy.html` and `subscribed.html` (subscription status page).
+- `assets/` — shared CSS and JS: `tailwind.css` (built, see below), `lab.css`, `lab.js` (menu), `lab-research.js` (homepage research cards), `subscribe.js` (subscription form).
+- `data/articles.json` — the research catalog used by the archive pages and the homepage cards.
+- `tools/apps-script/` — the Google Apps Script backend for research subscriptions and its deploy guide. Not published to the site (`_config.yml`).
+- `tools/tailwind/` — Tailwind build config. Run `sh tools/tailwind/build.sh` after changing page markup or `assets/lab-tailwind.js`, then commit `assets/tailwind.css`.
 
-- `index.html` (Root): Automatically detects user language and redirects.
-- `/en/index.html`: English version content.
-- `/zh/index.html`: Traditional Chinese version content.
-- `/web_images/`: Stores all static assets (Logos, icons, founder photos).
+## Updating
 
-## 🛠 Technology
-- **HTML5**: Semantic structure.
-- **Tailwind CSS**: Styled via CDN for rapid development and clean UI.
-- **JavaScript**: Minimal vanilla JS for language detection and redirection.
-- **SVG Icons**: Lightweight, scalable vector icons used for UI elements.
+- **Text**: edit the page in the matching language folder.
+- **Research archive**: add an entry to `data/articles.json` (newest first is not required; pages sort by date).
+- **Subscription backend**: see `tools/apps-script/README.md`; tests run with `node tools/apps-script/test.js`.
 
-## 📝 How to Update
-1. **To change text**: Edit `index.html` inside the `/en/` or `/zh/` folders respectively.
-2. **To update images**: Upload new files to `/web_images/` and update the `src` path in the HTML files.
-
-## © Copyright
-© 2025 Miyama Capital. All Rights Reserved.
+© 2026 Miyama Capital LLC. All Rights Reserved.

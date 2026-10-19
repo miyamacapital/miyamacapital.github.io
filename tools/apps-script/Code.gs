@@ -27,6 +27,8 @@ var CONFIG = {
   DEFAULT_LANG: "en",
   CONFIRM_TTL_MS: 7 * 24 * 60 * 60 * 1000,
   RESEND_COOLDOWN_MS: 60 * 60 * 1000,
+  // An address that opted out is only re-mailed a confirmation once a day, so nobody can keep poking it.
+  UNSUB_COOLDOWN_MS: 24 * 60 * 60 * 1000,
   MIN_FORM_MS: 2000,
   MAX_LEN: { email: 254, name: 80, org: 120 },
   // Site-wide ceiling on subscription emails, so an open endpoint cannot be used for backscatter.
@@ -49,6 +51,15 @@ var CAMPAIGN_COLUMNS = ["id", "subject", "body", "pdf_name", "lang", "status", "
 
 var LOG_COLUMNS = ["at", "campaign_id", "email", "result", "detail"];
 
+// Free-text columns: cellSafe() is re-applied on every write, since Sheets may consume a leading apostrophe.
+var TEXT_COLUMNS = { name: true, org: true, source: true, history: true, detail: true };
+
+function columnLetter(n) {
+  var s = "";
+  while (n > 0) { var r = (n - 1) % 26; s = String.fromCharCode(65 + r) + s; n = Math.floor((n - 1) / 26); }
+  return s;
+}
+
 // ---------------------------------------------------------------------------
 // Settings
 // ---------------------------------------------------------------------------
@@ -66,8 +77,9 @@ function getSettings() {
   };
 }
 
+// Google shows either .../macros/s/<id>/exec or, for Workspace accounts, .../a/macros/<domain>/s/<id>/exec.
 function isWebAppUrl(value) {
-  return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(String(value || ""));
+  return /^https:\/\/script\.google\.com\/(macros|a\/macros\/[A-Za-z0-9.-]+)\/s\/[A-Za-z0-9_-]+\/exec$/.test(String(value || ""));
 }
 
 function requireMailSettings() {
@@ -227,8 +239,9 @@ function getSheet(name, columns) {
     sheet = ss.insertSheet(name);
     sheet.appendRow(columns);
     sheet.setFrozenRows(1);
-    // Plain-text columns: nothing a visitor types is ever evaluated as a formula or coerced to a date.
-    try { sheet.getRange(1, 1, sheet.getMaxRows(), columns.length).setNumberFormat("@"); } catch (ignore) {}
+    // Plain-text columns (whole columns, so rows appended later inherit it): nothing a visitor
+    // types is ever evaluated as a formula or coerced to a date.
+    try { sheet.getRange("A:" + columnLetter(columns.length)).setNumberFormat("@"); } catch (ignore) {}
   }
   return sheet;
 }
@@ -244,8 +257,13 @@ function readRows(sheet, columns) {
   return rows;
 }
 
+function cellValue(col, value) {
+  if (value == null) return "";
+  return TEXT_COLUMNS[col] && typeof value === "string" ? cellSafe(value) : value;
+}
+
 function writeRow(sheet, columns, rowIndex, record) {
-  var values = columns.map(function (col) { return record[col] == null ? "" : record[col]; });
+  var values = columns.map(function (col) { return cellValue(col, record[col]); });
   sheet.getRange(rowIndex, 1, 1, columns.length).setValues([values]);
 }
 
@@ -254,7 +272,7 @@ function writeCell(sheet, columns, rowIndex, column, value) {
 }
 
 function appendRecord(sheet, columns, record) {
-  sheet.appendRow(columns.map(function (col) { return record[col] == null ? "" : record[col]; }));
+  sheet.appendRow(columns.map(function (col) { return cellValue(col, record[col]); }));
 }
 
 function findRow(rows, predicate) {
@@ -345,7 +363,7 @@ function pageShell(bodyHtml) {
  */
 function redirectOutput(url) {
   var safe = escapeHtml(url);
-  var html = pageShell('<p style="margin:0"><a href="' + safe + '" target="_top" style="color:#4F46E5">Continue to Miyama Capital →</a></p>' +
+  var html = pageShell('<p style="margin:0"><a href="' + safe + '" target="_top" style="color:#4F46E5">Continue to Miyama Capital → ／ 前往 Miyama Capital ／ Miyama Capital へ進む</a></p>' +
     "<script>try { window.open(" + jsString(url) + ', "_top"); } catch (e) {}</script>');
   return HtmlService.createHtmlOutput(html).setTitle("Miyama Capital");
 }
@@ -376,7 +394,8 @@ function handleSubscribe(data, isJson) {
     var rows = readRows(sheet, SUBSCRIBER_COLUMNS);
     var key = emailKey(rec.email);
     var recentlyMailed = findRow(rows, function (r) {
-      return emailKey(r.email) === key && now - (Date.parse(r.last_sent_at) || 0) < CONFIG.RESEND_COOLDOWN_MS;
+      var cooldown = r.status === "unsubscribed" ? CONFIG.UNSUB_COOLDOWN_MS : CONFIG.RESEND_COOLDOWN_MS;
+      return emailKey(r.email) === key && now - (Date.parse(r.last_sent_at) || 0) < cooldown;
     });
     if (recentlyMailed) return { drop: "cooldown" };
     if (!throttleAllows()) return { drop: "throttle" };
@@ -491,6 +510,10 @@ function handleUnsubscribe(token) {
       row.unsubscribed_at = new Date().toISOString();
       row.confirm_token = "";
       row.confirm_expires = "";
+      // The privacy policy keeps only the address and the opt-out record after unsubscribing.
+      row.name = "";
+      row.org = "";
+      row.source = "";
       writeRow(found.sheet, SUBSCRIBER_COLUMNS, row._row, row);
     }
     return { lang: row.lang, state: "unsubscribed" };
@@ -694,7 +717,7 @@ function setup() {
   var problems = [];
   if (!String(s.postalAddress).trim()) problems.push("缺 POSTAL_ADDRESS");
   if (!s.webAppUrl) problems.push("缺 WEB_APP_URL（部署後的 /exec 網址）");
-  else if (!isWebAppUrl(s.webAppUrl)) problems.push("WEB_APP_URL 應是部署後的 https://script.google.com/macros/s/…/exec 網址");
+  else if (!isWebAppUrl(s.webAppUrl)) problems.push("WEB_APP_URL 應是部署後以 /exec 結尾的網頁應用程式網址（https://script.google.com/macros/s/…/exec 或 https://script.google.com/a/macros/<網域>/s/…/exec）");
   if (!s.reportsFolderId) problems.push("缺 REPORTS_FOLDER_ID（寄報告時需要）");
   if (s.sender) {
     var aliases = [];
@@ -716,6 +739,9 @@ function selectedCampaign() {
   var campaign = { _row: rowIndex };
   CAMPAIGN_COLUMNS.forEach(function (col, i) { campaign[col] = values[i]; });
   if (!campaign.id || !campaign.subject || !campaign.pdf_name) throw new Error("id、subject、pdf_name 都要填。");
+  var lang = String(campaign.lang || "all").trim().toLowerCase();
+  if (["all", "zh", "en", "ja", "jp"].indexOf(lang) < 0) throw new Error("lang 只能是 all、zh、en 或 ja（目前是「" + campaign.lang + "」）。");
+  campaign.lang = lang;
   return campaign;
 }
 

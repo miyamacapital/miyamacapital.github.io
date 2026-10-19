@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <!-- English Homepage -->
   <url>
     <loc>https://www.miyamacap.com/en/</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
@@ -13,135 +11,114 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
   </url>
-  
-  <!-- English Disclosures -->
-  <url>
-    <loc>https://www.miyamacap.com/en/disclosures.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html"/>
-  </url>
-
-  <!-- English Insights -->
   <url>
     <loc>https://www.miyamacap.com/en/insights.html</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/insights.html"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/insights.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/insights.html"/>
   </url>
-
-  <!-- Chinese Homepage -->
   <url>
-    <loc>https://www.miyamacap.com/zh/</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
-  </url>
-  
-  <!-- Chinese Disclosures -->
-  <url>
-    <loc>https://www.miyamacap.com/zh/disclosures.html</loc>
-    <lastmod>2026-02-26</lastmod>
+    <loc>https://www.miyamacap.com/en/disclosures.html</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/disclosures.html"/>
   </url>
-
-  <!-- Chinese Insights -->
-  <url>
-    <loc>https://www.miyamacap.com/zh/insights.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/insights.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/insights.html"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
-  </url>
-
-  <!-- Japanese Homepage -->
-  <url>
-    <loc>https://www.miyamacap.com/jp/</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
-  </url>
-
-  <!-- Japanese Disclosures -->
-  <url>
-    <loc>https://www.miyamacap.com/jp/disclosures.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html"/>
-  </url>
-
-  <!-- Japanese Insights -->
-  <url>
-    <loc>https://www.miyamacap.com/jp/insights.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/insights.html"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/insights.html"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
-  </url>
-
-  <!-- English Privacy -->
   <url>
     <loc>https://www.miyamacap.com/en/privacy.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/privacy.html"/>
   </url>
-
-  <!-- Chinese Privacy -->
+  <url>
+    <loc>https://www.miyamacap.com/zh/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
+  </url>
+  <url>
+    <loc>https://www.miyamacap.com/zh/insights.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/insights.html"/>
+  </url>
+  <url>
+    <loc>https://www.miyamacap.com/zh/disclosures.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/disclosures.html"/>
+  </url>
   <url>
     <loc>https://www.miyamacap.com/zh/privacy.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/privacy.html"/>
   </url>
-
-  <!-- Japanese Privacy -->
+  <url>
+    <loc>https://www.miyamacap.com/jp/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/"/>
+  </url>
+  <url>
+    <loc>https://www.miyamacap.com/jp/insights.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/insights.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/insights.html"/>
+  </url>
+  <url>
+    <loc>https://www.miyamacap.com/jp/disclosures.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/disclosures.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/disclosures.html"/>
+  </url>
   <url>
     <loc>https://www.miyamacap.com/jp/privacy.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.miyamacap.com/en/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.miyamacap.com/zh/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.miyamacap.com/jp/privacy.html"/>
-  </url>
-
-  <!-- Root redirect page -->
-  <url>
-    <loc>https://www.miyamacap.com/</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.miyamacap.com/en/privacy.html"/>
   </url>
 </urlset>

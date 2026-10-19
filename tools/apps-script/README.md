@@ -36,7 +36,7 @@ www.miyamacap.com/#subscribe ──POST──▶ Apps Script (doPost)
    - 執行身分：**我**
    - 誰可以存取：**所有人**（表單是匿名送出的，一定要選這個；選「所有擁有 Google 帳戶的使用者」網站上會送不出去）
 
-   部署後複製 `網頁應用程式網址`（`https://script.google.com/macros/s/…/exec`，不是 `/dev`，也不是部署作業 ID），回到第 3 步填入 `WEB_APP_URL`，再執行一次 `setup` 確認「設定已齊全」。
+   部署後複製 `網頁應用程式網址`（以 `/exec` 結尾：`https://script.google.com/macros/s/…/exec`，Workspace 帳號有時會顯示成 `https://script.google.com/a/macros/miyamacap.com/s/…/exec`，兩種都可以；不是 `/dev`，也不是部署作業 ID），回到第 3 步填入 `WEB_APP_URL`，再執行一次 `setup` 確認「設定已齊全」。
 
    缺少公司郵寄地址、缺少有效的 `/exec` 網址時，訂閱申請會回覆尚未設定，不會建立待確認名單或寄出壞連結。已存在的退訂操作不會因寄信設定缺少而被擋住。
 6. **把網址填進網站**。在 `zh/index.html`、`en/index.html`、`jp/index.html` 三個檔案裡，把表單的 `action="__SUBSCRIBE_ENDPOINT__"` 換成同一個 `/exec` 網址，commit 並推上去。
@@ -47,7 +47,7 @@ www.miyamacap.com/#subscribe ──POST──▶ Apps Script (doPost)
    - 三種語言各測一次（en、jp 會收到英文／日文信）。
    - 用未登入 Google 的無痕視窗再試一次，確定訪客不需要 Google 帳號。
 
-   **沒收到確認信？** (1) 同一個信箱一小時內重送不會再寄；(2) 表單在 2 秒內送出會被當成機器人，不寄信；(3) 看 Apps Script 左側 `執行作業` 有沒有紅色錯誤、Sheet 的 `Log` 有沒有 `error` 列；(4) 檢查垃圾郵件匣。測試時要重寄，可以把該列的 `last_sent_at` 清空。
+   **沒收到確認信？** (1) 同一個信箱一小時內重送不會再寄（已退訂的信箱是 24 小時）；(2) 表單在 2 秒內送出會被當成機器人，不寄信；(2b) 全站每 10 分鐘 30 封／每天 300 封的上限或 Gmail 每日額度用完時也會不寄，但網站仍顯示「請到信箱確認」，`Log` 會記 `dropped`；(3) 看 Apps Script 左側 `執行作業` 有沒有紅色錯誤、Sheet 的 `Log` 有沒有 `error` 列；(4) 檢查垃圾郵件匣。測試時要重寄，可以把該列的 `last_sent_at` 清空。
 
 > 之後若修改 `Code.gs`，要 `部署 → 管理部署作業 → 編輯（鉛筆）→ 版本：新版本 → 部署`，網址不會變。只按儲存不會更新線上版本。
 
@@ -70,7 +70,7 @@ www.miyamacap.com/#subscribe ──POST──▶ Apps Script (doPost)
 
 **額度**：付費 Google Workspace 帳號每天 1,500 位收件人（一般 @gmail.com 帳號只有 100；Workspace 試用期間額度更低，付費滿 60 天後才升到 1,500）。確認信、歡迎信也算在同一額度內，程式會在剩 20 封時自動停下。名單超過時，隔天回到 `Campaigns` 選取同一列（`status` 會是 `sending`）再按一次「寄出給訂閱者」，會從上次沒寄到的人接續。單次執行最多 4 分鐘，超過也會停下，同樣再按一次即可。
 
-某位收件人寄送失敗時，該份報告也會維持 `sending`，重新執行時只重試未成功的收件人。相同 campaign ID 同時只能有一個寄送執行；重複點選會提示正在寄送，避免重複發信。系統只在取得／釋放短期執行權時加鎖，寄信期間仍可確認訂閱、退訂。若執行被強制中止，最長等 10 分鐘後即可重試。
+某位收件人寄送失敗時，該份報告也會維持 `sending`，重新執行時只重試未成功的收件人。若某個信箱每次都失敗（例如地址已不存在），把該訂閱者的 `status` 改成 `unsubscribed`，報告就會變成 `sent`。相同 campaign ID 同時只能有一個寄送執行；重複點選會提示正在寄送，避免重複發信。系統只在取得／釋放短期執行權時加鎖，寄信期間仍可確認訂閱、退訂。若執行被強制中止，最長等 10 分鐘後即可重試。
 
 **附件大小**：上限 25 MB，但實務上建議 PDF 控制在 10 MB 以內（收件方信箱常有更低的限制）；更大的檔案改在 `body` 裡放 Drive「知道連結的人可檢視」的連結。
 
@@ -78,7 +78,7 @@ www.miyamacap.com/#subscribe ──POST──▶ Apps Script (doPost)
 
 - `Subscribers` 的 `status`：`pending`（還沒點確認）、`confirmed`（會收到報告）、`unsubscribed`。
 - 要匯出名單：篩選 `status = confirmed`，`檔案 → 下載 → CSV`。
-- 要手動移除某人：把 `status` 改成 `unsubscribed`。不要直接刪列，保留紀錄比較好交代。
+- 要手動移除某人：把 `status` 改成 `unsubscribed`，並清空 `name`、`org`、`source`（訂閱者自己退訂時程式會這樣做，隱私權政策也是這樣承諾的）。不要直接刪列，保留退訂紀錄比較好交代。
 - `Log` 記錄每一封寄出的報告、錯誤，以及被擋下的機器人申請。**它是防止重複寄送的依據，不要清空。**
 - 選單 `清理逾期未確認的申請（30 天）` 會刪掉確認連結過期超過 30 天、始終沒點確認的列。
 

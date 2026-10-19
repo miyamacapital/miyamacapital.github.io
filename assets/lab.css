@@ -123,3 +123,11 @@ button.lab-menu-toggle {
 }
 
 .lab-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Skip link: visible only when focused. */
+.lab-skip { position: absolute; left: 16px; top: -100px; z-index: 50; padding: 10px 16px; border-radius: 8px; background: #0F172A; color: #FFFFFF; font-weight: 600; text-decoration: none; }
+.lab-skip:focus { top: 16px; outline: 3px solid #A5B4FC; outline-offset: 2px; }
+/* Subscription form before the backend is deployed: a calm notice, not an alert. */
+.lab-form-status[data-state="muted"] { color: #CBD5E1; }
+/* The hidden attribute must win over the form's own display rules (used before the backend is deployed). */
+.lab-form [hidden] { display: none !important; }

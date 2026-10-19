@@ -36,7 +36,9 @@
     <meta name="twitter:description" content="マクロ分析、投資フレームワーク、マーケット解説。" />
     <meta name="twitter:image" content="https://www.miyamacap.com/web_images/og-image.png" />
 
-    <link rel="icon" type="image/png" href="../web_images/Logo2.png" />
+    <link rel="icon" type="image/png" href="/web_images/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/web_images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#FCFCFD" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -54,8 +56,7 @@
       gtag('config', 'G-RYZJ00S1MW');
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/assets/lab-tailwind.js"></script>
+    <link rel="stylesheet" href="/assets/tailwind.css" />
     <link rel="stylesheet" href="/assets/lab.css" />
     <script>
       // Collapse the phone menu before first paint; lab.js wires up the toggle.
@@ -91,12 +92,13 @@
 
   <body>
 <div class="bg-lab-background text-lab-text font-lab-sans leading-lab-body" style="text-wrap: pretty;">
+<a class="lab-skip" href="#main">本文へスキップ</a>
 
 <header class="bg-lab-card border-b border-b-lab-line">
 <div class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 18px; padding-bottom: 18px;">
 <div class="lab-header-row">
 <div class="lab-brand">
-<a href="/jp/index.html" aria-label="Miyama Capital ホーム" class="lab-tap text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="../web_images/Logo2.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
+<a href="/jp/index.html" aria-label="Miyama Capital ホーム" class="lab-tap text-lab-text" style="gap: 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; text-decoration: none;"><img src="/web_images/logo-176.png" alt="" aria-hidden="true" width="44" height="36" style="object-fit: contain;">Miyama Capital</a>
 <button type="button" class="lab-menu-toggle" aria-expanded="false" aria-controls="lab-nav"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="lab-menu-label">メニュー</span></button>
 </div>
 <div class="lab-header-actions">
@@ -122,7 +124,7 @@
 </div>
 </header>
 
-<main>
+<main id="main">
 
 <section class="max-w-lab-content box-content px-lab-gutter" style="margin: 0 auto; padding-top: 80px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 20px;">
 <p class="font-lab-mono text-lab-accent" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;">リサーチ＆分析</p>
@@ -135,23 +137,22 @@
 
 <div style="display: flex; flex-direction: column; gap: 12px;">
 <div role="group" aria-label="言語" style="display: flex; flex-wrap: wrap; gap: 8px;">
-<button type="button" data-lang="all" class="filter-btn active rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">すべての言語</button>
-<button type="button" data-lang="zh-TW" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇹🇼 繁中</button>
-<button type="button" data-lang="en" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇺🇸 English</button>
-<button type="button" data-lang="ja" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇯🇵 日本語</button>
+<button type="button" data-lang="all" aria-pressed="true" class="filter-btn active rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">すべての言語</button>
+<button type="button" data-lang="zh-TW" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇹🇼 繁中</button>
+<button type="button" data-lang="en" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇺🇸 English</button>
+<button type="button" data-lang="ja" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">🇯🇵 日本語</button>
 </div>
 <div role="group" aria-label="トピック" style="display: flex; flex-wrap: wrap; gap: 8px;">
-<button type="button" data-cat="all" class="filter-btn active rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">すべてのトピック</button>
-<button type="button" data-cat="macro" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">マクロ分析</button>
-<button type="button" data-cat="framework" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">フレームワーク</button>
-<button type="button" data-cat="philosophy" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">投資哲学</button>
-<button type="button" data-cat="commentary" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">マーケット解説</button>
-<button type="button" data-cat="realestate" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">不動産</button>
-<button type="button" data-cat="meta" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">会社情報</button>
+<button type="button" data-cat="all" aria-pressed="true" class="filter-btn active rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">すべてのトピック</button>
+<button type="button" data-cat="macro" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">マクロ分析</button>
+<button type="button" data-cat="framework" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">フレームワーク</button>
+<button type="button" data-cat="philosophy" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">投資哲学</button>
+<button type="button" data-cat="commentary" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">マーケット解説</button>
+<button type="button" data-cat="realestate" aria-pressed="false" class="filter-btn rounded-lab-label border border-lab-outline bg-lab-card text-lab-body" style="justify-content: center; padding: 0 16px; font-size: 14px; font-weight: 500;">不動産</button>
 </div>
 </div>
 
-<div id="article-list" style="display: flex; flex-direction: column; gap: 16px;"></div>
+<div id="article-list" style="display: flex; flex-direction: column; gap: 16px;"><noscript><p class="text-lab-body" style="margin: 0; font-size: 16px;">記事一覧の表示には JavaScript が必要です。<a href="https://note.com/miyamacapitaljp">note</a> でもお読みいただけます。</p></noscript></div>
 
 <div id="empty-state" class="hidden bg-lab-card border border-lab-line rounded-lab-card text-center" style="padding: 56px 24px;">
 <p class="text-lab-muted" style="margin: 0; font-size: 15px;">このカテゴリの記事はまだありません。</p>
@@ -233,8 +234,6 @@
           var validArticles = data.filter(isArticle);
           if (data.length && !validArticles.length) throw new Error("Article catalog contains no valid articles");
           articles = validArticles.sort(function (a, b) {
-            if (a.featured && !b.featured) return -1;
-            if (!a.featured && b.featured) return 1;
             return new Date(b.date) - new Date(a.date);
           });
           readURLParams();
@@ -313,7 +312,7 @@
                 '<span class="text-lab-text" style="font-weight: 600;">' + (categoryNames[a.category] || a.category) + '</span><span aria-hidden="true" class="text-lab-outline">·</span>' +
                 '<span>' + (platformNames[a.platform] || a.platform) + '</span>' +
               '</div>' +
-              '<h3 class="text-lab-text" style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;">' + a.title + '</h3>' +
+              '<h2 class="text-lab-text" style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.45;">' + a.title + '</h2>' +
               '<p class="text-lab-body" style="margin: 0; max-width: 52em; font-size: 14px;">' + a.summary + '</p>' +
               '<span class="text-lab-accent group-hover:underline" style="margin-top: 4px; font-size: 14px; font-weight: 600;">' + (ctaText[a.lang] || "続きを読む →") + '</span>' +
             '</a>';
