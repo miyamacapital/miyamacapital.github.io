@@ -38,10 +38,12 @@ function makeSheet(name) {
 function makeEnv() {
   const sheets = {};
   const mails = [];
+  const alerts = [];
   const props = { SPREADSHEET_ID: "test-spreadsheet", POSTAL_ADDRESS: "1 Test St, San Francisco, CA 94105", REPORTS_FOLDER_ID: "folder123", WEB_APP_URL: "https://script.google.com/macros/s/TEST/exec" };
   let quota = 1500;
   let activeSheet = null;
   let sendError = null;
+  let alertError = null;
   let lockDepth = 0;
   const ss = {
     getId: () => "test-spreadsheet",
@@ -60,16 +62,17 @@ function makeEnv() {
     LockService: { getScriptLock: () => ({ waitLock() { lockDepth++; }, releaseLock() { lockDepth--; } }) },
     Utilities: { getUuid: () => { let s = ""; for (let i = 0; i < 32; i++) s += Math.floor(Math.random() * 16).toString(16); return s.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/, "$1-$2-$3-$4-$5"); } },
     GmailApp: { sendEmail: (to, subject, body, options) => { if (sendError) throw sendError; mails.push({ to, subject, body, options }); }, getAliases: () => ["connect@miyamacap.com"] },
-    MailApp: { getRemainingDailyQuota: () => quota },
+    MailApp: { getRemainingDailyQuota: () => quota, sendEmail: (to, subject, body) => { if (alertError) throw alertError; alerts.push({ to, subject, body }); } },
     DriveApp: { getFolderById: () => ({ getFilesByName: (n) => { const list = n === "report.pdf" ? [{ getBlob: () => ({ name: n }) }] : []; let i = 0; return { hasNext: () => i < list.length, next: () => list[i++] }; } }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => "owner@miyamacap.com" }) },
     ContentService: { createTextOutput: (s) => ({ _text: s, setMimeType() { return this; } }), MimeType: { JSON: "json" } },
     HtmlService: { createHtmlOutput: (h) => ({ _html: h, setTitle() { return this; } }) },
     Logger: { log: () => {} },
     console, Date, JSON, Math, Object, String, Number, Array, Error, encodeURIComponent,
-    _sheets: sheets, _mails: mails, _props: props,
+    _sheets: sheets, _mails: mails, _alerts: alerts, _props: props,
     _setQuota: (q) => { quota = q; },
     _setSendError: (e) => { sendError = e; },
+    _setAlertError: (e) => { alertError = e; },
     _lockDepth: () => lockDepth,
     _select: (sheetName, row) => { activeSheet = Object.assign({}, sheets[sheetName], { getActiveRange: () => ({ getRow: () => row }) }); },
   };
@@ -509,6 +512,85 @@ test("launch fixes: URL forms, unsubscribe scrubs fields, campaign lang validati
   env._sheets.Campaigns.appendRow(["typo", "s", "b", "report.pdf", "al", "", "", "", ""]);
   env._select("Campaigns", 2);
   assert.throws(() => env.selectedCampaign(), /lang/);
+});
+
+test("alerts: an error mails the owner once, with the detail and a Sheet link, and the request still answers", (env) => {
+  env.GmailApp.sendEmail = () => { throw new Error("Invalid argument: from"); };
+  assert.deepStrictEqual(out(env.doPost(jsonPost(good()))), { ok: false, error: "server_error" });
+  assert.strictEqual(env._alerts.length, 1);
+  const a = env._alerts[0];
+  assert.strictEqual(a.to, "owner@miyamacap.com");
+  assert.ok(a.subject.indexOf("[Miyama 訂閱]") === 0 && a.subject.indexOf("Invalid argument: from") >= 0);
+  assert.ok(a.body.indexOf("Invalid argument: from") >= 0);
+  assert.ok(a.body.indexOf("https://docs.google.com/spreadsheets/d/test-spreadsheet/edit") >= 0);
+  assert.ok(Number(env._props.ALERT_LAST_SENT_AT) > Date.now() - 5000);
+  assert.strictEqual(env._lockDepth(), 0);
+  assert.strictEqual(logs(env).filter((l) => l[3] === "error").length, 1);
+  // A welcome-mail failure after a successful confirmation is alerted too.
+  const iso = makeEnv();
+  iso.doPost(jsonPost(good()));
+  iso._setSendError(new Error("quota"));
+  assert.ok(confirmOf(iso)._html.includes("s=confirmed"));
+  assert.strictEqual(iso._alerts.length, 1);
+  assert.ok(iso._alerts[0].body.includes("welcome: quota") && iso._alerts[0].body.includes("ann@example.com"));
+  // Errors inside safely() are alerted even when the Log sheet itself cannot be written.
+  const broken = makeEnv();
+  broken.doPost(jsonPost(good()));
+  const token = subs(broken)[0][col("confirm_token")];
+  broken.SpreadsheetApp.openById = () => { throw new Error("Service Spreadsheets failed"); };
+  assert.ok(broken.doGet({ parameter: { action: "confirm", t: token } })._html.includes("s=server_error"));
+  assert.strictEqual(broken._alerts.length, 1);
+  assert.ok(broken._alerts[0].body.includes("Service Spreadsheets failed"));
+});
+
+test("alerts: a second error within the hour is logged but not mailed; the slot reopens after an hour; campaign failures count too", (env) => {
+  env.GmailApp.sendEmail = () => { throw new Error("boom"); };
+  env.doPost(jsonPost(Object.assign(good(), { email: "a@x.io" })));
+  env.doPost(jsonPost(Object.assign(good(), { email: "b@x.io" })));
+  assert.strictEqual(logs(env).filter((l) => l[3] === "error").length, 2);
+  assert.strictEqual(env._alerts.length, 1);
+  assert.ok(env._alerts[0].body.includes("接下來一小時內"));
+  env._props.ALERT_LAST_SENT_AT = String(Date.now() - 2 * 3600 * 1000);
+  env.doPost(jsonPost(Object.assign(good(), { email: "c@x.io" })));
+  assert.strictEqual(env._alerts.length, 2);
+  // Per-recipient campaign failures ("failed") alert under the same hourly cap.
+  const iso = makeEnv();
+  iso.doPost(jsonPost(good()));
+  confirmOf(iso);
+  iso.setup();
+  iso._sheets.Campaigns.appendRow(["q4", "Report", "Hi", "report.pdf", "zh"]);
+  iso._select("Campaigns", 2);
+  iso.GmailApp.sendEmail = () => { throw new Error("Message rejected"); };
+  assert.ok(iso.sendCampaign(iso.selectedCampaign()).includes("失敗 1 封"));
+  assert.strictEqual(iso._alerts.length, 1);
+  assert.ok(iso._alerts[0].subject.includes("寄送失敗") && iso._alerts[0].body.includes("Campaign：q4") && iso._alerts[0].body.includes("Message rejected"));
+  assert.ok(iso.sendCampaign(iso.selectedCampaign()).includes("失敗 1 封"));
+  assert.strictEqual(iso._alerts.length, 1, "second failed run inside the hour is not mailed");
+});
+
+test("alerts: ALERT_EMAIL overrides the recipient; a failing alert never reaches doPost and gives the hourly slot back", (env) => {
+  env._props.ALERT_EMAIL = "Ops@MiyamaCap.com";
+  assert.ok(env.setup().includes("ops@miyamacap.com"));
+  env.GmailApp.sendEmail = () => { throw new Error("boom"); };
+  env.doPost(jsonPost(good()));
+  assert.strictEqual(env._alerts[0].to, "ops@miyamacap.com");
+  env._props.ALERT_LAST_SENT_AT = "0";
+  env._setAlertError(new Error("MailApp down"));
+  assert.deepStrictEqual(out(env.doPost(jsonPost(Object.assign(good(), { email: "b@x.io" })))), { ok: false, error: "server_error" });
+  assert.strictEqual(env._alerts.length, 1);
+  assert.strictEqual(env._props.ALERT_LAST_SENT_AT, "0", "a failed alert does not consume the hourly slot");
+  assert.strictEqual(env._lockDepth(), 0);
+  assert.strictEqual(logs(env).filter((l) => l[3] === "error").length, 2, "the Log row is still written");
+  env._setAlertError(null);
+  env._props.ALERT_EMAIL = "not-an-address";
+  assert.ok(env.setup().includes("ALERT_EMAIL not-an-address"));
+  env.Session.getEffectiveUser = () => { throw new Error("no session"); };
+  assert.deepStrictEqual(out(env.doPost(jsonPost(Object.assign(good(), { email: "c@x.io" })))), { ok: false, error: "server_error" });
+  assert.strictEqual(env._alerts.length, 1);
+  assert.strictEqual(env._lockDepth(), 0);
+  // Plain form posts (no JS) still redirect to the status page when the alert path is broken.
+  env._props.ALERT_LAST_SENT_AT = "0";
+  assert.ok(env.doPost(formPost(Object.assign(good(), { email: "d@x.io" })))._html.includes("/zh/subscribed.html?s=server_error"));
 });
 
 // ---- Runner ------------------------------------------------------------------

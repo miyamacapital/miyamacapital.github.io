@@ -112,6 +112,8 @@
   var s = new URLSearchParams(location.search).get("s");
   var state = Object.prototype.hasOwnProperty.call(states, s) ? states[s] : null;
   if (!Array.isArray(state)) return;
+  // GA4: which outcome page the visitor landed on (known states only, nothing personal).
+  if (typeof gtag === "function") { try { gtag("event", "subscribe_status", { state: s, lang: "en" }); } catch (ignore) {} }
   document.querySelectorAll(".lab-languages a").forEach(function (link) {
     link.setAttribute("href", link.getAttribute("href") + "?s=" + encodeURIComponent(s));
   });
