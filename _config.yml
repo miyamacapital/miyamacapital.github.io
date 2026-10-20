@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll) build settings. Everything else is served as-is.
+exclude:
+  - tools
+  - internal
+  - README.md
+  - web_images/og-image.svg

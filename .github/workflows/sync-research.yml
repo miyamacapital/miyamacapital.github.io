@@ -1,0 +1,95 @@
+# Keeps data/articles.json (the research catalog behind the archive pages and the homepage
+# "latest research" cards) in step with vocus, Substack and note. See README "Research catalog sync".
+#
+# Scheduled runs only fire from the default branch (main), so this file has to be on main for the
+# daily run to happen; the catalog it updates and the PR it opens target BASE_BRANCH below.
+# Nothing is ever pushed to a branch directly: changes arrive as the PR "Sync research catalog".
+name: Sync research catalog
+
+on:
+  schedule:
+    - cron: '17 1 * * *' # daily 01:17 UTC = 09:17 Taipei, 10:17 Tokyo, 18:17 Pacific (previous day)
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Branch whose catalog is synced; the PR targets it
+        required: false
+        default: redesign/c-lab
+      dry_run:
+        description: Only print what would be added (no PR)
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-research
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      BASE_BRANCH: ${{ inputs.base || 'redesign/c-lab' }}
+    steps:
+      - name: Check out ${{ inputs.base || 'redesign/c-lab' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.BASE_BRANCH }}
+
+      - name: Set up Node 20
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '20'
+
+      - name: Sync the catalog from the feeds
+        id: sync
+        run: |
+          set -o pipefail
+          if [ "${{ inputs.dry_run }}" = "true" ]; then extra="--check"; else extra=""; fi
+          node tools/feeds/sync.js $extra --report "$RUNNER_TEMP/sync-report.md" | tee "$RUNNER_TEMP/sync.log"
+          {
+            echo "## Sync research catalog ($BASE_BRANCH)"
+            echo
+            cat "$RUNNER_TEMP/sync-report.md"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open or update the pull request
+        if: inputs.dry_run != true
+        id: pr
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          # A PAT in SYNC_PR_TOKEN is optional; GITHUB_TOKEN works once the repository setting
+          # "Allow GitHub Actions to create and approve pull requests" is enabled.
+          token: ${{ secrets.SYNC_PR_TOKEN || secrets.GITHUB_TOKEN }}
+          base: ${{ env.BASE_BRANCH }}
+          branch: bot/sync-research
+          delete-branch: true
+          add-paths: data/articles.json
+          commit-message: |
+            Sync research catalog
+
+            Automated append of new posts from vocus, Substack and note
+            (tools/feeds/sync.js).
+          title: Sync research catalog
+          body-path: ${{ runner.temp }}/sync-report.md
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+      - name: Report
+        if: inputs.dry_run != true
+        run: |
+          if [ -n "${{ steps.pr.outputs.pull-request-url }}" ]; then
+            echo "Pull request: ${{ steps.pr.outputs.pull-request-url }} (${{ steps.pr.outputs.pull-request-operation }})"
+          else
+            echo "Catalog already up to date; no pull request needed."
+          fi
+
+      - name: Fail the run if a source could not be read
+        if: steps.sync.outputs.sources_failed != ''
+        run: |
+          echo "::error::These sources could not be read: ${{ steps.sync.outputs.sources_failed }}. Other sources were still synced."
+          exit 1
