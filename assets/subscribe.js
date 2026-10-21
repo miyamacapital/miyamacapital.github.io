@@ -11,11 +11,22 @@
   var busy = false;
   var fieldFor = { invalid_email: "email", name_required: "name", name_invalid: "name", consent_required: "consent" };
   var keyFor = { email: "invalid_email", name: "name_required", consent: "consent_required" };
+  var langField = form.elements.namedItem("lang");
+  var lang = (langField && langField.value) || document.documentElement.lang || "";
 
-  function show(key, isError) {
+  // GA4 funnel events (gtag is defined inline in <head>; events queue in dataLayer until the library loads).
+  // Only the page language and an error key are sent, never anything the visitor typed.
+  function track(name, params) {
+    if (typeof gtag !== "function") return;
+    var payload = { lang: lang };
+    for (var key in params) if (Object.prototype.hasOwnProperty.call(params, key)) payload[key] = params[key];
+    try { gtag("event", name, payload); } catch (ignore) {}
+  }
+
+  function show(key, state) {
     if (!status) return;
-    status.setAttribute("role", isError ? "alert" : "status");
-    status.setAttribute("data-state", isError ? "error" : "ok");
+    status.setAttribute("role", state === "error" ? "alert" : "status");
+    status.setAttribute("data-state", state);
     status.textContent = messages[key] || messages.error || "";
   }
 
@@ -35,10 +46,11 @@
     }
   });
 
+  // Until the backend is deployed, the section shows a calm notice and the platform links only.
   if (!/^https:\/\//.test(endpoint) || endpoint.indexOf("__") >= 0) {
-    show("unconfigured", true);
-    Array.prototype.forEach.call(form.querySelectorAll("input"), function (input) { input.disabled = true; });
-    button.setAttribute("aria-disabled", "true");
+    Array.prototype.forEach.call(form.querySelectorAll(".lab-field, .lab-consent, button"), function (el) { el.hidden = true; });
+    show("unconfigured", "muted");
+    track("subscribe_unconfigured");
     form.addEventListener("submit", function (event) { event.preventDefault(); });
     return;
   }
@@ -47,7 +59,7 @@
   form.addEventListener("invalid", function (event) {
     event.preventDefault();
     if (form.querySelector('[aria-invalid="true"]')) return;
-    show(keyFor[event.target.name] || "error", true);
+    show(keyFor[event.target.name] || "error", "error");
     markInvalid(event.target.name);
   }, true);
 
@@ -59,29 +71,39 @@
     var data = {};
     new FormData(form).forEach(function (value, key) { data[key] = value; });
     data.elapsed = String(Date.now() - loadedAt);
-    show("sending", false);
+    show("sending", "ok");
+    track("subscribe_submit");
     var controller = typeof AbortController === "function" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
     // text/plain keeps the request "simple", so no CORS preflight reaches Apps Script.
     fetch(endpoint, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "text/plain;charset=UTF-8" }, signal: controller ? controller.signal : undefined })
       .then(function (res) {
-        if (!res.ok) throw new Error("Subscription request failed (HTTP " + res.status + ")");
+        if (!res.ok) {
+          var failure = new Error("Subscription request failed (HTTP " + res.status + ")");
+          failure.key = "http_" + res.status;
+          throw failure;
+        }
         return res.json();
       })
       .then(function (res) {
         if (res && res.ok) {
           form.reset();
           loadedAt = Date.now();
-          show("check", false);
+          show("check", "ok");
           status.setAttribute("tabindex", "-1");
           status.focus();
+          track("subscribe_success");
         } else {
-          var key = res && res.error ? res.error : "error";
-          show(key, true);
+          var key = res && res.error ? String(res.error) : "error";
+          show(key, "error");
           if (fieldFor[key]) markInvalid(fieldFor[key]);
+          track("subscribe_error", { error: key });
         }
       })
-      .catch(function () { show("error", true); })
+      .catch(function (err) {
+        show("error", "error");
+        track("subscribe_error", { error: (err && err.key) || (err && err.name === "AbortError" ? "timeout" : "network") });
+      })
       .then(function () {
         if (timer) clearTimeout(timer);
         busy = false;

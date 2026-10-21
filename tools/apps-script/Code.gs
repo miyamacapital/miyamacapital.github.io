@@ -17,6 +17,8 @@
  *   FROM_NAME         optional. Defaults to "Miyama Capital".
  *   REPLY_TO          optional. Defaults to connect@miyamacap.com.
  *   SITE_ORIGIN       optional. Defaults to https://www.miyamacap.com.
+ *   ALERT_EMAIL       optional. Where backend error alerts are mailed (at most one per hour).
+ *                     Defaults to the account that deployed the script.
  */
 
 var CONFIG = {
@@ -27,6 +29,8 @@ var CONFIG = {
   DEFAULT_LANG: "en",
   CONFIRM_TTL_MS: 7 * 24 * 60 * 60 * 1000,
   RESEND_COOLDOWN_MS: 60 * 60 * 1000,
+  // An address that opted out is only re-mailed a confirmation once a day, so nobody can keep poking it.
+  UNSUB_COOLDOWN_MS: 24 * 60 * 60 * 1000,
   MIN_FORM_MS: 2000,
   MAX_LEN: { email: 254, name: 80, org: 120 },
   // Site-wide ceiling on subscription emails, so an open endpoint cannot be used for backscatter.
@@ -35,6 +39,10 @@ var CONFIG = {
   RUN_BUDGET_MS: 4 * 60 * 1000,
   PURGE_PENDING_AFTER_MS: 30 * 24 * 60 * 60 * 1000,
   SEND_WELCOME: true,
+  // Error alerts to the owner are collapsed to one email per hour; the rest only reach the Log sheet.
+  ALERT_COOLDOWN_MS: 60 * 60 * 1000,
+  // Log results that trigger an alert email.
+  ALERT_RESULTS: { error: true, failed: true },
   CONSENT_VERSION: "2026-10",
 };
 
@@ -48,6 +56,15 @@ var SUBSCRIBER_COLUMNS = [
 var CAMPAIGN_COLUMNS = ["id", "subject", "body", "pdf_name", "lang", "status", "sent_at", "sent_count", "notes"];
 
 var LOG_COLUMNS = ["at", "campaign_id", "email", "result", "detail"];
+
+// Free-text columns: cellSafe() is re-applied on every write, since Sheets may consume a leading apostrophe.
+var TEXT_COLUMNS = { name: true, org: true, source: true, history: true, detail: true };
+
+function columnLetter(n) {
+  var s = "";
+  while (n > 0) { var r = (n - 1) % 26; s = String.fromCharCode(65 + r) + s; n = Math.floor((n - 1) / 26); }
+  return s;
+}
 
 // ---------------------------------------------------------------------------
 // Settings
@@ -63,11 +80,13 @@ function getSettings() {
     fromName: props.getProperty("FROM_NAME") || "Miyama Capital",
     replyTo: props.getProperty("REPLY_TO") || "connect@miyamacap.com",
     siteOrigin: (props.getProperty("SITE_ORIGIN") || "https://www.miyamacap.com").replace(/\/+$/, ""),
+    alertEmail: props.getProperty("ALERT_EMAIL") || "",
   };
 }
 
+// Google shows either .../macros/s/<id>/exec or, for Workspace accounts, .../a/macros/<domain>/s/<id>/exec.
 function isWebAppUrl(value) {
-  return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(String(value || ""));
+  return /^https:\/\/script\.google\.com\/(macros|a\/macros\/[A-Za-z0-9.-]+)\/s\/[A-Za-z0-9_-]+\/exec$/.test(String(value || ""));
 }
 
 function requireMailSettings() {
@@ -227,8 +246,9 @@ function getSheet(name, columns) {
     sheet = ss.insertSheet(name);
     sheet.appendRow(columns);
     sheet.setFrozenRows(1);
-    // Plain-text columns: nothing a visitor types is ever evaluated as a formula or coerced to a date.
-    try { sheet.getRange(1, 1, sheet.getMaxRows(), columns.length).setNumberFormat("@"); } catch (ignore) {}
+    // Plain-text columns (whole columns, so rows appended later inherit it): nothing a visitor
+    // types is ever evaluated as a formula or coerced to a date.
+    try { sheet.getRange("A:" + columnLetter(columns.length)).setNumberFormat("@"); } catch (ignore) {}
   }
   return sheet;
 }
@@ -244,8 +264,13 @@ function readRows(sheet, columns) {
   return rows;
 }
 
+function cellValue(col, value) {
+  if (value == null) return "";
+  return TEXT_COLUMNS[col] && typeof value === "string" ? cellSafe(value) : value;
+}
+
 function writeRow(sheet, columns, rowIndex, record) {
-  var values = columns.map(function (col) { return record[col] == null ? "" : record[col]; });
+  var values = columns.map(function (col) { return cellValue(col, record[col]); });
   sheet.getRange(rowIndex, 1, 1, columns.length).setValues([values]);
 }
 
@@ -254,7 +279,7 @@ function writeCell(sheet, columns, rowIndex, column, value) {
 }
 
 function appendRecord(sheet, columns, record) {
-  sheet.appendRow(columns.map(function (col) { return record[col] == null ? "" : record[col]; }));
+  sheet.appendRow(columns.map(function (col) { return cellValue(col, record[col]); }));
 }
 
 function findRow(rows, predicate) {
@@ -263,9 +288,77 @@ function findRow(rows, predicate) {
 }
 
 function logEvent(campaignId, email, result, detail) {
-  appendRecord(getSheet(CONFIG.SHEET_LOG, LOG_COLUMNS), LOG_COLUMNS, {
-    at: new Date().toISOString(), campaign_id: campaignId, email: email, result: result, detail: cellSafe(detail || ""),
-  });
+  try {
+    appendRecord(getSheet(CONFIG.SHEET_LOG, LOG_COLUMNS), LOG_COLUMNS, {
+      at: new Date().toISOString(), campaign_id: campaignId, email: email, result: result, detail: cellSafe(detail || ""),
+    });
+  } finally {
+    // Errors are mailed to the owner even when the Log sheet itself is unreachable.
+    if (CONFIG.ALERT_RESULTS[result]) alertOwner(campaignId, email, result, detail);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Error alerts
+// ---------------------------------------------------------------------------
+
+/** ALERT_EMAIL when set and valid, otherwise the account the script runs as. */
+function alertRecipient() {
+  return normalizeEmail(getSettings().alertEmail) || Session.getEffectiveUser().getEmail();
+}
+
+function spreadsheetUrl() {
+  var id = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  if (!id) return "";
+  var url = "https://docs.google.com/spreadsheets/d/" + id + "/edit";
+  try {
+    var log = SpreadsheetApp.openById(id).getSheetByName(CONFIG.SHEET_LOG);
+    if (log && typeof log.getSheetId === "function") url += "#gid=" + log.getSheetId();
+  } catch (ignore) {}
+  return url;
+}
+
+/**
+ * Emails the owner about an error the Log sheet just recorded. At most one alert per
+ * ALERT_COOLDOWN_MS (claimed under the script lock, so concurrent requests cannot both send);
+ * a failed send gives the slot back. Never throws: a broken alert must not break the request.
+ */
+function alertOwner(campaignId, email, result, detail) {
+  var claimed = false, previous = null;
+  try {
+    var now = Date.now();
+    claimed = withLock(function () {
+      var props = PropertiesService.getScriptProperties();
+      previous = props.getProperty("ALERT_LAST_SENT_AT");
+      if (now - (Number(previous) || 0) < CONFIG.ALERT_COOLDOWN_MS) return false;
+      props.setProperty("ALERT_LAST_SENT_AT", String(now));
+      return true;
+    });
+    if (!claimed) return;
+    var text = String(detail || "").replace(/\s+$/, "");
+    if (text.length > 4000) text = text.slice(0, 4000) + "\n…";
+    var headline = (text.split("\n")[0] || result).slice(0, 120);
+    var lines = [
+      "研究訂閱系統在 " + new Date(now).toISOString() + " 記錄了一筆 " + result + "。",
+      "",
+      "結果：" + result,
+      "Campaign：" + (campaignId || "（無）"),
+      "Email：" + (email || "（無）"),
+      "詳細：",
+      text || "（無）",
+      "",
+    ];
+    var sheetUrl = spreadsheetUrl();
+    if (sheetUrl) lines.push("Log 工作表：" + sheetUrl);
+    try { lines.push("Apps Script 執行紀錄：https://script.google.com/home/projects/" + ScriptApp.getScriptId() + "/executions"); } catch (ignore) {}
+    lines.push("", "接下來一小時內的其他錯誤只會寫入 Log，不再寄信。");
+    MailApp.sendEmail(alertRecipient(), "[Miyama 訂閱] 後端" + (result === "failed" ? "寄送失敗" : "錯誤") + "：" + headline, lines.join("\n"));
+  } catch (err) {
+    if (claimed) {
+      try { withLock(function () { PropertiesService.getScriptProperties().setProperty("ALERT_LAST_SENT_AT", previous || "0"); }); } catch (ignore) {}
+    }
+    try { Logger.log("alert failed: " + (err && err.message || err)); } catch (ignore) {}
+  }
 }
 
 function withLock(fn) {
@@ -345,7 +438,7 @@ function pageShell(bodyHtml) {
  */
 function redirectOutput(url) {
   var safe = escapeHtml(url);
-  var html = pageShell('<p style="margin:0"><a href="' + safe + '" target="_top" style="color:#4F46E5">Continue to Miyama Capital →</a></p>' +
+  var html = pageShell('<p style="margin:0"><a href="' + safe + '" target="_top" style="color:#4F46E5">Continue to Miyama Capital → ／ 前往 Miyama Capital ／ Miyama Capital へ進む</a></p>' +
     "<script>try { window.open(" + jsString(url) + ', "_top"); } catch (e) {}</script>');
   return HtmlService.createHtmlOutput(html).setTitle("Miyama Capital");
 }
@@ -376,7 +469,8 @@ function handleSubscribe(data, isJson) {
     var rows = readRows(sheet, SUBSCRIBER_COLUMNS);
     var key = emailKey(rec.email);
     var recentlyMailed = findRow(rows, function (r) {
-      return emailKey(r.email) === key && now - (Date.parse(r.last_sent_at) || 0) < CONFIG.RESEND_COOLDOWN_MS;
+      var cooldown = r.status === "unsubscribed" ? CONFIG.UNSUB_COOLDOWN_MS : CONFIG.RESEND_COOLDOWN_MS;
+      return emailKey(r.email) === key && now - (Date.parse(r.last_sent_at) || 0) < cooldown;
     });
     if (recentlyMailed) return { drop: "cooldown" };
     if (!throttleAllows()) return { drop: "throttle" };
@@ -491,6 +585,10 @@ function handleUnsubscribe(token) {
       row.unsubscribed_at = new Date().toISOString();
       row.confirm_token = "";
       row.confirm_expires = "";
+      // The privacy policy keeps only the address and the opt-out record after unsubscribing.
+      row.name = "";
+      row.org = "";
+      row.source = "";
       writeRow(found.sheet, SUBSCRIBER_COLUMNS, row._row, row);
     }
     return { lang: row.lang, state: "unsubscribed" };
@@ -694,14 +792,16 @@ function setup() {
   var problems = [];
   if (!String(s.postalAddress).trim()) problems.push("缺 POSTAL_ADDRESS");
   if (!s.webAppUrl) problems.push("缺 WEB_APP_URL（部署後的 /exec 網址）");
-  else if (!isWebAppUrl(s.webAppUrl)) problems.push("WEB_APP_URL 應是部署後的 https://script.google.com/macros/s/…/exec 網址");
+  else if (!isWebAppUrl(s.webAppUrl)) problems.push("WEB_APP_URL 應是部署後以 /exec 結尾的網頁應用程式網址（https://script.google.com/macros/s/…/exec 或 https://script.google.com/a/macros/<網域>/s/…/exec）");
   if (!s.reportsFolderId) problems.push("缺 REPORTS_FOLDER_ID（寄報告時需要）");
   if (s.sender) {
     var aliases = [];
     try { aliases = GmailApp.getAliases(); } catch (err) { aliases = []; }
     if (aliases.indexOf(s.sender) < 0) problems.push("SENDER " + s.sender + " 不在 Gmail 的「以這個地址寄送郵件」別名清單中，寄信會失敗");
   }
+  if (s.alertEmail && !normalizeEmail(s.alertEmail)) problems.push("ALERT_EMAIL " + s.alertEmail + " 不是有效的電子郵件，錯誤通知會改寄給部署帳號");
   var msg = "工作表已就緒。" + (problems.length ? "\n請處理：\n- " + problems.join("\n- ") : "\n設定已齊全。");
+  try { msg += "\n錯誤通知會寄到：" + alertRecipient() + "（每小時最多一封）。"; } catch (ignore) {}
   try { SpreadsheetApp.getUi().alert(msg); } catch (noUi) { Logger.log(msg); }
   return msg;
 }
@@ -716,6 +816,9 @@ function selectedCampaign() {
   var campaign = { _row: rowIndex };
   CAMPAIGN_COLUMNS.forEach(function (col, i) { campaign[col] = values[i]; });
   if (!campaign.id || !campaign.subject || !campaign.pdf_name) throw new Error("id、subject、pdf_name 都要填。");
+  var lang = String(campaign.lang || "all").trim().toLowerCase();
+  if (["all", "zh", "en", "ja", "jp"].indexOf(lang) < 0) throw new Error("lang 只能是 all、zh、en 或 ja（目前是「" + campaign.lang + "」）。");
+  campaign.lang = lang;
   return campaign;
 }
 
